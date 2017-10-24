@@ -21,6 +21,7 @@
         <AssociationConnector Association="dolanModel.FK__UserStory__Proje__32E0915F" />
         <AssociationConnector Association="dolanModel.AspNetUserRoles" />
         <AssociationConnector Association="dolanModel.Rol_Permisos" />
+        <AssociationConnector Association="dolanModel.FK__Users__role__6FE99F9F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
