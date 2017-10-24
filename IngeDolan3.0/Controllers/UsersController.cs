@@ -60,7 +60,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return PartialView(user);
         }
 
         // GET: Users/Create

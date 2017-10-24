@@ -288,3 +288,4 @@ C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.WindowsServer.x
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.Web.xml
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
+C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache

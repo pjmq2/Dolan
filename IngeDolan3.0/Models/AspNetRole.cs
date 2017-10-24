@@ -19,6 +19,7 @@ namespace IngeDolan3._0.Models
         {
             this.AspNetUsers = new HashSet<AspNetUser>();
             this.Permisos = new HashSet<Permiso>();
+            this.Users = new HashSet<User>();
         }
     
         public string Id { get; set; }
@@ -28,5 +29,7 @@ namespace IngeDolan3._0.Models
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Permiso> Permisos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

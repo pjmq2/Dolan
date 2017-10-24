@@ -91,7 +91,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         grid.Column(columnName: "name", header: "Nombre"),
                         grid.Column(columnName: "firstLastName", header: "Primer Apellido"),
                         grid.Column(columnName: "secondLastName", header: "Segundo Apellido"),
-                        grid.Column(header: "Details", format:@<text><a href='@Url.Action("Details", new { id = item.USERS_ID })' class="ajax">Details</a></text>)
+                        grid.Column(header: "Details", format:@<text><a href='@Url.Action("Details", new { id = item.id })' class="ajax">Details</a></text>)
                     )
                 )
 
