@@ -9,6 +9,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IngeDolan3._0.Models;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+
+
 
 namespace IngeDolan3._0.Controllers
 {
@@ -17,6 +21,7 @@ namespace IngeDolan3._0.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private dolan2Entities db = new dolan2Entities();
 
         public AccountController()
         {
@@ -147,21 +152,48 @@ namespace IngeDolan3._0.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(UsuarioInt model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = model.email, Email = model.email };
+                var result = await UserManager.CreateAsync(user, model.password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    try
+                    {
+                        var modelUser = new User();
+                        modelUser.id = user.Id;
+                        modelUser.userID = model.name;
+                        modelUser.name = model.name;
+                        modelUser.firstLastName = model.lastName1;
+                        modelUser.secondLastName = model.lastName2;
+                        modelUser.role = model.role;
+                        modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
+                        db.Users.Add(modelUser);
+                        db.SaveChanges();
+                    }
+                    catch (DbEntityValidationException e)
+                    {
+                        foreach (var eve in e.EntityValidationErrors)
+                        {
+                            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                            foreach (var ve in eve.ValidationErrors)
+                            {
+                                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                    ve.PropertyName, ve.ErrorMessage);
+                            }
+                        }
+                        throw;
+                    }
+                    //var modelUser = new User();
+                    //modelUser.id = "a";
+                    //modelUser.name = "alonso";
+                    //modelUser.role = "dad";
+                    //modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
+                    //db.Users.Add(modelUser);
+                    //db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
                 }

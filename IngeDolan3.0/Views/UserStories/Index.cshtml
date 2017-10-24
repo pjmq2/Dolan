@@ -1,0 +1,76 @@
+﻿@model IEnumerable<IngeDolan3._0.Models.UserStory>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SprintID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priorities)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClientRole)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estimation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Funtionality)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Alias)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Project.Descriptions)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SprintID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priorities)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClientRole)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estimation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reason)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Funtionality)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Alias)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Project.Descriptions)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

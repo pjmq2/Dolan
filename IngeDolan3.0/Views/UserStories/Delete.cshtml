@@ -1,0 +1,89 @@
+﻿@model IngeDolan3._0.Models.UserStory
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>UserStory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SprintID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SprintID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Priorities)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priorities)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientRole)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClientRole)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estimation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estimation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Funtionality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Funtionality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Alias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Alias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.Descriptions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.Descriptions)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
