@@ -10,7 +10,7 @@ var grid = new WebGrid(canPage: true, rowsPerPage: 10);
 grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
-<h2>Index</h2>
+<h2>Índice</h2>
 @*
 
     <table class="table">
@@ -76,9 +76,9 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         @using (Html.BeginForm("index", "home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
                         {
                             <div class="form-group">
-                                <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="search" />
+                                <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
                             </div>
-                            <button type="submit" value="Search" class="btn btn-success">Search</button>
+                            <button type="submit" value="Search" class="btn btn-success">Buscar</button>
                         }
                     </div>
                 </div>
