@@ -21,8 +21,8 @@ namespace IngeDolan3._0.Models
         }
     
         public string ProjectID { get; set; }
-        public Nullable<System.DateTime> StartingDate { get; set; }
-        public Nullable<System.DateTime> FinalDate { get; set; }
+        public DateTime StartingDate { get; set; }
+        public DateTime FinalDate { get; set; }
         public string Descriptions { get; set; }
         public string ProjectName { get; set; }
         public string LeaderID { get; set; }
