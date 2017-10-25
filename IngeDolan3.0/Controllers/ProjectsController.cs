@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
+using System.Linq.Dynamic;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -15,10 +16,51 @@ namespace IngeDolan3._0.Controllers
         private dolan2Entities db = new dolan2Entities();
 
         // GET: Projects
-        public ActionResult Index()
+        //Oh snap!
+        public ActionResult Index(int page = 1, string sort = "ProjectName", string sortdir = "asc", string search = "")
         {
-            var projects = db.Projects.Include(p => p.User);
-            return View(projects.ToList());
+            int pageSize = 10;
+            int totalRecord = 0;
+            if (page < 1) page = 1;
+            int skip = (page * pageSize) - pageSize;
+            var data = GetProjects(search, sort, sortdir, skip, pageSize, out totalRecord);
+            ViewBag.TotalRows = totalRecord;
+            ViewBag.search = search;
+            return View(data);
+        }
+
+        public List<Project> GetProjects(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
+        {
+            var v = (from a in db.Projects
+                     where
+                        a.Descriptions.Contains(search) ||
+                        a.ProjectName.Contains(search)
+                     select a
+                        );
+            totalRecord = v.Count();
+            v = v.OrderBy(sort + " " + sortdir);
+            if (pageSize > 0)
+            {
+                v = v.Skip(skip).Take(pageSize);
+            }
+            return v.ToList();
+        }
+
+        //Oh jeez
+
+        // GET: PROJECTs/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Project pROJECT = db.Projects.Find(id);
+            if (pROJECT == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(pROJECT);
         }
 
         // GET: Projects/Details/5
@@ -33,7 +75,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return HttpNotFound();
             }
-            return View(project);
+            return PartialView(project);
         }
 
         // GET: Projects/Create

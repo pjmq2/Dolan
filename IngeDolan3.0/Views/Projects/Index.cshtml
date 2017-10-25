@@ -3,56 +3,134 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @*Aca viene la parte extra*@
+
+var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
 <h2>Index</h2>
+@*
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StartingDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FinalDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descriptions)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.name)
-        </th>
-        <th></th>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.USERNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SURNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LASTNAME)
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinalDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descriptions)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProjectID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectID })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.USERNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SURNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LASTNAME)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.USERS_ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.USERS_ID }) |
+                    <a href='@Url.Action("Details", new { id=item.USERS_ID })' class="ajax">Details</a>
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+
+    <div id="TargetDiv"></div>
+*@
+
+
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <style>
+        table th {
+            color: white;
+        }
+    </style>
+    <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
+        <div class="container">
+            <h2>Users List</h2>
+
+            <nav class="navbar ">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand">Buscar</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        @using (Html.BeginForm("index", "home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+                        {
+                            <div class="form-group">
+                                <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="search" />
+                            </div>
+                            <button type="submit" value="Search" class="btn btn-success">Search</button>
+                        }
+                    </div>
+                </div>
+            </nav>
+
+            <div style="color:white;">
+                @grid.Table(
+                    tableStyle: "table table-responsive table-bordered",
+                    columns: grid.Columns(
+                        grid.Column( "StartingDate", "Fecha Inicial", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.StartingDate)),
+                        grid.Column( "FinalDate", "Fecha Final", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.FinalDate)),
+                        grid.Column(columnName: "Descriptions", header: "Descripcion"),
+                        grid.Column(columnName: "ProjectName", header: "Nombre"),
+                        grid.Column(header: "Details", format:@<text><a href='@Url.Action("Details", new { id = item.ProjectID })' class="ajax">Details</a></text>)
+                    )
+                )
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        @grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-small pagination-right")
+                    </div>
+                </div>
+
+                @Html.Hidden("dir", grid.SortDirection)
+                @Html.Hidden("col", grid.SortColumn)
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            try {
+                var dir = $('#dir').val();
+                var col = $('#col').val();
+                var header = $("th a[href*=" + col + "]");
+                if (dir == "Ascending") {
+                    header.text(header.text() + "  ▲")
+                }
+                if (dir == "Descending") {
+                    header.text(header.text() + "  ▼");
+                }
+
+            } catch (e) {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
+
+<div id="TargetDiv"></div>

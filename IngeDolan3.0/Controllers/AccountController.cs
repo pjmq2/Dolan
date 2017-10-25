@@ -12,8 +12,6 @@ using IngeDolan3._0.Models;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 
-
-
 namespace IngeDolan3._0.Controllers
 {
     [Authorize]
@@ -144,6 +142,7 @@ namespace IngeDolan3._0.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
             return View();
         }
 
