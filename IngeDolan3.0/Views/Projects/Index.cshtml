@@ -10,6 +10,10 @@ var grid = new WebGrid(canPage: true, rowsPerPage: 10);
 grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
+<p>
+    @Html.ActionLink("Crear Nuevo", "Create")
+</p>
+
 <h2>Index</h2>
 @*
 
