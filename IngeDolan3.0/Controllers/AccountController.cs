@@ -122,7 +122,6 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe){
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
@@ -164,10 +163,9 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register(){
-
-            
-            return View();
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
+            UsuarioInt roles = new UsuarioInt();
+            return View(roles);
         }
 
         //
