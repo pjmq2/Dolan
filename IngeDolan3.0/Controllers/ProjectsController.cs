@@ -81,7 +81,7 @@ namespace IngeDolan3._0.Controllers
             {
                 int cuenta = db.Projects.Count();
                 IDGenerator generador = new IDGenerator();
-                string id = generador.IntToStringFast(cuenta);
+                string id = generador.IntToString(cuenta);
                 project.ProjectID = id;
                 db.Projects.Add(project);
                 db.SaveChanges();
@@ -146,6 +146,11 @@ namespace IngeDolan3._0.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             Project project = db.Projects.Find(id);
+            var vps = db.UserStories.Where(a => a.ProjectID == id).ToList();
+            foreach (var vp in vps)
+            {
+                db.UserStories.Remove(vp);
+            }
             db.Projects.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
