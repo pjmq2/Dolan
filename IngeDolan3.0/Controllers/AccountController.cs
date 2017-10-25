@@ -57,6 +57,29 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
+
+        private bool revisarPermisos(string permiso) {
+
+            //private bool revisarPermisos(string permiso)
+            //{
+            //    String userID = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            //    var rol = context.Users.Find(userID).Roles.First();
+            //    var permisoID = baseDatos.Permisos.Where(m => m.nombre == permiso).First().codigo;
+            //    var listaRoles = baseDatos.Rol_Permisos.Where(m => m.permiso == permisoID).ToList().Select(n => n.rol);
+            //    bool userRol = listaRoles.Contains(rol.RoleId);
+
+            //    return userRol;
+            //}
+
+            String userID = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var rol = db.Users.Find(userID).role;
+            var permisoID = db.Permisos.Where()
+
+
+
+            return true;
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -99,8 +122,7 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
-        {
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe){
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
@@ -142,8 +164,9 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
-        {
+        public ActionResult Register(){
+
+            
             return View();
         }
 
