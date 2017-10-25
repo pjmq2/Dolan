@@ -11,4 +11,28 @@ namespace IngeDolan3._0
             ConfigureAuth(app);
         }
     }
+
+    // creating Creating Profesor role    
+            if (!roleManager.RoleExists("Profesor"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Profesor";
+                roleManager.Create(role);
+            }
+
+            // creating Creating Asistente role    
+            if (!roleManager.RoleExists("Asistente"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Asistente";
+                roleManager.Create(role);
+            }
+
+            // creating Creating Asistente role    
+            if (!roleManager.RoleExists("Estudiante"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Estudiante";
+                roleManager.Create(role);
+            }
 }
