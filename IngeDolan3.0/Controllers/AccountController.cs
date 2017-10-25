@@ -144,7 +144,8 @@ namespace IngeDolan3._0.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            AspNetRole roles;
+            return View(roles);
         }
 
         //
