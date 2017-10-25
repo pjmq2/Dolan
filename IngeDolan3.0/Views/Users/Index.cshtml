@@ -65,7 +65,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     </style>
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
-            <h2>Users List</h2>
+            <h2>Lista de Usuarios</h2>
 
             <nav class="navbar ">
                 <div class="container-fluid">
@@ -91,7 +91,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         grid.Column(columnName: "name", header: "Nombre"),
                         grid.Column(columnName: "firstLastName", header: "Primer Apellido"),
                         grid.Column(columnName: "secondLastName", header: "Segundo Apellido"),
-                        grid.Column(header: "Details", format:@<text><a href='@Url.Action("Details", new { id = item.id })' class="ajax">Details</a></text>)
+                        grid.Column(header: "Details", format:@<text><a href='@Url.Action("Details", new { id = item.userID })' class="ajax">Details</a></text>)
                     )
                 )
 
@@ -130,6 +130,6 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     </script>
 </body>
 
-<div id="TargetDiv"></div>
-
 </html>
+
+<div id="TargetDiv"></div>

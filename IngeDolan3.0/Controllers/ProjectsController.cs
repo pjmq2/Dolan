@@ -49,7 +49,7 @@ namespace IngeDolan3._0.Controllers
         //Oh jeez
 
         // GET: PROJECTs/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -61,21 +61,6 @@ namespace IngeDolan3._0.Controllers
                 return HttpNotFound();
             }
             return PartialView(pROJECT);
-        }
-
-        // GET: Projects/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Project project = db.Projects.Find(id);
-            if (project == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView(project);
         }
 
         // GET: Projects/Create
