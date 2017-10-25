@@ -22,18 +22,26 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: UserStories/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string storyId, string projectId)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserStory userStory = db.UserStories.Find(id);
-            if (userStory == null)
+            var userStory = new UserStory();
+            userStory.StoryID = storyId;
+            userStory.ProjectID = projectId;
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+            
+            if (listaDeHistorias.Count() > 0)
+            {
+                var userStories = listaDeHistorias.First();
+                return View(userStory);
+            }
+            else
             {
                 return HttpNotFound();
             }
-            return View(userStory);
         }
 
         // GET: UserStories/Create

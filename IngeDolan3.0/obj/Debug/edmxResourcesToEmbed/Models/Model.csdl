@@ -38,6 +38,10 @@
       <End Role="Permiso" EntitySet="Permisos" />
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
     </AssociationSet>
+    <AssociationSet Name="FK__Users__role__6FE99F9F" Association="dolanModel.FK__Users__role__6FE99F9F">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -57,6 +61,7 @@
     <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUsers" Relationship="dolanModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
     <NavigationProperty Name="Permisos" Relationship="dolanModel.Rol_Permisos" FromRole="AspNetRole" ToRole="Permiso" />
+    <NavigationProperty Name="Users" Relationship="dolanModel.FK__Users__role__6FE99F9F" FromRole="AspNetRole" ToRole="User" />
   </EntityType>
   <EntityType Name="AspNetUserClaim">
     <Key>
@@ -130,11 +135,12 @@
     <Property Name="secondLastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
     <Property Name="userID" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
     <Property Name="id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="role" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="role" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="person_id" Type="Int32" />
     <Property Name="student_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <NavigationProperty Name="AspNetUser" Relationship="dolanModel.fk_AspUserId" FromRole="User" ToRole="AspNetUser" />
     <NavigationProperty Name="Projects" Relationship="dolanModel.FK__Project__LeaderI__31EC6D26" FromRole="User" ToRole="Project" />
+    <NavigationProperty Name="AspNetRole" Relationship="dolanModel.FK__Users__role__6FE99F9F" FromRole="User" ToRole="AspNetRole" />
   </EntityType>
   <EntityType Name="UserStory">
     <Key>
@@ -223,5 +229,17 @@
   <Association Name="Rol_Permisos">
     <End Type="dolanModel.Permiso" Role="Permiso" Multiplicity="*" />
     <End Type="dolanModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+  </Association>
+  <Association Name="FK__Users__role__6FE99F9F">
+    <End Type="dolanModel.AspNetRole" Role="AspNetRole" Multiplicity="1" />
+    <End Type="dolanModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="role" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

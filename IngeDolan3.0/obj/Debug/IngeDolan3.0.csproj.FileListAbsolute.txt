@@ -192,7 +192,6 @@ C:\Users\pjmq2\Desktop\IngeDolan3\IngeDolan3.0\obj\Debug\IngeDolan3.0.csproj.Cor
 C:\Users\pjmq2\Desktop\IngeDolan3\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
 C:\Users\pjmq2\Desktop\IngeDolan3\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
 C:\Users\pjmq2\Desktop\IngeDolan3\IngeDolan3.0\bin\System.Linq.Dynamic.dll
-C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csproj.CoreCompileInputs.cache
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
@@ -290,3 +289,4 @@ C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\bin\Microsoft.AI.DependencyColl
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\bin\Microsoft.AI.Web.xml
+C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
