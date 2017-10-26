@@ -163,6 +163,8 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
+        public ActionResult Register()
+        {
             ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
             UsuarioInt roles = new UsuarioInt();
             return View(roles);
