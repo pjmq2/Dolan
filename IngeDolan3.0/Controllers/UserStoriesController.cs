@@ -36,7 +36,7 @@ namespace IngeDolan3._0.Controllers
             if (listaDeHistorias.Count() > 0)
             {
                 var userStories = listaDeHistorias.First();
-                return View(userStory);
+                return View(userStories);
             }
             else
             {
@@ -70,19 +70,27 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: UserStories/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string storyId, string projectId)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserStory userStory = db.UserStories.Find(id);
-            if (userStory == null)
+            var userStory = new UserStory();
+            userStory.StoryID = storyId;
+            userStory.ProjectID = projectId;
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+
+            if (listaDeHistorias.Count() > 0)
+            {
+                ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
+                var userStories = listaDeHistorias.First();
+                return View(userStory);
+            }
+            else
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
-            return View(userStory);
         }
 
         // POST: UserStories/Edit/5
@@ -103,18 +111,27 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: UserStories/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string storyId, string projectId)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserStory userStory = db.UserStories.Find(id);
-            if (userStory == null)
+            var userStory = new UserStory();
+            userStory.StoryID = storyId;
+            userStory.ProjectID = projectId;
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+
+            if (listaDeHistorias.Count() > 0)
+            {
+                ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
+                var userStories = listaDeHistorias.First();
+                return View(userStory);
+            }
+            else
             {
                 return HttpNotFound();
             }
-            return View(userStory);
         }
 
         // POST: UserStories/Delete/5

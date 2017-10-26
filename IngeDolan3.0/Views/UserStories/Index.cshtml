@@ -66,9 +66,9 @@
             @Html.DisplayFor(modelItem => item.Project.Descriptions)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { storyId = item.StoryID, projectId = item.ProjectID }) |
+            @Html.ActionLink("Details", "Details", new { storyId=item.StoryID, projectId=item.ProjectID }) |
+            @Html.ActionLink("Delete", "Delete", new { storyId = item.StoryID, projectId = item.ProjectID })
         </td>
     </tr>
 }
