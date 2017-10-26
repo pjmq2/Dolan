@@ -21,45 +21,45 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Sobre el Proyecto", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Roles", "X", "Y")</li>
+                    <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
                     <li>@Html.ActionLink("Proyectos", "Index", "PROJECTs")</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Account")</li>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Cambiar Contraseña", "ChangePassword", "Manage")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+                    <li>@Html.ActionLink("Product Backlog", "Index", "Backlog")</li>
+                    @*@if (User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Cambiar Contraseña", "ChangePassword", "Manage")</li>
+                        }*@
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Dolansoft</p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Dolansoft</p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/jquery-2.2.0.js"></script>
-    <script>
-    $(document).ready(function () {
-    $(".ajax").on("click", function (e) {
-            e.preventDefault();
-            var elementUrl = $(this).attr('href');
-            $.ajax({
-                url: elementUrl,
-                cache: false,
-                success: function (data) {
-                    $('#TargetDiv').html(data);
-                }
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/Scripts/jquery-2.2.0.js"></script>
+        <script>
+        $(document).ready(function () {
+        $(".ajax").on("click", function (e) {
+                e.preventDefault();
+                var elementUrl = $(this).attr('href');
+                $.ajax({
+                    url: elementUrl,
+                    cache: false,
+                    success: function (data) {
+                        $('#TargetDiv').html(data);
+                    }
+                });
             });
         });
-    });
-    </script>
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+        </script>
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>

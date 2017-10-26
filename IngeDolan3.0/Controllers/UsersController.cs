@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
+using System.Linq.Dynamic;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -14,12 +15,38 @@ namespace IngeDolan3._0.Controllers
     {
         private dolan2Entities db = new dolan2Entities();
 
-        // GET: Users
-        public ActionResult Index()
+        //Oh snap!
+        public ActionResult Index(int page = 1, string sort = "name", string sortdir = "asc", string search = "")
         {
-            var users = db.Users.Include(u => u.AspNetUser);
-            return View(users.ToList());
+            int pageSize = 10;
+            int totalRecord = 0;
+            if (page < 1) page = 1;
+            int skip = (page * pageSize) - pageSize;
+            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord);
+            ViewBag.TotalRows = totalRecord;
+            ViewBag.search = search;
+            return View(data);
         }
+
+        public List<User> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
+        {
+            var v = (from a in db.Users
+                     where
+                        a.name.Contains(search) ||
+                        a.firstLastName.Contains(search) ||
+                        a.secondLastName.Contains(search)
+                     select a
+                        );
+            totalRecord = v.Count();
+            v = v.OrderBy(sort + " " + sortdir);
+            if (pageSize > 0)
+            {
+                v = v.Skip(skip).Take(pageSize);
+            }
+            return v.ToList();
+        }
+
+        //Oh jeez
 
         // GET: Users/Details/5
         public ActionResult Details(string id)
@@ -33,7 +60,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return PartialView(user);
         }
 
         // GET: Users/Create
