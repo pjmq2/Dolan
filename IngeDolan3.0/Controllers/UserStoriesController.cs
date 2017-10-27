@@ -15,9 +15,10 @@ namespace IngeDolan3._0.Controllers
         private dolan2Entities db = new dolan2Entities();
 
         // GET: UserStories
-        public ActionResult Index()
+        public ActionResult Index(SelectListItem project)
         {
-            var userStories = db.UserStories.Include(u => u.Project);
+            var historias = db.UserStories.Where(m => m.ProjectID == project.Value);
+            var userStories = historias.Include(u => u.Project);
             return View(userStories.ToList());
         }
 
