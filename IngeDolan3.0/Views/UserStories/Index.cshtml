@@ -13,28 +13,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SprintID)
+           Id historia de Usuario
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Priorities)
+            Prioridad
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClientRole)
+            Rol del cliente
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estimation)
+            Estimacion
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Reason)
+            Razon
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Funtionality)
+            Funcionalidad
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Alias)
+            Alias
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Project.Descriptions)
+            Descripcion
         </th>
         <th></th>
     </tr>
@@ -66,9 +66,9 @@
             @Html.DisplayFor(modelItem => item.Project.Descriptions)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { storyId = item.StoryID, projectId = item.ProjectID }) |
+            @Html.ActionLink("Details", "Details", new { storyId=item.StoryID, projectId=item.ProjectID }) |
+            @Html.ActionLink("Delete", "Delete", new { storyId = item.StoryID, projectId = item.ProjectID })
         </td>
     </tr>
 }

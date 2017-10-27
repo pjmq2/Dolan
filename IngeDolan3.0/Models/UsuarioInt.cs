@@ -51,7 +51,6 @@ namespace IngeDolan3._0.Models
         public DateTime birthDate { get; set; }
 
         [Display(Name = "Rol")]
-
         public String role { get; set; }
 
     }
