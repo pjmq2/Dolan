@@ -195,6 +195,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BacklogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -217,6 +218,7 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateProject.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -354,6 +356,7 @@
     <Content Include="Views\UserStories\Details.cshtml" />
     <Content Include="Views\UserStories\Edit.cshtml" />
     <Content Include="Views\UserStories\Index.cshtml" />
+    <Content Include="Views\Backlog\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7087,3 +7087,9 @@ td.visible-print {
         display: none !important;
     }
 }
+
+.ddlm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -21,10 +21,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Sobre el Proyecto", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Proyectos", "Index", "PROJECTs")</li>
                     <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
+                    <li>@Html.ActionLink("Proyectos", "Index", "Projects")</li>
+                    <li>@Html.ActionLink("Product Backlog", "Index", "Backlog")</li>
                     @*@if (User.Identity.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("Cambiar Contraseña", "ChangePassword", "Manage")</li>
