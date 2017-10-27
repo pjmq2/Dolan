@@ -12,7 +12,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.SprintID)
+            Id de la historia de Usuario
         </dt>
 
         <dd>
@@ -20,47 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Priorities)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Priorities)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ClientRole)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClientRole)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Estimation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Estimation)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Reason)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Reason)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Funtionality)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Funtionality)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Alias)
+            Alias
         </dt>
 
         <dd>
@@ -68,7 +28,47 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Project.Descriptions)
+            Rol del cliente
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClientRole)
+        </dd>
+
+        <dt>
+            Descripcion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Funtionality)
+        </dd>
+
+        <dt>
+            Razon
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+
+        <dt>
+            Prioridad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priorities)
+        </dd>
+
+        <dt>
+            Estimacion de la Historia
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estimation)
+        </dd>
+
+        <dt>
+            Proyecto al que pertenece
         </dt>
 
         <dd>
@@ -78,6 +78,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { storyId = item.StoryID, projectId = item.ProjectID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
