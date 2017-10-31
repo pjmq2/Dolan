@@ -145,7 +145,7 @@ namespace IngeDolan3._0.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.role = new SelectList(db.AspNetRoles, "Id", "Name");
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
             return View();
         }
 
@@ -168,7 +168,8 @@ namespace IngeDolan3._0.Controllers
                         userManager.AddToRole(user.Id, model.role);
                     }
                     try {
-                        var usuario = new Users { name = model.name, firstLastName = model.lastName1, secondLastName = model.lastName2, userID = model.name, id = user.Id, role = model.role, student_id = model.studentID };
+                        AspNetRoles rULO = db.AspNetRoles.Where(X => X.Name.Equals(model.role, StringComparison.Ordinal)).FirstOrDefault();
+                        var usuario = new Users { name = model.name, firstLastName = model.lastName1, secondLastName = model.lastName2, userID = model.name, id = user.Id, role = rULO.Id, student_id = model.studentID };
                         db.Users.Add(usuario);
                         db.SaveChanges();
                     }
