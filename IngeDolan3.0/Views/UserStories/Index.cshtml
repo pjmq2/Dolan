@@ -3,74 +3,165 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    @*Aca viene la parte extra*@
+
+var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
-<h2>Index</h2>
+
+<h2>Backlog</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-           Id historia de Usuario
-        </th>
-        <th>
-            Prioridad
-        </th>
-        <th>
-            Rol del cliente
-        </th>
-        <th>
-            Estimacion
-        </th>
-        <th>
-            Razon
-        </th>
-        <th>
-            Funcionalidad
-        </th>
-        <th>
-            Alias
-        </th>
-        <th>
-            Descripcion
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SprintID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Priorities)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClientRole)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estimation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reason)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Funtionality)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Alias)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.Descriptions)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { storyId = item.StoryID, projectId = item.ProjectID }) |
-            @Html.ActionLink("Details", "Details", new { storyId=item.StoryID, projectId=item.ProjectID }) |
-            @Html.ActionLink("Delete", "Delete", new { storyId = item.StoryID, projectId = item.ProjectID })
-        </td>
-    </tr>
-}
+@*
+    <table class="table">
+        <tr>
+            <th>
+               Id historia de Usuario
+            </th>
+            <th>
+                Prioridad
+            </th>
+            <th>
+                Rol del cliente
+            </th>
+            <th>
+                Estimacion
+            </th>
+            <th>
+                Razon
+            </th>
+            <th>
+                Funcionalidad
+            </th>
+            <th>
+                Alias
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th></th>
+        </tr>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SprintID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priorities)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientRole)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estimation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funtionality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Alias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Descriptions)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { storyId = item.StoryID, projectId = item.ProjectID }) |
+                @Html.ActionLink("Details", "Details", new { storyId=item.StoryID, projectId=item.ProjectID }) |
+                @Html.ActionLink("Delete", "Delete", new { storyId = item.StoryID, projectId = item.ProjectID })
+            </td>
+        </tr>
+    }
 
-</table>
+    </table>
+    *@
+
+<!DOCTYPE html>
+
+<html>
+
+<body>
+    <style>
+        table th {
+            color: white;
+        }
+    </style>
+    <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
+        <div class="container">
+            <h2>Lista de Historias de Usuario</h2>
+
+            <nav class="navbar ">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand">Buscar</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        @using (Html.BeginForm("index", "home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+                        {
+                            <div class="form-group">
+                                <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
+                            </div>
+                            <button type="submit" value="Search" class="btn btn-success">Buscar</button>
+                        }
+                    </div>
+                </div>
+            </nav>
+
+            <div style="color:white;">
+                @grid.Table(
+                    tableStyle: "table table-responsive table-bordered",
+                    columns: grid.Columns(
+                        grid.Column(columnName: "StoryID", header: "ID" ),
+                        grid.Column(columnName: "Alias", header: "Alias"),
+                        grid.Column(columnName: "Reason", header: "Razon"),
+                        grid.Column(header: "Detalles", format:@<text><a href='@Url.Action("Details", new { id = item.StoryID })' class="ajax">Detalles</a></text>),
+                        grid.Column(header: "Editar", format: (item) => Html.ActionLink("Editar", "Edit", new { id = item.StoryID })),
+                        grid.Column(header: "Borrar", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.StoryID }))
+                    )
+                )
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        @grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-small pagination-right")
+                    </div>
+                </div>
+
+                @Html.Hidden("dir", grid.SortDirection)
+                @Html.Hidden("col", grid.SortColumn)
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            try {
+                var dir = $('#dir').val();
+                var col = $('#col').val();
+                var header = $("th a[href*=" + col + "]");
+                if (dir == "Ascending") {
+                    header.text(header.text() + "  ▲")
+                }
+                if (dir == "Descending") {
+                    header.text(header.text() + "  ▼");
+                }
+
+            } catch (e) {
+
+            }
+        })
+    </script>
+</body>
+
+</html>
+
+<div id="TargetDiv"></div>

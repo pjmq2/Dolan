@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SelectListItem>
+﻿@model IngeDolan3._0.Models.ProyectoList
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,7 +17,7 @@
                 <div class="form-group">
                     @*@Html.LabelFor(model => model.ProjectName, "Nombre Proyecto", htmlAttributes: new { @class = "control-label col-md-2" })*@
                     <div class="col-md-10">
-                            @Html.DropDownList("Nombre Proyecto", Model, htmlAttributes: new { @class = "form-control" })
+                            @Html.DropDownListFor(model => model.id, Model.Nombres, htmlAttributes: new { @class = "form-control" })
                             @*@Html.DropDownList("ProjectName", null, htmlAttributes: new { @class = "form-control" })*@
                         </div>
                     </div>

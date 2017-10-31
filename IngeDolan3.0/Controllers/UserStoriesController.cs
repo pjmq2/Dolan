@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
+using System.Linq.Dynamic;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -14,13 +15,44 @@ namespace IngeDolan3._0.Controllers
     {
         private dolan2Entities db = new dolan2Entities();
 
-        // GET: UserStories
-        public ActionResult Index(SelectListItem project)
+
+        //Oh snap!
+        public ActionResult Index(ProyectoList projecto, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
         {
-            var historias = db.UserStories.Where(m => m.ProjectID == project.Value);
-            var userStories = historias.Include(u => u.Project);
-            return View(userStories.ToList());
+            int pageSize = 10;
+            int totalRecord = 0;
+            if (page < 1) page = 1;
+            int skip = (page * pageSize) - pageSize;
+            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projecto.id);
+            ViewBag.TotalRows = totalRecord;
+            ViewBag.search = search;
+            return View(data);
         }
+
+        public List<UserStory> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idProyecto)
+        {
+            var v = (from a in db.UserStories
+                     where
+                        a.ProjectID.Equals(idProyecto) && (
+                            a.StoryID.Contains(search) ||
+                            a.Alias.Contains(search) ||
+                            a.Funtionality.Contains(search) ||
+                            a.Reason.Contains(search)
+                        )
+                     select a
+                        );
+            totalRecord = v.Count();
+            v = v.OrderBy(sort + " " + sortdir);
+            if (pageSize > 0)
+            {
+                v = v.Skip(skip).Take(pageSize);
+            }
+            return v.ToList();
+        }    
+
+        //Oh jeez
+        // GET: UserStories
+        
 
         // GET: UserStories/Details/5
         public ActionResult Details(string storyId, string projectId)

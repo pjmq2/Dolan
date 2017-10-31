@@ -1,0 +1,30 @@
+﻿
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: white;
+    background-color: #004e38; /*Color del fondo de la pantalla*/
+}
+
+.navbar-inverse {
+    background-color: #4770b7; /*Color de fondo de la navbar*/
+    border-color: #080808;
+}
+
+.jumbotron {
+    padding: 30px;
+    margin-bottom: 30px;
+    font-size: 21px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: inherit;
+    background-color: rgba(143, 151, 121, 0.70); /*Color de las "cajas" para texto*/
+}
+
+a:hover,
+a:focus {
+    color: #c92a12;
+    text-decoration: underline;
+}

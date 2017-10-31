@@ -31,7 +31,10 @@ namespace IngeDolan3._0.Controllers
                 });
             }
 
-            return View(item);
+            var pl = new ProyectoList();
+            pl.Nombres = item;
+
+            return View(pl);
             //ViewBag.ProjectName = new SelectList(db.Projects, "ProjectName", "ProjectName");
         }
     }
