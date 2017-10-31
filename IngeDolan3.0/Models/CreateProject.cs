@@ -21,7 +21,8 @@ namespace IngeDolan3._0.Models
         {
             this.UserStories = new HashSet<UserStory>();
         }
-
+        
+        public MultiSelectList group { get; set; }
         [Display(Name = "Identificación")]
         public string ProjectID { get; set; }
         [DataType(DataType.Date)]
@@ -39,7 +40,10 @@ namespace IngeDolan3._0.Models
         [Display(Name = "Líder")]
         public string LeaderID { get; set; }
 
-        public virtual User User { get; set; }
+        public Users users { get; set; }
+        public List<string> SelectedUsers { get; set; }
+
+        public string UserID { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserStory> UserStories { get; set; }
     }

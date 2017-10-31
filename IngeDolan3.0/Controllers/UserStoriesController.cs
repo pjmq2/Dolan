@@ -17,7 +17,7 @@ namespace IngeDolan3._0.Controllers
         // GET: UserStories
         public ActionResult Index()
         {
-            var userStories = db.UserStories.Include(u => u.Project);
+            var userStories = db.UserStory.Include(u => u.Project);
             return View(userStories.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserStory userStory = db.UserStories.Find(id);
+            UserStory userStory = db.UserStory.Find(id);
             if (userStory == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,7 @@ namespace IngeDolan3._0.Controllers
         // GET: UserStories/Create
         public ActionResult Create()
         {
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
+            ViewBag.ProjectID = new SelectList(db.Project, "ProjectID", "Descriptions");
             return View();
         }
 
@@ -52,12 +52,12 @@ namespace IngeDolan3._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.UserStories.Add(userStory);
+                db.UserStory.Add(userStory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
+            ViewBag.ProjectID = new SelectList(db.Project, "ProjectID", "Descriptions", userStory.ProjectID);
             return View(userStory);
         }
 
@@ -68,12 +68,12 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserStory userStory = db.UserStories.Find(id);
+            UserStory userStory = db.UserStory.Find(id);
             if (userStory == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
+            ViewBag.ProjectID = new SelectList(db.Project, "ProjectID", "Descriptions", userStory.ProjectID);
             return View(userStory);
         }
 
@@ -90,7 +90,7 @@ namespace IngeDolan3._0.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
+            ViewBag.ProjectID = new SelectList(db.Project, "ProjectID", "Descriptions", userStory.ProjectID);
             return View(userStory);
         }
 
@@ -101,7 +101,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserStory userStory = db.UserStories.Find(id);
+            UserStory userStory = db.UserStory.Find(id);
             if (userStory == null)
             {
                 return HttpNotFound();
@@ -114,8 +114,8 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            UserStory userStory = db.UserStories.Find(id);
-            db.UserStories.Remove(userStory);
+            UserStory userStory = db.UserStory.Find(id);
+            db.UserStory.Remove(userStory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

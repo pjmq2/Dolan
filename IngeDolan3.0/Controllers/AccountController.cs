@@ -161,14 +161,14 @@ namespace IngeDolan3._0.Controllers
                 {
                     try
                     {
-                        var modelUser = new User();
+                        var modelUser = new Users();
                         modelUser.id = user.Id;
                         modelUser.userID = model.name;
                         modelUser.name = model.name;
                         modelUser.firstLastName = model.lastName1;
                         modelUser.secondLastName = model.lastName2;
                         modelUser.role = model.role;
-                        modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
+                        modelUser.AspNetUsers = db.AspNetUsers.Find(user.Id);
                         db.Users.Add(modelUser);
                         db.SaveChanges();
                     }

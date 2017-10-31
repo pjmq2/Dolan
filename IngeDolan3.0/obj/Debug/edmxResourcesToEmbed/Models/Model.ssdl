@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="dolanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="dolan2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -79,13 +79,21 @@
     <Property Name="ProjectName" Type="varchar" MaxLength="30" />
     <Property Name="LeaderID" Type="varchar" MaxLength="11" />
   </EntityType>
-  <EntityType Name="Rol_Permisos">
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'dolan2.dbo.role_permit' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="role_permit">
+          <Property Name="fk_role_id" Type="nvarchar" MaxLength="128" />
+          <Property Name="fk_permit_code" Type="int" />
+        </EntityType>-->
+  <EntityType Name="sysdiagrams">
     <Key>
-      <PropertyRef Name="rol" />
-      <PropertyRef Name="permiso" />
+      <PropertyRef Name="diagram_id" />
     </Key>
-    <Property Name="rol" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="permiso" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -99,6 +107,7 @@
     <Property Name="role" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="person_id" Type="int" />
     <Property Name="student_id" Type="nchar" MaxLength="10" />
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" />
   </EntityType>
   <EntityType Name="UserStory">
     <Key>
@@ -124,6 +133,24 @@
       </Principal>
       <Dependent Role="Project">
         <PropertyRef Name="LeaderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+error 6004: The table 'dolan2.dbo.role_permit' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__role_perm__fk_pe__0D7A0286" />-->
+  <!--Errors Found During Generation:
+error 6004: The table 'dolan2.dbo.role_permit' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__role_perm__fk_ro__0C85DE4D" />-->
+  <Association Name="FK__Users__ProjectID__70DDC3D8">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ProjectID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -219,33 +246,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="fk_Permiso">
-    <End Role="Permisos" Type="Self.Permisos" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Rol_Permisos" Type="Self.Rol_Permisos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Permisos">
-        <PropertyRef Name="codigo" />
-      </Principal>
-      <Dependent Role="Rol_Permisos">
-        <PropertyRef Name="permiso" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_Rol">
-    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
-    <End Role="Rol_Permisos" Type="Self.Rol_Permisos" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetRoles">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Rol_Permisos">
-        <PropertyRef Name="rol" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="dolanModelStoreContainer">
+  <EntityContainer Name="dolan2ModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -254,12 +255,16 @@
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permisos" EntityType="Self.Permisos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Rol_Permisos" EntityType="Self.Rol_Permisos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserStory" EntityType="Self.UserStory" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Project__LeaderI__6B24EA82" Association="Self.FK__Project__LeaderI__6B24EA82">
       <End Role="Users" EntitySet="Users" />
       <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__ProjectID__70DDC3D8" Association="Self.FK__Users__ProjectID__70DDC3D8">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Users" EntitySet="Users" />
     </AssociationSet>
     <AssociationSet Name="FK__Users__role__6FE99F9F" Association="Self.FK__Users__role__6FE99F9F">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -288,14 +293,6 @@
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-    </AssociationSet>
-    <AssociationSet Name="fk_Permiso" Association="Self.fk_Permiso">
-      <End Role="Permisos" EntitySet="Permisos" />
-      <End Role="Rol_Permisos" EntitySet="Rol_Permisos" />
-    </AssociationSet>
-    <AssociationSet Name="fk_Rol" Association="Self.fk_Rol">
-      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-      <End Role="Rol_Permisos" EntitySet="Rol_Permisos" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

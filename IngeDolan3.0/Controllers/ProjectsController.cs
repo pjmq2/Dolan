@@ -14,6 +14,19 @@ namespace IngeDolan3._0.Controllers
     public class ProjectsController : Controller
     {
         private dolan2Entities db = new dolan2Entities();
+        ApplicationDbContext context = new ApplicationDbContext();
+
+        private bool revisarPermisos(string permiso)
+        {
+            //
+            //String userID = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            //var rol = context.Users.Find(userID).Roles.First();
+            //var permisoID = db.Permisos.Where(m => m.nombre == permiso).First().codigo;
+            //var listaRoles = db..Where(m => m.permiso == permisoID).ToList().Select(n => n.rol);
+            //bool userRol = listaRoles.Contains(rol.RoleId);
+            //
+            return true;
+        }
 
         // GET: Projects
         //Oh snap!
@@ -31,7 +44,7 @@ namespace IngeDolan3._0.Controllers
 
         public List<Project> GetProjects(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
-            var v = (from a in db.Projects
+            var v = (from a in db.Project
                      where
                         a.Descriptions.Contains(search) ||
                         a.ProjectName.Contains(search)
@@ -55,7 +68,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project pROJECT = db.Projects.Find(id);
+            Project pROJECT = db.Project.Find(id);
             if (pROJECT == null)
             {
                 return HttpNotFound();
@@ -63,10 +76,35 @@ namespace IngeDolan3._0.Controllers
             return PartialView(pROJECT);
         }
 
-        // GET: Projects/Create
+        // GET: Crear
         public ActionResult Create()
         {
-            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name");
+            if (!revisarPermisos("Crear Proyectos"))
+            {
+                //Despliega mensaje en caso de no poder crear un proyecto
+                return RedirectToAction("Denied", "Other");
+            }
+            List<Users> listaDesarrolladores = new List<Users>();
+            List<Users> listaClientes = new List<Users>();
+            string clienteRol = context.Roles.Where(m => m.Name == "Cliente").First().Id;
+            string desarrolladorRol = context.Roles.Where(m => m.Name == "Desarrollador").First().Id;
+            foreach (var user in context.Users.ToArray())
+            {
+                if (user.Roles.First().RoleId.Equals(clienteRol))
+                {
+                    listaClientes.Add(db.Users.Where(m => m.id == user.Id).First());
+                }
+                else
+                {
+                    if (user.Roles.First().RoleId.Equals(desarrolladorRol))
+                    {
+                        listaDesarrolladores.Add(db.Users.Where(m => m.id == user.Id).First());
+                    }
+                }
+            }
+            ViewBag.Desarrolladores = new SelectList(listaDesarrolladores, "cedula", "nombre");
+            ViewBag.Clientes = new SelectList(listaClientes, "cedula", "nombre");
+            ViewBag.DesarrolladoresDisp = listaDesarrolladores;
             return View();
         }
 
@@ -79,11 +117,11 @@ namespace IngeDolan3._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                int cuenta = db.Projects.Count();
+                int cuenta = db.Project.Count();
                 IDGenerator generador = new IDGenerator();
                 string id = generador.IntToString(cuenta);
                 project.ProjectID = id;
-                db.Projects.Add(project);
+                db.Project.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -99,7 +137,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            Project project = db.Project.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -132,7 +170,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            Project project = db.Project.Find(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -145,13 +183,13 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Project project = db.Projects.Find(id);
-            var vps = db.UserStories.Where(a => a.ProjectID == id).ToList();
+            Project project = db.Project.Find(id);
+            var vps = db.UserStory.Where(a => a.ProjectID == id).ToList();
             foreach (var vp in vps)
             {
-                db.UserStories.Remove(vp);
+                db.UserStory.Remove(vp);
             }
-            db.Projects.Remove(project);
+            db.Project.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

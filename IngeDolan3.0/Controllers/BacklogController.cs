@@ -33,7 +33,7 @@ namespace IngeDolan3._0.Controllers
 
             ViewBag.projs = item;
             return View();*/
-            ViewBag.ProjectName = new SelectList(db.Projects, "ProjectName", "ProjectName");
+            ViewBag.ProjectName = new SelectList(db.Project, "ProjectName", "ProjectName");
             return View();
         }
 

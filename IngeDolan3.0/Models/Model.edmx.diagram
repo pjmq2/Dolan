@@ -4,24 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="153ba2dbec5c449b9c9e5fb1bf65af4a" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="dolanModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="dolanModel.AspNetRole" Width="1.5" PointX="3" PointY="4.5" />
-        <EntityTypeShape EntityType="dolanModel.AspNetUserClaim" Width="1.5" PointX="7.5" PointY="3.75" />
-        <EntityTypeShape EntityType="dolanModel.AspNetUserLogin" Width="1.5" PointX="7.5" PointY="1.25" />
-        <EntityTypeShape EntityType="dolanModel.AspNetUser" Width="1.5" PointX="5.25" PointY="3.25" />
-        <EntityTypeShape EntityType="dolanModel.Permiso" Width="1.5" PointX="0.75" PointY="4.5" />
-        <EntityTypeShape EntityType="dolanModel.Project" Width="1.5" PointX="9.75" PointY="6.75" />
-        <EntityTypeShape EntityType="dolanModel.User" Width="1.5" PointX="7.5" PointY="6.5" />
-        <EntityTypeShape EntityType="dolanModel.UserStory" Width="1.5" PointX="12" PointY="6.5" />
-        <AssociationConnector Association="dolanModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="dolanModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="dolanModel.fk_AspUserId" />
-        <AssociationConnector Association="dolanModel.FK__Project__LeaderI__31EC6D26" />
-        <AssociationConnector Association="dolanModel.FK__UserStory__Proje__32E0915F" />
-        <AssociationConnector Association="dolanModel.AspNetUserRoles" />
-        <AssociationConnector Association="dolanModel.Rol_Permisos" />
-        <AssociationConnector Association="dolanModel.FK__Users__role__6FE99F9F" />
+      <Diagram DiagramId="88c7faf447d5471681270dc11cfce669" Name="Diagram1">
+        <EntityTypeShape EntityType="dolan2Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.AspNetRoles" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.AspNetUsers" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.Permisos" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.Project" Width="1.5" PointX="10.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.Users" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dolan2Model.UserStory" Width="1.5" PointX="12.75" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="dolan2Model.FK__Users__role__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="dolan2Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="dolan2Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="dolan2Model.fk_AspUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="dolan2Model.FK__Project__LeaderI__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="dolan2Model.FK__Users__ProjectID__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="dolan2Model.FK__UserStory__Proje__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="dolan2Model.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

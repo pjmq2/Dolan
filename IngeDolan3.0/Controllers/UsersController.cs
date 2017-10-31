@@ -28,7 +28,7 @@ namespace IngeDolan3._0.Controllers
             return View(data);
         }
 
-        public List<User> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
+        public List<Users> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
             var v = (from a in db.Users
                      where
@@ -55,7 +55,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            Users user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -75,7 +75,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] User user)
+        public ActionResult Create([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] Users user)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            Users user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -109,7 +109,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] User user)
+        public ActionResult Edit([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] Users user)
         {
             if (ModelState.IsValid)
             {
@@ -128,7 +128,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            Users user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -141,7 +141,7 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            User user = db.Users.Find(id);
+            Users user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
