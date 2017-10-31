@@ -11,6 +11,9 @@ using Microsoft.Owin.Security;
 using IngeDolan3._0.Models;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data;
+using System.Linq.Dynamic;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -142,7 +145,7 @@ namespace IngeDolan3._0.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
+            ViewBag.role = new SelectList(db.AspNetRoles, "Id", "Name");
             return View();
         }
 
@@ -151,25 +154,22 @@ namespace IngeDolan3._0.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(UsuarioInt model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.email, Email = model.email };
-                var result = await UserManager.CreateAsync(user, model.password);
+                var user = new ApplicationUser { UserName = model.name, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    try
+                    using (ApplicationDbContext db = new ApplicationDbContext())
                     {
-                        var modelUser = new Users();
-                        modelUser.id = user.Id;
-                        modelUser.userID = model.name;
-                        modelUser.name = model.name;
-                        modelUser.firstLastName = model.lastName1;
-                        modelUser.secondLastName = model.lastName2;
-                        modelUser.role = model.role;
-                        modelUser.AspNetUsers = db.AspNetUsers.Find(user.Id);
-                        db.Users.Add(modelUser);
+                        var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                        userManager.AddToRole(user.Id, model.role);
+                    }
+                    try {
+                        var usuario = new Users { name = model.name, firstLastName = model.lastName1, secondLastName = model.lastName2, userID = model.name, id = user.Id, role = model.role, student_id = model.studentID };
+                        db.Users.Add(usuario);
                         db.SaveChanges();
                     }
                     catch (DbEntityValidationException e)
@@ -186,13 +186,13 @@ namespace IngeDolan3._0.Controllers
                         }
                         throw;
                     }
-                    //var modelUser = new User();
-                    //modelUser.id = "a";
-                    //modelUser.name = "alonso";
-                    //modelUser.role = "dad";
-                    //modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
-                    //db.Users.Add(modelUser);
-                    //db.SaveChanges();
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Index", "Home");
                 }

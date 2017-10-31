@@ -84,27 +84,8 @@ namespace IngeDolan3._0.Controllers
                 //Despliega mensaje en caso de no poder crear un proyecto
                 return RedirectToAction("Denied", "Other");
             }
-            List<Users> listaDesarrolladores = new List<Users>();
-            List<Users> listaClientes = new List<Users>();
-            string clienteRol = context.Roles.Where(m => m.Name == "Cliente").First().Id;
-            string desarrolladorRol = context.Roles.Where(m => m.Name == "Desarrollador").First().Id;
-            foreach (var user in context.Users.ToArray())
-            {
-                if (user.Roles.First().RoleId.Equals(clienteRol))
-                {
-                    listaClientes.Add(db.Users.Where(m => m.id == user.Id).First());
-                }
-                else
-                {
-                    if (user.Roles.First().RoleId.Equals(desarrolladorRol))
-                    {
-                        listaDesarrolladores.Add(db.Users.Where(m => m.id == user.Id).First());
-                    }
-                }
-            }
-            ViewBag.Desarrolladores = new SelectList(listaDesarrolladores, "cedula", "nombre");
-            ViewBag.Clientes = new SelectList(listaClientes, "cedula", "nombre");
-            ViewBag.DesarrolladoresDisp = listaDesarrolladores;
+            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name");
+            ViewBag.DesarrolladoresDisp = db.Users.ToList();
             return View();
         }
 

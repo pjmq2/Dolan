@@ -79,6 +79,34 @@ namespace IngeDolan3._0.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        
+        [Required(ErrorMessage = "El nombre es un campo requerido.")]
+        [Display(Name = "Nombre")]
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "El nombre solo debe contener letras y espacios")]
+        public string name { get; set; }
+        
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "El nombre solo debe contener letras y espacios")]
+        [Display(Name = "Primer apellido")]
+        public string lastName1 { get; set; }
+
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "El nombre solo debe contener letras y espacios")]
+        [Display(Name = "Segundo Apellido")]
+        public string lastName2 { get; set; }
+
+        [Required(ErrorMessage = "El número de cédula es un campo requerido.")]
+        [Display(Name = "Cédula")]
+        public string personID { get; set; }
+
+        [Display(Name = "Carnet")]
+        public string studentID { get; set; }
+
+        [Display(Name = "Sexo")]
+        public string sex { get; set; }
+
+        [Display(Name = "Rol")]
+
+        [Required]
+        public string role { get; set; }
     }
 
     public class ResetPasswordViewModel

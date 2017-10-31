@@ -72,11 +72,21 @@
             </div>
         </div>
     </div>
-}
 
-<script>
-    $('.chosen-select').chosen();
-</script>
+    <style type="text/css">
+        .required:after {
+            content: "*";
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            $('#list2').multiSelect();
+            $('.datePicker').datepicker();
+        };
+    </script>
+}
 
 <div>
     @Html.ActionLink("Volver", "Index")
