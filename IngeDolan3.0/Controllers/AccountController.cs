@@ -169,6 +169,7 @@ namespace IngeDolan3._0.Controllers
                         modelUser.secondLastName = model.lastName2;
                         modelUser.role = model.role;
                         modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
+                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Name == model.role).ToList().First(); 
                         db.Users.Add(modelUser);
                         db.SaveChanges();
                     }

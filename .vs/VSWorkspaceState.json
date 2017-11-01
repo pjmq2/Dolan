@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\IngeDolan3.0",
-    "\\IngeDolan3.0\\Controllers"
+    "\\IngeDolan3.0\\Views",
+    "\\IngeDolan3.0\\Views\\Home"
   ],
+  "SelectedNode": "\\IngeDolan3.0.sln",
   "PreviewInSolutionExplorer": false
 }

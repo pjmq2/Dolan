@@ -1,18 +1,18 @@
 ﻿@model IngeDolan3._0.Models.User
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
-    <h4>User</h4>
+    <h4>Usuario</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.name)
+            Nombre
         </dt>
 
         <dd>
@@ -20,7 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.firstLastName)
+            Primer Apellido
         </dt>
 
         <dd>
@@ -28,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.secondLastName)
+            Segundo Apellido
         </dt>
 
         <dd>
@@ -36,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.role)
+            Rol
         </dt>
 
         <dd>
@@ -55,5 +55,5 @@
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.userID }) |
-    @Html.ActionLink("Volver", "Index")
+    @Html.ActionLink("Cancelar", "Index")
 </p>

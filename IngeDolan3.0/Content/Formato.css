@@ -28,3 +28,22 @@ a:focus {
     color: #c92a12;
     text-decoration: underline;
 }
+
+a {
+    color: #bbd1f7;
+    text-decoration: none;
+}
+
+.text-primary {
+    color: #bbd1f7;
+}
+
+href {
+    color: #bbd1f7;
+    text-decoration: underline;
+}
+
+navbar-header {
+    color: #e1e9f7;
+    text-decoration: underline;
+}

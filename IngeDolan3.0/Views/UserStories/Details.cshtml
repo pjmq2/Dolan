@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
     <h4>UserStory</h4>
@@ -78,6 +78,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { storyId = item.StoryID, projectId = item.ProjectID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { storyId = Model.StoryID, projectId = Model.ProjectID }) |
+    @Html.ActionLink("Back to List", "Index", new { storyId = Model.StoryID, projectId = Model.ProjectID })
 </p>
