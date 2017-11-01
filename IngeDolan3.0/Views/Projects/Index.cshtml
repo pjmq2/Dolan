@@ -92,10 +92,10 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                 @grid.Table(
                     tableStyle: "table table-responsive table-bordered",
                     columns: grid.Columns(
+                        grid.Column(columnName: "ProjectName", header: "Nombre", canSort: false),
+                        grid.Column(columnName: "Descriptions", header: "Descripcion", canSort: false),
                         grid.Column(columnName: "StartingDate", header: "Fecha Inicial", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.StartingDate), canSort: false),
                         grid.Column(columnName: "FinalDate", header: "Fecha Final", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.FinalDate), canSort: false),
-                        grid.Column(columnName: "Descriptions", header: "Descripcion", canSort: false),
-                        grid.Column(columnName: "ProjectName", header: "Nombre", canSort: false),
                         grid.Column(header: "Detalles", format:@<text><a href='@Url.Action("Details", new { id = item.ProjectID })' class="ajax">Detalles</a></text>, canSort: false),
                         grid.Column(header: "Editar", format: (item) => Html.ActionLink("Editar", "Edit", new { id = item.ProjectID }), canSort: false),
                         grid.Column(header: "Borrar", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.ProjectID }), canSort: false)
