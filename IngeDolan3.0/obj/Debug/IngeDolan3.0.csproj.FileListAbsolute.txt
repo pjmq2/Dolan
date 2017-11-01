@@ -293,3 +293,6 @@ C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojRe
 C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
 C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
 C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
+C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
+C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
+C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb

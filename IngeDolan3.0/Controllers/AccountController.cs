@@ -12,8 +12,6 @@ using IngeDolan3._0.Models;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 
-
-
 namespace IngeDolan3._0.Controllers
 {
     [Authorize]
@@ -27,7 +25,7 @@ namespace IngeDolan3._0.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -39,9 +37,9 @@ namespace IngeDolan3._0.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -55,29 +53,6 @@ namespace IngeDolan3._0.Controllers
             {
                 _userManager = value;
             }
-        }
-
-
-        private bool revisarPermisos(string permiso) {
-
-            //private bool revisarPermisos(string permiso)
-            //{
-            //    String userID = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            //    var rol = context.Users.Find(userID).Roles.First();
-            //    var permisoID = baseDatos.Permisos.Where(m => m.nombre == permiso).First().codigo;
-            //    var listaRoles = baseDatos.Rol_Permisos.Where(m => m.permiso == permisoID).ToList().Select(n => n.rol);
-            //    bool userRol = listaRoles.Contains(rol.RoleId);
-
-            //    return userRol;
-            //}
-
-            String userID = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var rol = db.Users.Find(userID).role;
-            var permisoID = db.Permisos.Where()
-
-
-
-            return true;
         }
 
         //
@@ -122,6 +97,8 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+        {
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
@@ -146,7 +123,7 @@ namespace IngeDolan3._0.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -166,8 +143,7 @@ namespace IngeDolan3._0.Controllers
         public ActionResult Register()
         {
             ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
-            UsuarioInt roles = new UsuarioInt();
-            return View(roles);
+            return View();
         }
 
         //
@@ -193,6 +169,7 @@ namespace IngeDolan3._0.Controllers
                         modelUser.secondLastName = model.lastName2;
                         modelUser.role = model.role;
                         modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
+                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Name == model.role).ToList().First();
                         db.Users.Add(modelUser);
                         db.SaveChanges();
                     }
