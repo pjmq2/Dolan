@@ -204,6 +204,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IDGenerator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>NewDolan2Model.tt</DependentUpon>
@@ -217,6 +218,7 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateProject.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
