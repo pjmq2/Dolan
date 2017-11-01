@@ -290,3 +290,6 @@ C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\bin\Microsoft.AI.ServerTelemetr
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\bin\Microsoft.AI.WindowsServer.xml
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\bin\Microsoft.AI.Web.xml
 C:\Users\pjmq2\Source\Repos\D\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
+C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
+C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
+C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
