@@ -206,49 +206,52 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Model.Context.cs">
+    <Compile Include="Models\NewDolan2Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.Context.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model.cs">
+    <Compile Include="Models\NewDolan2Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model.Designer.cs">
+    <Compile Include="Models\NewDolan2Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.edmx</DependentUpon>
+      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Permiso.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Project.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProyectoList.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserStory.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UsuarioInt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -307,25 +310,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.cs</LastGenOutput>
-    </Content>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model.edmx.diagram">
-      <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -335,7 +321,24 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\NewDolan2Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NewDolan2Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\NewDolan2Model.edmx.diagram">
+      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Models\NewDolan2Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
+      <LastGenOutput>NewDolan2Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\NewDolan2Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
+      <LastGenOutput>NewDolan2Model.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
