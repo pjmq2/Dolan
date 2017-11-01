@@ -81,9 +81,11 @@ namespace IngeDolan3._0.Controllers
         {
             if (!revisarPermisos("Crear Proyectos"))
             {
-                //Despliega mensaje en caso de no poder crear un proyecto
                 return RedirectToAction("Denied", "Other");
             }
+            List<Users> listaDesarrolladores = new List<Users>();
+            List<Users> listaClientes = new List<Users>();
+
             ViewBag.LeaderID = new SelectList(db.Users, "userID", "name");
             ViewBag.DesarrolladoresDisp = db.Users.ToList();
             return View();
