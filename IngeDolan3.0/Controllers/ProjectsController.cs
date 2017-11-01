@@ -99,7 +99,7 @@ namespace IngeDolan3._0.Controllers
                 IDGenerator generador = new IDGenerator();
                 string id = generador.IntToString(cuenta);
                 project.ProjectID = id;
-                db.Project.Add(project);
+                db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
