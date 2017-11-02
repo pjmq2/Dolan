@@ -102,9 +102,7 @@ namespace IngeDolan3._0.Controllers
                 proyecto.FinalDate = project.FinalDate;
                 proyecto.Descriptions = project.Descriptions;
                 proyecto.ProjectName = project.ProjectName;
-                proyecto.estado = "Por iniciar";
-                proyecto.duracion = proyecto.fechaFinal.Subtract(proyecto.fechaInicio).Days;
-                baseDatos.Proyectos.Add(proyecto);
+                db.Projects.Add(proyecto);
 
                 int cuenta = db.Projects.Count();
                 IDGenerator generador = new IDGenerator();
