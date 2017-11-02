@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/Formato.css")
-
+    @Styles.Render("~/Content/multi-select")
 
 </head>
 <body>
@@ -62,6 +62,7 @@
         });
         </script>
         @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jquery.multi-select")
         @RenderSection("scripts", required: false)
     </body>
     </html>

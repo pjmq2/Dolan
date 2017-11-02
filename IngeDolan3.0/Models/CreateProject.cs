@@ -40,7 +40,7 @@ namespace IngeDolan3._0.Models
         [Display(Name = "Líder")]
         public string LeaderID { get; set; }
 
-        public Users users { get; set; }
+        public User users { get; set; }
         public List<string> SelectedUsers { get; set; }
 
         public string UserID { get; set; }
