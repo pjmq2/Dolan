@@ -93,8 +93,8 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { id = item.userID })),
                         grid.Column(header: "Editar", format: (item) => Html.ActionLink("Editar", "Edit", new { id = item.userID })),
                         grid.Column(header: "Borrar", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.userID }))
+                        )
                     )
-                )
 
                 <div class="row">
                     <div class="col-sm-6">
@@ -104,8 +104,12 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 
                 @Html.Hidden("dir", grid.SortDirection)
                 @Html.Hidden("col", grid.SortColumn)
-
+                
             </div>
+        @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", ProjectName = "form" }))
+        {
+            <input type="submit" value="Crear Usuario" class="btn btn-default" />
+        }
         </div>
     </div>
 

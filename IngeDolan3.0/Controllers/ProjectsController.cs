@@ -81,8 +81,15 @@ namespace IngeDolan3._0.Controllers
             List<User> listaDesarrolladores = new List<User>();
             List<User> listaClientes = new List<User>();
 
-            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name");
-            ViewBag.DesarrolladoresDisp = db.Users.ToList();
+            ViewBag.LeaderID = new SelectList(db.Users, "id", "name");
+            var usuarios = db.Users.Select(x => new
+            {
+                identificador = x.id,
+                nombre = x.name
+            }).ToList();
+
+            ViewBag.desarrolladoresDisp = new MultiSelectList(usuarios, "identificador", "nombre");
+
             return View();
         }
 
@@ -91,7 +98,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID")] CreateProject project)
+        public ActionResult Create([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID,IncludedUsers")] CreateProject project)
         {
             if (ModelState.IsValid)
             {
@@ -102,20 +109,22 @@ namespace IngeDolan3._0.Controllers
                 proyecto.Descriptions = project.Descriptions;
                 proyecto.ProjectName = project.ProjectName;
                 db.Projects.Add(proyecto);
-                List<string> lista = project.SelectedUsers;
-
-                foreach (var c in lista)
-                {
-                    db.Users.Single(u => u.id == c).ProjectID = project.ProjectID;
-                    db.SaveChanges();
-                }
                 int cuenta = db.Projects.Count();
                 IDGenerator generador = new IDGenerator();
                 string id = generador.IntToString(cuenta);
                 proyecto.ProjectID = id;
-
                 db.Projects.Add(proyecto);
                 db.SaveChanges();
+
+                if (project.IncludedUsers != null)
+                {
+                    foreach (var c in project.IncludedUsers)
+                    {
+                        var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
+                        f.ProjectID = id;
+                        db.SaveChanges();
+                    }
+                }
                 return RedirectToAction("Index");
             }
 

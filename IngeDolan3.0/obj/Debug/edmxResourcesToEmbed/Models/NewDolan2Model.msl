@@ -67,7 +67,6 @@
     <EntitySetMapping Name="Projects">
       <EntityTypeMapping TypeName="dolan2Model.Project">
         <MappingFragment StoreEntitySet="Project">
-          <ScalarProperty Name="Pstate" ColumnName="Pstate" />
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
           <ScalarProperty Name="FinalDate" ColumnName="FinalDate" />
