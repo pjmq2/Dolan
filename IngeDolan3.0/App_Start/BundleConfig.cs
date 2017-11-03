@@ -34,6 +34,15 @@ namespace IngeDolan3._0
             //css  
             bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
                    "~/Content/jquery-ui.css"));
+
+            //Multiselect
+            bundles.Add(new StyleBundle("~/content/multi-select")
+            .Include("~/Content/multi-select.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery.multi-select")
+            .Include("~/Scripts/jquery.multi-select.js"));
+
+
         }
     }
 }

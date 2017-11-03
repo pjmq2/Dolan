@@ -204,6 +204,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IDGenerator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>NewDolan2Model.tt</DependentUpon>
@@ -217,6 +218,7 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateProject.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
@@ -265,6 +267,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Formato.css" />
     <Content Include="Content\Images\Forest.jpg" />
+    <Content Include="Content\Images\switch.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -306,6 +309,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\multi-select.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -347,6 +351,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.multi-select.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -354,6 +359,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -432,7 +438,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51695</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51695/</IISUrl>
+          <IISUrl>http://localhost:1111/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

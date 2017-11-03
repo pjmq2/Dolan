@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dolan2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dolan2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -83,6 +83,7 @@
           <Property Name="Descriptions" Type="varchar" MaxLength="100" />
           <Property Name="ProjectName" Type="varchar" MaxLength="30" />
           <Property Name="LeaderID" Type="varchar" MaxLength="11" />
+          <Property Name="Pstate" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="role_permit">
           <Key>
@@ -329,8 +330,7 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dolan2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -417,6 +417,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK__Project__LeaderI__6B24EA82" FromRole="Project" ToRole="Users" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Users__ProjectID__70DDC3D8" FromRole="Project" ToRole="Users" />
           <NavigationProperty Name="UserStories" Relationship="Self.FK__UserStory__Proje__6EF57B66" FromRole="Project" ToRole="UserStory" />
+          <Property Name="Pstate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -678,6 +679,7 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="dolan2Model.Project">
               <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Pstate" ColumnName="Pstate" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
                 <ScalarProperty Name="FinalDate" ColumnName="FinalDate" />
