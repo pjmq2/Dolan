@@ -90,9 +90,9 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         grid.Column(columnName: "Descriptions", header: "Descripcion"),
                         grid.Column( "StartingDate", "Fecha Inicial", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.StartingDate)),
                         grid.Column( "FinalDate", "Fecha Final", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.FinalDate)),
-                        grid.Column(header: "Detalles", format:@<text><a href='@Url.Action("Details", new { id = item.ProjectID })' class="ajax">Detalles</a></text>),
-                        grid.Column(header: "Editar", format: (item) => Html.ActionLink("Editar", "Edit", new { id = item.ProjectID })),
-                        grid.Column(header: "Borrar", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.ProjectID }))
+                        grid.Column(header: "", format: (item) => Html.ActionLink("Detalles", "Details", new { id = item.ProjectID })),
+                        grid.Column(header: "", format: (item) => Html.ActionLink("Editar", "Edit", new { id = item.ProjectID })),
+                        grid.Column(header: "", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.ProjectID }))
                     )
                 )
 
