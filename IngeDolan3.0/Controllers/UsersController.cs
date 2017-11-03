@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
 using System.Linq.Dynamic;
+using Microsoft.AspNet.Identity;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -18,14 +19,37 @@ namespace IngeDolan3._0.Controllers
         //Oh snap!
         public ActionResult Index(int page = 1, string sort = "name", string sortdir = "asc", string search = "")
         {
-            int pageSize = 10;
-            int totalRecord = 0;
-            if (page < 1) page = 1;
-            int skip = (page * pageSize) - pageSize;
-            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord);
-            ViewBag.TotalRows = totalRecord;
-            ViewBag.search = search;
-            return View(data);
+            if (CanDo("Consular Lista de Usuarios")){
+                int pageSize = 10;
+                int totalRecord = 0;
+                if (page < 1) page = 1;
+                int skip = (page * pageSize) - pageSize;
+                var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord);
+                ViewBag.TotalRows = totalRecord;
+                ViewBag.search = search;
+                return View(data);
+            }
+            else{
+                Console.WriteLine("Usuario no puede listar usuarios");
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+
+        public Boolean CanDo(string permission){
+            String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
+            var userRole = modelUser.AspNetRole;
+            var permisos = userRole.Permisos;
+
+            //if found return true
+            foreach (var per in permisos){
+                if (per.nombre == permission){
+                    return true;
+                }
+            }
+            //if it hasnt returned by now then it must be the user does not have permission
+            return false;
         }
 
         public List<User> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
@@ -157,3 +181,4 @@ namespace IngeDolan3._0.Controllers
         }
     }
 }
+
