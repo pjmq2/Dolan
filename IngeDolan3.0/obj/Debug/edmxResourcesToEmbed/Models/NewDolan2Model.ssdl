@@ -78,6 +78,7 @@
     <Property Name="Descriptions" Type="varchar" MaxLength="100" />
     <Property Name="ProjectName" Type="varchar" MaxLength="30" />
     <Property Name="LeaderID" Type="varchar" MaxLength="11" />
+    <Property Name="Pstate" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="role_permit">
     <Key>

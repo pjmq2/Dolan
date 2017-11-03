@@ -91,15 +91,30 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID")] Project project)
+        public ActionResult Create([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID")] CreateProject project)
         {
             if (ModelState.IsValid)
             {
+                Project proyecto = new Project();
+                proyecto.LeaderID = project.LeaderID;
+                proyecto.StartingDate = project.StartingDate;
+                proyecto.FinalDate = project.FinalDate;
+                proyecto.Descriptions = project.Descriptions;
+                proyecto.ProjectName = project.ProjectName;
+                db.Projects.Add(proyecto);
+                List<string> lista = project.SelectedUsers;
+
+                foreach (var c in lista)
+                {
+                    db.Users.Single(u => u.id == c).ProjectID = project.ProjectID;
+                    db.SaveChanges();
+                }
                 int cuenta = db.Projects.Count();
                 IDGenerator generador = new IDGenerator();
                 string id = generador.IntToString(cuenta);
-                project.ProjectID = id;
-                db.Projects.Add(project);
+                proyecto.ProjectID = id;
+
+                db.Projects.Add(proyecto);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

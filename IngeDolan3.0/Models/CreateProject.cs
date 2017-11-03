@@ -39,6 +39,8 @@ namespace IngeDolan3._0.Models
         public string ProjectName { get; set; }
         [Display(Name = "Líder")]
         public string LeaderID { get; set; }
+        [Display(Name = "Estado")]
+        public string Pstate { get; set; }
 
         public User users { get; set; }
         public List<string> SelectedUsers { get; set; }

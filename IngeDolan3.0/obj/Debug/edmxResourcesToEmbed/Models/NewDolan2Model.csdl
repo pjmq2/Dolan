@@ -83,6 +83,7 @@
     <NavigationProperty Name="User" Relationship="Self.FK__Project__LeaderI__6B24EA82" FromRole="Project" ToRole="Users" />
     <NavigationProperty Name="Users" Relationship="Self.FK__Users__ProjectID__70DDC3D8" FromRole="Project" ToRole="Users" />
     <NavigationProperty Name="UserStories" Relationship="Self.FK__UserStory__Proje__6EF57B66" FromRole="Project" ToRole="UserStory" />
+    <Property Name="Pstate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
