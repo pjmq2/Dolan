@@ -66,8 +66,8 @@
             @Html.Label("Disponibles", new { @class = "col-md-offset-2 col-md-2 control-label", @style = "text-align:center;margin-left:195px;" })
             @Html.Label("Equipo", new { @class = "col-md-offset-2  col-md-2 control-label required", @style = "text-align:center;margin-left:10px;margin-bottom:10px" })
             <div class="col-md-offset-2 col-md-10" style="margin-bottom:25px">
-                @Html.ListBoxFor(m => m.SelectedUsers, new MultiSelectList(ViewBag.DesarrolladoresDisp, "name", "id"), new { id = "list2", Multiple = "multiple", Size = 15, style = "width: 100%;" })
-                @Html.ValidationMessageFor(model => model.SelectedUsers, "", new { @class = "text-danger" })
+                @Html.ListBoxFor(m => m.IncludedUsers, (MultiSelectList)ViewBag.desarrolladoresDisp, new { id = "list2", Multiple = "multiple", Size = 15, style = "width: 100%;" })
+                @Html.ValidationMessageFor(model => model.IncludedUsers, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
