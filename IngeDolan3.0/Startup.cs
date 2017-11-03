@@ -18,7 +18,7 @@ namespace IngeDolan3._0
         private void createRolesandUsers()
         {
             ApplicationDbContext context = new ApplicationDbContext();
-            dolan2Entities baseDatos = new dolan2Entities();
+            NewDolan2Entities baseDatos = new NewDolan2Entities();
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));

@@ -10,10 +10,6 @@ var grid = new WebGrid(canPage: true, rowsPerPage: 10);
 grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
-<p>
-    @Html.ActionLink("Crear Nuevo", "Create")
-</p>
-
 @*
 
     <table class="table">
@@ -78,10 +74,9 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                     <div class="collapse navbar-collapse">
                         @using (Html.BeginForm("index", "home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
                         {
-                            <div class="form-group">
-                                <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
-                            </div>
-                            <button type="submit" value="Search" class="btn btn-success">Buscar</button>
+                                    <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
+                                    <button type="submit" value="Search" class="btn btn-success">Buscar</button>
+                                    @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
                         }
                     </div>
                 </div>
@@ -91,10 +86,10 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                 @grid.Table(
                     tableStyle: "table table-responsive table-bordered",
                     columns: grid.Columns(
+                        grid.Column(columnName: "ProjectName", header: "Nombre"),
+                        grid.Column(columnName: "Descriptions", header: "Descripcion"),
                         grid.Column( "StartingDate", "Fecha Inicial", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.StartingDate)),
                         grid.Column( "FinalDate", "Fecha Final", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.FinalDate)),
-                        grid.Column(columnName: "Descriptions", header: "Descripcion"),
-                        grid.Column(columnName: "ProjectName", header: "Nombre"),
                         grid.Column(header: "Detalles", format:@<text><a href='@Url.Action("Details", new { id = item.ProjectID })' class="ajax">Detalles</a></text>),
                         grid.Column(header: "Editar", format: (item) => Html.ActionLink("Editar", "Edit", new { id = item.ProjectID })),
                         grid.Column(header: "Borrar", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.ProjectID }))
@@ -134,6 +129,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
             }
         })
     </script>
+
 </body>
 
 </html>

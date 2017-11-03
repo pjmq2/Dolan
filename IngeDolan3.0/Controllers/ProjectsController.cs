@@ -13,7 +13,15 @@ namespace IngeDolan3._0.Controllers
 {
     public class ProjectsController : Controller
     {
-        private dolan2Entities db = new dolan2Entities();
+        private NewDolan2Entities db = new NewDolan2Entities();
+
+        private bool revisarPermisos(string permiso)
+        {
+            //
+            //  Método Provisional
+            //
+            return true;
+        }
 
         // GET: Projects
         //Oh snap!
@@ -66,7 +74,15 @@ namespace IngeDolan3._0.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
+            if (!revisarPermisos("Crear Proyectos"))
+            {
+                return RedirectToAction("Denied", "Other");
+            }
+            List<User> listaDesarrolladores = new List<User>();
+            List<User> listaClientes = new List<User>();
+
             ViewBag.LeaderID = new SelectList(db.Users, "userID", "name");
+            ViewBag.DesarrolladoresDisp = db.Users.ToList();
             return View();
         }
 
@@ -79,6 +95,10 @@ namespace IngeDolan3._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                int cuenta = db.Projects.Count();
+                IDGenerator generador = new IDGenerator();
+                string id = generador.IntToString(cuenta);
+                project.ProjectID = id;
                 db.Projects.Add(project);
                 db.SaveChanges();
                 return RedirectToAction("Index");

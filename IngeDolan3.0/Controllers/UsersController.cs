@@ -13,7 +13,7 @@ namespace IngeDolan3._0.Controllers
 {
     public class UsersController : Controller
     {
-        private dolan2Entities db = new dolan2Entities();
+        private NewDolan2Entities db = new NewDolan2Entities();
 
         //Oh snap!
         public ActionResult Index(int page = 1, string sort = "name", string sortdir = "asc", string search = "")
