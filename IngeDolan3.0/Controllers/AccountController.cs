@@ -14,7 +14,6 @@ using System.Data.Entity.Validation;
 
 namespace IngeDolan3._0.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -25,8 +24,7 @@ namespace IngeDolan3._0.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ){
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -58,10 +56,26 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
+        public ActionResult Login(string returnUrl){
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+
+        public Boolean CanDo(string permission){
+            String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
+            var userRole = modelUser.AspNetRole;
+            var permisos = userRole.Permisos;
+
+            //if found return true
+            foreach (var per in permisos){
+                if(per.nombre == permission){
+                    return true;
+                }
+            }
+            //if it hasnt returned by now then it must be the user does not have permission
+            return false;
         }
 
         //
@@ -140,17 +154,23 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
-        {
-            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
-            return View();
+        public ActionResult Register(){
+            //if (this.CanDo("Crear Usuarios")){
+                ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
+                return View();
+            /*}else
+            {
+                Console.Write("user cant create users");
+                return RedirectToAction("Index", "Home");
+            }
+            */
+
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(UsuarioInt model)
         {
             if (ModelState.IsValid)
