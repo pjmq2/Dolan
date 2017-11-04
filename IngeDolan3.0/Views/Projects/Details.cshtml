@@ -8,57 +8,51 @@
 <h2>Detalles de Proyecto</h2>
 
 <div>
-        <hr style="height:1px;border:none;color:#333;background-color:rgb(255,255,255);" />
-            <dt>
-                @Html.DisplayNameFor(model => model.ProjectName)
-            </dt>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre del Proyecto
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.ProjectName)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
 
-        <hr style="height:1px;border:none;color:#333;background-color:rgb(255,255,255);" />
-            <dt>
-                @Html.DisplayNameFor(model => model.Descriptions)
-            </dt>
+        <dt>
+            Descripcion
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Descriptions)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Descriptions)
+        </dd>
 
-        <hr style="height:1px;border:none;color:#333;background-color:rgb(255,255,255);" />
-            <dt>
-                @Html.DisplayNameFor(model => model.StartingDate)
-            </dt>
+        <dt>
+            Lider del proyecto
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.StartingDate)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.User.name)
+        </dd>
 
-        <hr style="height:1px;border:none;color:#333;background-color:rgb(255,255,255);" />
-            <dt>
-                @Html.DisplayNameFor(model => model.FinalDate)
-            </dt>
+        <dt>
+            Fecha de Inicio
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.FinalDate)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.StartingDate)
+        </dd>
 
-        <hr style="height:1px;border:none;color:#333;background-color:rgb(255,255,255);" />
-            <dt>
-                @Html.DisplayNameFor(model => model.Pstate)
-            </dt>
+        <dt>
+            Fecha Final
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Pstate)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.FinalDate)
+        </dd>
 
-        <hr style="height:1px;border:none;color:#333;background-color:rgb(255,255,255);" />
-            <dt>
-                @Html.DisplayNameFor(model => model.LeaderID)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.LeaderID)
-            </dd>
+        <div>
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
+    </dl>
 </div>
+

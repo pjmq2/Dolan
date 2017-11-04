@@ -43,7 +43,7 @@ namespace IngeDolan3._0.Models
         public string Pstate { get; set; }
 
         public User users { get; set; }
-        public List<string> SelectedUsers { get; set; }
+        public List<string> IncludedUsers { get; set; }
 
         public string UserID { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

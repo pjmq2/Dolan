@@ -65,7 +65,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
             <h2>Lista de Proyectos</h2>
-
+            @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
             <nav class="navbar ">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -76,7 +76,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         {
                                     <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
                                     <button type="submit" value="Search" class="btn btn-success">Buscar</button>
-                                    @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
+                                    
                         }
                     </div>
                 </div>
@@ -90,9 +90,9 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         grid.Column(columnName: "Descriptions", header: "Descripcion"),
                         grid.Column( "StartingDate", "Fecha Inicial", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.StartingDate)),
                         grid.Column( "FinalDate", "Fecha Final", format: (item) => string.Format("{0:dd-MMM-yyyy}", item.FinalDate)),
-                        grid.Column(header: "", format: (item) => Html.ActionLink("Detalles", "Details", new { id = item.ProjectID })),
-                        grid.Column(header: "", format: (item) => Html.ActionLink("Editar", "Edit", new { id = item.ProjectID })),
-                        grid.Column(header: "", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.ProjectID }))
+                        grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { id = item.ProjectID })),
+                        grid.Column(header: "Editar", format: (item) => Html.ActionLink("Editar", "Edit", new { id = item.ProjectID })),
+                        grid.Column(header: "Borrar", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.ProjectID }))
                     )
                 )
 
