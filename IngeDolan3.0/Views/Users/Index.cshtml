@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IngeDolan3._0.Models.User>
+@model IEnumerable<IngeDolan3._0.Models.User>
 
 @{
     ViewBag.Title = "Index";
@@ -65,7 +65,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
             <h2>Lista de Usuarios</h2>
-
+		 @Html.ActionLink("Crear Nuevo", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-default" })
             <nav class="navbar ">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -74,9 +74,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                     <div class="collapse navbar-collapse">
                         @using (Html.BeginForm("index", "home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
                         {
-                            <div class="form-group">
-                                <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
-                            </div>
+                            <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
                             <button type="submit" value="Search" class="btn btn-success">Buscar</button>
                         }
                     </div>
@@ -95,7 +93,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         grid.Column(header: "Borrar", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.userID }))
                         )
                     )
-
+                
                 <div class="row">
                     <div class="col-sm-6">
                         @grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-small pagination-right")
