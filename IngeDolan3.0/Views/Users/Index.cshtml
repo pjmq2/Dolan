@@ -93,12 +93,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         grid.Column(header: "Borrar", format: (item) => Html.ActionLink("Borrar", "Delete", new { id = item.userID }))
                         )
                     )
-<<<<<<< HEAD
-                )
                 
-=======
-
->>>>>>> 6378337cd28014edad00fcb84076f1c79e036515
                 <div class="row">
                     <div class="col-sm-6">
                         @grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-small pagination-right")
