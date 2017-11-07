@@ -130,6 +130,7 @@ namespace IngeDolan3._0.Controllers
                 return HttpNotFound();
             }
             ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.id);
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.role);
             return View(user);
         }
 
@@ -138,13 +139,14 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] User user)
         {
+            ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.id);
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.role);
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.id);
+            }            
             return View(user);
         }
 
