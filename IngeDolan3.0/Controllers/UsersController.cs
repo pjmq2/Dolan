@@ -174,10 +174,22 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Project potentialProyect = db.Projects.Where(x => x.LeaderID == id).ToList().FirstOrDefault();
+            if (potentialProyect == null)
+            {
+                User user = db.Users.Find(id);
+                string realid = user.id;
+                AspNetUser uSER = db.AspNetUsers.Find(realid);
+                db.AspNetUsers.Remove(uSER);
+                db.Users.Remove(user);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Error", potentialProyect);
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -178,6 +178,24 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            List<User> modelUser = db.Users.Where(x => x.ProjectID == id).ToList();
+            List<UserStory> modelstory = db.UserStories.Where(x => x.ProjectID == id).ToList();
+            if (modelUser != null)
+            {
+                foreach (var c in modelUser)
+                {
+                    c.ProjectID = null;
+                    db.SaveChanges();
+                }
+            }
+            if (modelstory != null)
+            {
+                foreach (var c in modelstory)
+                {
+                    db.UserStories.Remove(c);
+                    db.SaveChanges();
+                }
+            }
             Project project = db.Projects.Find(id);
             db.Projects.Remove(project);
             db.SaveChanges();
