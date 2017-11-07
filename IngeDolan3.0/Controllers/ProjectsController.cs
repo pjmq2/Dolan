@@ -24,7 +24,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Projects
-        //Oh snap!
+        // Presenta la lista de todos los proyectos que han sido registrados en la página. 
         public ActionResult Index(int page = 1, string sort = "ProjectName", string sortdir = "asc", string search = "")
         {
             int pageSize = 10;
@@ -37,6 +37,7 @@ namespace IngeDolan3._0.Controllers
             return View(data);
         }
 
+        // Obtiene los proyectos presentes en la base de datos para llenar el índice
         public List<Project> GetProjects(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
             var v = (from a in db.Projects
@@ -54,9 +55,8 @@ namespace IngeDolan3._0.Controllers
             return v.ToList();
         }
 
-        //Oh jeez
-
         // GET: PROJECTs/Details/5
+        // Presenta los detalles del proyecto que tenga el ID presentado como parámetro
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -72,16 +72,15 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Projects/Create
+        // Prepara las listas de usuarios necesarias para presentar la pantalla donde se crea el proyecto 
         public ActionResult Create()
         {
             if (!revisarPermisos("Crear Proyectos"))
             {
                 return RedirectToAction("Denied", "Other");
             }
-            List<User> listaDesarrolladores = new List<User>();
-            List<User> listaClientes = new List<User>();
 
-            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name");
+            ViewBag.LeaderID = new SelectList(db.Users.Where(x => x.ProjectID == null), "userID", "name");
             ViewBag.DesarrolladoresDisp = (db.Users.Where(x => x.ProjectID == null)).ToList();
 
             return View();
