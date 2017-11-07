@@ -82,7 +82,7 @@ namespace IngeDolan3._0.Controllers
             List<User> listaClientes = new List<User>();
 
             ViewBag.LeaderID = new SelectList(db.Users, "userID", "name");
-            ViewBag.DesarrolladoresDisp = db.Users.ToList();
+            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => x.ProjectID == null)).ToList();
 
             return View();
         }

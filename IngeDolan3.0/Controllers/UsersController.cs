@@ -31,25 +31,34 @@ namespace IngeDolan3._0.Controllers
             }
             else{
                 Console.WriteLine("Usuario no puede listar usuarios");
-                return RedirectToAction("Index", "Home");
+                return PartialView("~/Views/Others/Denied.cshtml");
             }
 
         }
 
         public Boolean CanDo(string permission){
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
-            var userRole = modelUser.AspNetRole;
-            var permisos = userRole.Permisos;
+            if (userId != null)
+            {
+                var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
+                var userRole = modelUser.AspNetRole;
+                var permisos = userRole.Permisos;
 
-            //if found return true
-            foreach (var per in permisos){
-                if (per.nombre == permission){
-                    return true;
+                //if found return true
+                foreach (var per in permisos)
+                {
+                    if (per.nombre == permission)
+                    {
+                        return true;
+                    }
                 }
+                //if it hasnt returned by now then it must be the user does not have permission
+                return false;
             }
-            //if it hasnt returned by now then it must be the user does not have permission
-            return false;
+            else
+            {
+                return false;
+            }
         }
 
         public List<User> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)

@@ -198,6 +198,7 @@
     <Compile Include="Controllers\BacklogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OthersController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UserStoriesController.cs" />
@@ -410,6 +411,8 @@
     <Content Include="Views\UserStories\Edit.cshtml" />
     <Content Include="Views\UserStories\Index.cshtml" />
     <Content Include="Views\Backlog\Index.cshtml" />
+    <Content Include="Views\Others\Error.cshtml" />
+    <Content Include="Views\Others\Denied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
