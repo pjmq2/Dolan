@@ -81,14 +81,8 @@ namespace IngeDolan3._0.Controllers
             List<User> listaDesarrolladores = new List<User>();
             List<User> listaClientes = new List<User>();
 
-            ViewBag.LeaderID = new SelectList(db.Users, "id", "name");
-            var usuarios = db.Users.Select(x => new
-            {
-                identificador = x.id,
-                nombre = x.name
-            }).ToList();
-
-            ViewBag.desarrolladoresDisp = new MultiSelectList(usuarios, "identificador", "nombre");
+            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name");
+            ViewBag.DesarrolladoresDisp = db.Users.ToList();
 
             return View();
         }
@@ -102,16 +96,15 @@ namespace IngeDolan3._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                string cuenta = db.Projects.Max(x => x.ProjectID);
+                int number;
+                string id = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
                 Project proyecto = new Project();
                 proyecto.LeaderID = project.LeaderID;
                 proyecto.StartingDate = project.StartingDate;
                 proyecto.FinalDate = project.FinalDate;
                 proyecto.Descriptions = project.Descriptions;
                 proyecto.ProjectName = project.ProjectName;
-                db.Projects.Add(proyecto);
-                int cuenta = db.Projects.Count();
-                IDGenerator generador = new IDGenerator();
-                string id = generador.IntToString(cuenta);
                 proyecto.ProjectID = id;
                 db.Projects.Add(proyecto);
                 db.SaveChanges();
