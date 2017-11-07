@@ -192,6 +192,7 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
+        // Hace que este control sea inutilizable
         protected override void Dispose(bool disposing)
         {
             if (disposing)

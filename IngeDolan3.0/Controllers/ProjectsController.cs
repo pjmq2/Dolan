@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
 using System.Linq.Dynamic;
+using Microsoft.AspNet.Identity;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -15,15 +16,32 @@ namespace IngeDolan3._0.Controllers
     {
         private NewDolan2Entities db = new NewDolan2Entities();
 
-        private bool revisarPermisos(string permiso)
+        private Boolean revisarPermisos(string permission)
         {
-            //
-            //  Método Provisional
-            //
-            return true;
-        }
+            String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            if (userId != null)
+            {
+                var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
+                var userRole = modelUser.AspNetRole;
+                var permisos = userRole.Permisos;
 
-        // GET: Projects
+                //if found return true
+                foreach (var per in permisos)
+                {
+                    if (per.nombre == permission)
+                    {
+                        return true;
+                    }
+                }
+                //if it hasnt returned by now then it must be the user does not have permission
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
         // Presenta la lista de todos los proyectos que han sido registrados en la página. 
         public ActionResult Index(int page = 1, string sort = "ProjectName", string sortdir = "asc", string search = "")
         {
@@ -37,7 +55,7 @@ namespace IngeDolan3._0.Controllers
             return View(data);
         }
 
-        // Obtiene los proyectos presentes en la base de datos para llenar el índice
+        // Obtiene los proyectos presentes en la base de datos para llenar el índice.
         public List<Project> GetProjects(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
             var v = (from a in db.Projects
@@ -54,9 +72,8 @@ namespace IngeDolan3._0.Controllers
             }
             return v.ToList();
         }
-
-        // GET: PROJECTs/Details/5
-        // Presenta los detalles del proyecto que tenga el ID presentado como parámetro
+        
+        // Presenta los detalles del proyecto que tenga el ID presentado como parámetro.
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -70,9 +87,8 @@ namespace IngeDolan3._0.Controllers
             }
             return PartialView(pROJECT);
         }
-
-        // GET: Projects/Create
-        // Prepara las listas de usuarios necesarias para presentar la pantalla donde se crea el proyecto 
+        
+        // Prepara las listas de usuarios necesarias para presentar la pantalla donde se crea el proyecto.
         public ActionResult Create()
         {
             if (!revisarPermisos("Crear Proyectos"))
@@ -85,10 +101,8 @@ namespace IngeDolan3._0.Controllers
 
             return View();
         }
-
-        // POST: Projects/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        // Crea el proyecto que se quiere insertar en la base de datos.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID,IncludedUsers")] CreateProject project)
@@ -123,8 +137,8 @@ namespace IngeDolan3._0.Controllers
             ViewBag.LeaderID = new SelectList(db.Users, "userID", "name", project.LeaderID);
             return View(project);
         }
-
-        // GET: Projects/Edit/5
+        
+        // Prepara la vista donde se editará el proyecto que tenga el ID presentado como parámetro.
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -139,10 +153,8 @@ namespace IngeDolan3._0.Controllers
             ViewBag.LeaderID = new SelectList(db.Users, "userID", "name", project.LeaderID);
             return View(project);
         }
-
-        // POST: Projects/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID")] Project project)
@@ -156,8 +168,8 @@ namespace IngeDolan3._0.Controllers
             ViewBag.LeaderID = new SelectList(db.Users, "userID", "name", project.LeaderID);
             return View(project);
         }
-
-        // GET: Projects/Delete/5
+        
+        // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar el proyecto
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -171,8 +183,8 @@ namespace IngeDolan3._0.Controllers
             }
             return View(project);
         }
-
-        // POST: Projects/Delete/5
+        
+        // Este método borra al proyecto de la base de datos, junto con sus historias de usuario
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -201,6 +213,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
+        // Hace que este control sea inutilizable
         protected override void Dispose(bool disposing)
         {
             if (disposing)
