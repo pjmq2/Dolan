@@ -16,7 +16,7 @@ namespace IngeDolan3._0.Controllers
         private NewDolan2Entities db = new NewDolan2Entities();
 
 
-        //Oh snap!
+        // Presenta la lista de todas las historias de usuario que han sido registradas en la página
         public ActionResult Index(ProyectoList projecto, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
         {
             int pageSize = 10;
@@ -29,6 +29,7 @@ namespace IngeDolan3._0.Controllers
             return View(data);
         }
 
+        // Obtiene los usuarios presentes en la base de datos.
         public List<UserStory> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idProyecto)
         {
             var v = (from a in db.UserStories
@@ -48,13 +49,9 @@ namespace IngeDolan3._0.Controllers
                 v = v.Skip(skip).Take(pageSize);
             }
             return v.ToList();
-        }    
+        }
 
-        //Oh jeez
-        // GET: UserStories
-        
-
-        // GET: UserStories/Details/5
+        // Presenta los detalles de la historia de usuario que tenga el ID de proyecto e historia presentados como parámetros.
         public ActionResult Details(string storyId, string projectId)
         {
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
@@ -77,16 +74,14 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-        // GET: UserStories/Create
+        // Presenta la pantalla donde se crea la historia de usuario.
         public ActionResult Create()
         {
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
             return View();
         }
 
-        // POST: UserStories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Confirma la creación de la historia de usuario.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StoryID,ProjectID,SprintID,Priorities,ClientRole,Estimation,Reason,Funtionality,Alias")] UserStory userStory)
@@ -102,7 +97,7 @@ namespace IngeDolan3._0.Controllers
             return View(userStory);
         }
 
-        // GET: UserStories/Edit/5
+        // Prepara la vista donde se editará la historia usuario que tenga el ID presentado como parámetro.
         public ActionResult Edit(string storyId, string projectId)
         {
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
@@ -126,9 +121,7 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-        // POST: UserStories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StoryID,ProjectID,SprintID,Priorities,ClientRole,Estimation,Reason,Funtionality,Alias")] UserStory userStory)
@@ -143,7 +136,7 @@ namespace IngeDolan3._0.Controllers
             return View(userStory);
         }
 
-        // GET: UserStories/Delete/5
+        // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar la historia de usuario.
         public ActionResult Delete(string storyId, string projectId)
         {
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
@@ -167,7 +160,7 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-        // POST: UserStories/Delete/5
+        // Este método borra la historia de usuario que tenga el id presentado de la base de datos.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -178,6 +171,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
+        // Hace que este control sea inutilizable
         protected override void Dispose(bool disposing)
         {
             if (disposing)

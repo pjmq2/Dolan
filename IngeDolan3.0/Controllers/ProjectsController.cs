@@ -16,7 +16,8 @@ namespace IngeDolan3._0.Controllers
     {
         private NewDolan2Entities db = new NewDolan2Entities();
 
-        private Boolean revisarPermisos(string permission)
+        // Reviza los permisos que tiene el usuario para determinar si debe o no denegar el acceso del usuario
+        private Boolean CanDo(string permission)
         {
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             if (userId != null)
@@ -91,7 +92,7 @@ namespace IngeDolan3._0.Controllers
         // Prepara las listas de usuarios necesarias para presentar la pantalla donde se crea el proyecto.
         public ActionResult Create()
         {
-            if (!revisarPermisos("Crear Proyectos"))
+            if (!CanDo("Crear Proyectos"))
             {
                 return RedirectToAction("Denied", "Other");
             }
@@ -169,7 +170,7 @@ namespace IngeDolan3._0.Controllers
             return View(project);
         }
         
-        // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar el proyecto
+        // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar el proyecto.
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -184,7 +185,7 @@ namespace IngeDolan3._0.Controllers
             return View(project);
         }
         
-        // Este método borra al proyecto de la base de datos, junto con sus historias de usuario
+        // Este método borra al proyecto de la base de datos, junto con sus historias de usuario.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -213,7 +214,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
-        // Hace que este control sea inutilizable
+        // Hace que este control sea inutilizable.
         protected override void Dispose(bool disposing)
         {
             if (disposing)
