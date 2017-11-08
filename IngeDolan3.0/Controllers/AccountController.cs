@@ -173,6 +173,7 @@ namespace IngeDolan3._0.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Register(UsuarioInt model)
         {
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.email, Email = model.email };
