@@ -40,11 +40,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.role)
+            @Html.DisplayFor(model => model.AspNetRole.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            Email
         </dt>
 
         <dd>
@@ -55,5 +55,5 @@
 </div>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.userID }) |
-    @Html.ActionLink("Cancelar", "Index")
+    @Html.ActionLink("Regresar", "Index")
 </p>
