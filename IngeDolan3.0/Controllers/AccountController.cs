@@ -156,7 +156,9 @@ namespace IngeDolan3._0.Controllers
         [AllowAnonymous]
         public ActionResult Register(){
             //if (this.CanDo("Crear Usuarios")){
-                ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
+
+            var list = db.AspNetRoles.Where(x => true).ToList();
+            ViewBag.role = new SelectList(list, "Name", "Name");
                 return View();
             /*}else
             {
