@@ -28,10 +28,12 @@ namespace IngeDolan3._0.Models
         public string role { get; set; }
         public Nullable<int> person_id { get; set; }
         public string student_id { get; set; }
+        public string ProjectID { get; set; }
     
+        public virtual AspNetRole AspNetRole { get; set; }
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> Projects { get; set; }
-        public virtual AspNetRole AspNetRole { get; set; }
+        public virtual Project Project { get; set; }
     }
 }

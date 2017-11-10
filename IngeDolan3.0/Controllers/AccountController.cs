@@ -12,23 +12,19 @@ using IngeDolan3._0.Models;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 
-
-
 namespace IngeDolan3._0.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private dolan2Entities db = new dolan2Entities();
+        private NewDolan2Entities db = new NewDolan2Entities();
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ){
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -57,36 +53,29 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-
-        private bool revisarPermisos(string permiso) {
-
-            //private bool revisarPermisos(string permiso)
-            //{
-            //    String userID = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            //    var rol = context.Users.Find(userID).Roles.First();
-            //    var permisoID = baseDatos.Permisos.Where(m => m.nombre == permiso).First().codigo;
-            //    var listaRoles = baseDatos.Rol_Permisos.Where(m => m.permiso == permisoID).ToList().Select(n => n.rol);
-            //    bool userRol = listaRoles.Contains(rol.RoleId);
-
-            //    return userRol;
-            //}
-
-            String userID = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var rol = db.Users.Find(userID).role;
-            var permisoID = db.Permisos.Where()
-
-
-
-            return true;
-        }
-
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
+        public ActionResult Login(string returnUrl){
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+
+        public Boolean CanDo(string permission){
+            String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
+            var userRole = modelUser.AspNetRole;
+            var permisos = userRole.Permisos;
+
+            //if found return true
+            foreach (var per in permisos){
+                if(per.nombre == permission){
+                    return true;
+                }
+            }
+            //if it hasnt returned by now then it must be the user does not have permission
+            return false;
         }
 
         //
@@ -122,6 +111,8 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
+        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+        {
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
@@ -163,20 +154,26 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
-        {
-            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
-            UsuarioInt roles = new UsuarioInt();
-            return View(roles);
+        public ActionResult Register(){
+            //if (this.CanDo("Crear Usuarios")){
+                ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
+                return View();
+            /*}else
+            {
+                Console.Write("user cant create users");
+                return RedirectToAction("Index", "Home");
+            }
+            */
+
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(UsuarioInt model)
         {
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.email, Email = model.email };
@@ -193,6 +190,7 @@ namespace IngeDolan3._0.Controllers
                         modelUser.secondLastName = model.lastName2;
                         modelUser.role = model.role;
                         modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
+                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Name == model.role).ToList().First(); 
                         db.Users.Add(modelUser);
                         db.SaveChanges();
                     }

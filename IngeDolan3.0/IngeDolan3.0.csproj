@@ -195,8 +195,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BacklogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OthersController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UserStoriesController.cs" />
@@ -206,49 +208,53 @@
     <Compile Include="IDGenerator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateProject.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\HistoriasUsuario.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Model.Context.cs">
+    <Compile Include="Models\NewDolan2Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.Context.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model.cs">
+    <Compile Include="Models\NewDolan2Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model.Designer.cs">
+    <Compile Include="Models\NewDolan2Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model.edmx</DependentUpon>
+      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Permiso.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Project.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProyectoList.cs" />
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserStory.cs">
-      <DependentUpon>Model.tt</DependentUpon>
+      <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UsuarioInt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -260,7 +266,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Formato.css" />
     <Content Include="Content\Images\Forest.jpg" />
+    <Content Include="Content\Images\switch.png" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -302,29 +310,13 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\multi-select.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model.edmx</DependentUpon>
-      <LastGenOutput>Model.cs</LastGenOutput>
-    </Content>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model.edmx.diagram">
-      <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -334,15 +326,33 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\NewDolan2Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NewDolan2Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\NewDolan2Model.edmx.diagram">
+      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
+    <Content Include="Models\NewDolan2Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
+      <LastGenOutput>NewDolan2Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\NewDolan2Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
+      <LastGenOutput>NewDolan2Model.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery-1.12.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.multi-select.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -350,6 +360,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -399,6 +410,10 @@
     <Content Include="Views\UserStories\Details.cshtml" />
     <Content Include="Views\UserStories\Edit.cshtml" />
     <Content Include="Views\UserStories\Index.cshtml" />
+    <Content Include="Views\Backlog\Index.cshtml" />
+    <Content Include="Views\Others\Error.cshtml" />
+    <Content Include="Views\Others\Denied.cshtml" />
+    <Content Include="Views\Users\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -427,7 +442,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51695</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51695/</IISUrl>
+          <IISUrl>http://localhost:1111/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

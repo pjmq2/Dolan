@@ -19,6 +19,7 @@ namespace IngeDolan3._0.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Project()
         {
+            this.Users = new HashSet<User>();
             this.UserStories = new HashSet<UserStory>();
         }
 
@@ -27,21 +28,23 @@ namespace IngeDolan3._0.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de inicio")]
-        public DateTime StartingDate { get; set; }
+        public Nullable<System.DateTime> StartingDate { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de finalización")]
-        public DateTime FinalDate { get; set; }
+        public Nullable<System.DateTime> FinalDate { get; set; }
         [Display(Name = "Descripción")]
-        
-        
         public string Descriptions { get; set; }
         [Display(Name = "Nombre")]
         public string ProjectName { get; set; }
         [Display(Name = "Líder")]
         public string LeaderID { get; set; }
+        [Display(Name = "Estado")]
+        public string Pstate { get; set; }
     
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserStory> UserStories { get; set; }
     }

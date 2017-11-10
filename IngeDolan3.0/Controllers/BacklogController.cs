@@ -9,42 +9,35 @@ namespace IngeDolan3._0.Controllers
 {
     public class BacklogController : Controller
     {
-        private dolan2Entities db = new dolan2Entities();
+        private NewDolan2Entities db = new NewDolan2Entities();
 
-        /*public List<Project> GetProjects()
+        // Obtiene los proyectos presentes en la base de datos.
+        public List<Project> GetProjects()
         {
             var v = (from a in db.Projects select a);
             return v.ToList();
-        }*/
+        }
 
+        // Presenta la lista de todos los backlog que han sido registrados en la página.
         public ActionResult Index()
         {
-            /*List<Project> data = new List<Project>();
+            List<Project> data = new List<Project>();
             data = GetProjects();
             List<SelectListItem> item = new List<SelectListItem>();
             foreach (var c in data)
             {
                 item.Add(new SelectListItem
                 {
-                    Text = c.ProjectName,
-                    Value = c.ProjectName.ToString()
+                    Text = c.ProjectName.ToString(),
+                    Value = c.ProjectID
                 });
             }
 
-            ViewBag.projs = item;
-            return View();*/
-            ViewBag.ProjectName = new SelectList(db.Projects, "ProjectName", "ProjectName");
-            return View();
-        }
+            var pl = new ProyectoList();
+            pl.Nombres = item;
 
-        [HttpPost]
-        public ActionResult Index(Project model)
-        {
-            if (ModelState.IsValid)
-            {
-
-            }
-            return View(model);
+            return View(pl);
+            //ViewBag.ProjectName = new SelectList(db.Projects, "ProjectName", "ProjectName");
         }
     }
 }
