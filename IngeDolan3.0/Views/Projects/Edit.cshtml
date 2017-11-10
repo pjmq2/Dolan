@@ -52,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Pstate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Pstate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Pstate, new SelectList(new List<string>() { "Pendiente", "En ejecución", "Cancelado", "Terminado" }), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Pstate, "", new { @class = "text-danger" })
             </div>
         </div>
