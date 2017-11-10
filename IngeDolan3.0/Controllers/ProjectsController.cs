@@ -94,7 +94,7 @@ namespace IngeDolan3._0.Controllers
         {
             if (!CanDo("Crear Proyectos"))
             {
-                return RedirectToAction("Denied", "Other");
+                return RedirectToAction("Denied", "Others");
             }
 
             ViewBag.LeaderID = new SelectList(db.Users.Where(x => x.ProjectID == null), "userID", "name");

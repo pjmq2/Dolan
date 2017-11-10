@@ -111,9 +111,8 @@ namespace IngeDolan3._0.Controllers
 
             if (listaDeHistorias.Count() > 0)
             {
-                ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
                 var userStories = listaDeHistorias.First();
-                return View(userStory);
+                return View(userStories);
             }
             else
             {
@@ -150,9 +149,8 @@ namespace IngeDolan3._0.Controllers
 
             if (listaDeHistorias.Count() > 0)
             {
-                ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
                 var userStories = listaDeHistorias.First();
-                return View(userStory);
+                return View(userStories);
             }
             else
             {

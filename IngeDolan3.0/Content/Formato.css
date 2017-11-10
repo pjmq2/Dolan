@@ -5,7 +5,7 @@ body {
     font-size: 14px;
     line-height: 1.428571429;
     color: white;
-    background-color: #bbbbbb; /*Color del fondo de la pantalla*/
+    background-color: #999999; /*Color del fondo de la pantalla*/
 }
 
 .navbar-inverse {
