@@ -14,17 +14,19 @@ using System.Data.Entity.Validation;
 
 namespace IngeDolan3._0.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private NewDolan2Entities db = new NewDolan2Entities();
+        private dolan2Entities db = new dolan2Entities();
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ){
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
             UserManager = userManager;
             SignInManager = signInManager;
         }
@@ -35,9 +37,9 @@ namespace IngeDolan3._0.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -56,26 +58,10 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl){
+        public ActionResult Login(string returnUrl)
+        {
             ViewBag.ReturnUrl = returnUrl;
             return View();
-        }
-
-
-        public Boolean CanDo(string permission){
-            String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
-            var userRole = modelUser.AspNetRole;
-            var permisos = userRole.Permisos;
-
-            //if found return true
-            foreach (var per in permisos){
-                if(per.nombre == permission){
-                    return true;
-                }
-            }
-            //if it hasnt returned by now then it must be the user does not have permission
-            return false;
         }
 
         //
@@ -137,7 +123,7 @@ namespace IngeDolan3._0.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -154,26 +140,19 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register(){
-            //if (this.CanDo("Crear Usuarios")){
-                ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
-                return View();
-            /*}else
-            {
-                Console.Write("user cant create users");
-                return RedirectToAction("Index", "Home");
-            }
-            */
-
+        public ActionResult Register()
+        {
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
+            return View();
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(UsuarioInt model)
         {
-            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.email, Email = model.email };
@@ -190,7 +169,7 @@ namespace IngeDolan3._0.Controllers
                         modelUser.secondLastName = model.lastName2;
                         modelUser.role = model.role;
                         modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
-                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Name == model.role).ToList().First(); 
+                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Name == model.role).ToList().First();
                         db.Users.Add(modelUser);
                         db.SaveChanges();
                     }

@@ -39,11 +39,9 @@ namespace IngeDolan3._0.Models
         public string ProjectName { get; set; }
         [Display(Name = "Líder")]
         public string LeaderID { get; set; }
-        [Display(Name = "Estado")]
-        public string Pstate { get; set; }
 
         public User users { get; set; }
-        public List<string> IncludedUsers { get; set; }
+        public List<string> SelectedUsers { get; set; }
 
         public string UserID { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
