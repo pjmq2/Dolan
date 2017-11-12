@@ -96,8 +96,6 @@ namespace IngeDolan3._0.Controllers
             {
                 return RedirectToAction("Denied", "Others");
             }
-
-
             
             ViewBag.LeaderID = new SelectList(db.Users.Where(x => x.ProjectID == null), "userID", "name");
             ViewBag.DesarrolladoresDisp = (db.Users.Where(x => x.ProjectID == null)).ToList();
