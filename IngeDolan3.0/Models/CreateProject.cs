@@ -23,12 +23,16 @@ namespace IngeDolan3._0.Models
         }
 
         public MultiSelectList group { get; set; }
+
         [Display(Name = "Identificación")]
         public string ProjectID { get; set; }
+
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de inicio")]
         public Nullable<System.DateTime> StartingDate { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de finalización")]

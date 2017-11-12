@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OthersController.cs" />
+    <Compile Include="Controllers\PermisoesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UserStoriesController.cs" />
@@ -247,6 +248,7 @@
       <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProyectoList.cs" />
+    <Compile Include="Models\RoleInt.cs" />
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>NewDolan2Model.tt</DependentUpon>
     </Compile>
@@ -414,6 +416,11 @@
     <Content Include="Views\Others\Error.cshtml" />
     <Content Include="Views\Others\Denied.cshtml" />
     <Content Include="Views\Users\Error.cshtml" />
+    <Content Include="Views\Permisoes\Create.cshtml" />
+    <Content Include="Views\Permisoes\Delete.cshtml" />
+    <Content Include="Views\Permisoes\Details.cshtml" />
+    <Content Include="Views\Permisoes\Edit.cshtml" />
+    <Content Include="Views\Permisoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<IngeDolan3._0.Models.Permiso>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Editar Estudiante", "Edit", new { roleID = ViewBag.EstudianteID});
+    @Html.ActionLink("Editar Asistente", "Edit", new { roleID = ViewBag.AsistenteID });
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.codigo }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codigo }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codigo })
+        </td>
+    </tr>
+}
+
+</table>
