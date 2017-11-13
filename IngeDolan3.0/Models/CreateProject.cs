@@ -17,8 +17,7 @@ namespace IngeDolan3._0.Models
     public partial class CreateProject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CreateProject()
-        {
+        public CreateProject(){
             this.UserStories = new HashSet<UserStory>();
         }
 

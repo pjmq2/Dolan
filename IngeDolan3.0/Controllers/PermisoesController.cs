@@ -73,12 +73,9 @@ namespace IngeDolan3._0.Controllers
 
 
             //Get all permit objects
-            ViewBag.allPermits = db.Permisos.Where(x => true).ToList();
-            //Get all of the permisions for the specified role
-            //AspNetRole role = db.AspNetRoles.Where(x => x.Id == roleId).ToList().FirstOrDefault();
+            ViewBag.AllPermits = db.Permisos.Where(x => true).ToList();
 
-            //List<Permiso> rolePermits = role.Permisos;
-            //ViewBag.rolePermits = rolePermits;
+             
 
             RoleInt roleInt = new RoleInt();
             //Get real role
@@ -87,6 +84,9 @@ namespace IngeDolan3._0.Controllers
             roleInt.AllPermits = db.Permisos.Where(x => true).ToList();
             //Get all of that roles assigned permissions
             roleInt.AssignedPermits = roleInt.role.Permisos;
+            ViewBag.AssignedPermits = roleInt.role.Permisos;
+
+
             return View(roleInt);
         }
 
@@ -96,13 +96,24 @@ namespace IngeDolan3._0.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<ActionResult> Edit([Bind(Include = "codigo,nombre")] Permiso permiso)
-        public async Task<ActionResult> Edit(RoleInt input){
+       
 
+        public async Task<ActionResult> Edit(RoleInt input)
+        {
 
+            //var algo = input.testSring;
+            //Console.WriteLine(algo);
+            
             AspNetRole role = input.role;
             var allPermits = input.AllPermits;
             var assignedPermits = input.AssignedPermits;
             var selectedPermits = input.SelectedPermits;
+            var codeList = input.CodeList;
+
+            foreach (var item in codeList)
+            {
+                Console.WriteLine(item);
+            }
 
 
             Console.WriteLine(role.Name);
@@ -130,6 +141,7 @@ namespace IngeDolan3._0.Controllers
                 //await db.SaveChangesAsync();
                 //return RedirectToAction("Index");
             }
+    
             return View(input);
         }
 

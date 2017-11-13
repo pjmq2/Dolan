@@ -7,7 +7,8 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Edit", "Permisoes", FormMethod.Post, new{ @class = "form-horizontal", role = "form" })){
+@using (Html.BeginForm("Edit", "Permisoes", FormMethod.Post)){
+
 
     //@using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 
@@ -15,12 +16,10 @@
     
     <div class="form-horizontal">
         <div class="form-group">
-                @Html.Label("Disponibles", new { @class = "col-md-offset-2 col-md-2 control-label", @style = "text-align:center;margin-left:195px;" })
-                @Html.Label("Equipo", new { @class = "col-md-offset-2  col-md-2 control-label required", @style = "text-align:center;margin-left:10px;margin-bottom:10px" })
-                <div class="col-md-offset-2 col-md-10" style="margin-bottom:25px">
-                    @Html.ListBoxFor(m => m.AssignedPermits, new MultiSelectList(ViewBag.AllPermits, "codigo", "nombre"), new { id = "listica", Multiple = "multiple", Size = 20, style = "width: 100%;" })
-                    @Html.ValidationMessageFor(model => model.AssignedPermits, "", new { @class = "text-danger" })
-                </div>
+            @Html.LabelFor(m => m.testSring, "Nombre*", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.testSring, new { @class = "form-control" })
+            </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

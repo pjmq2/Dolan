@@ -16,5 +16,7 @@ namespace IngeDolan3._0.Models
         public List<Permiso> AllPermits;
         public ICollection<Permiso> AssignedPermits;
         public ICollection<Permiso> SelectedPermits;
+        public List<int> CodeList;
+        public string testSring;
     }
 }
