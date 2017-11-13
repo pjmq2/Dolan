@@ -146,23 +146,50 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            Project Proyecto = db.Projects.Find(id);
+            CreateProject project = new CreateProject();
+            project.LeaderID = Proyecto.LeaderID;
+            project.StartingDate = Proyecto.StartingDate;
+            project.FinalDate = Proyecto.FinalDate;
+            project.Descriptions = Proyecto.Descriptions;
+            project.ProjectName = Proyecto.ProjectName;
+            project.ProjectID = id;
+            List<string> lista = new List<string>();
+            List<User> listaU = db.Users.Where(x => x.ProjectID == id).ToList();
+
+            if (listaU != null)
+            {
+                foreach (var c in listaU)
+                {
+                    string Nombre = c.id;
+                    lista.Add(Nombre);
+                }
+            }
+
+            project.IncludedUsers = lista;
+
             if (project == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name", project.LeaderID);
+            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name", Proyecto.LeaderID);
+            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => ((x.ProjectID == null) || (x.ProjectID == id)))).ToList();
             return View(project);
         }
         
         // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID")] Project project)
+        public ActionResult Edit([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID")] CreateProject project)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
+                var Proyecto = db.Projects.Where(x => x.ProjectID == project.ProjectID).ToList().FirstOrDefault();
+                Proyecto.LeaderID = project.LeaderID;
+                Proyecto.StartingDate = project.StartingDate;
+                Proyecto.FinalDate = project.FinalDate;
+                Proyecto.Descriptions = project.Descriptions;
+                Proyecto.ProjectName = project.ProjectName;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

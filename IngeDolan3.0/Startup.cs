@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Owin;
 using System;
 using System.Linq;
+using System.Data.SqlClient;
 
 [assembly: OwinStartupAttribute(typeof(IngeDolan3._0.Startup))]
 namespace IngeDolan3._0
@@ -14,9 +15,9 @@ namespace IngeDolan3._0
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            createRolesandUsers();
+            createRolesandUsers(app);
         }
-        private void createRolesandUsers()
+        private void createRolesandUsers(IAppBuilder app)
         {
             ApplicationDbContext context = new ApplicationDbContext();
             NewDolan2Entities db = new NewDolan2Entities();
@@ -25,12 +26,26 @@ namespace IngeDolan3._0
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            // creating Creating Profesor role    
-            if (!roleManager.RoleExists("Profesor"))
+            // creating Creating Profesor role
+            try
             {
-                var role = new IdentityRole();
-                role.Name = "Profesor";
-                roleManager.Create(role);
+                if (!roleManager.RoleExists("Profesor"))
+                {
+                    var role = new IdentityRole();
+                    role.Name = "Profesor";
+                    roleManager.Create(role);
+                }
+            }
+            catch (SqlException e)
+            {
+                switch (e.Number)
+                {
+                    case 40:
+                        // ¿Como manejar error al conectar con SQL?
+                        break;
+                    default:
+                        throw;
+                }
             }
 
             //Add all 

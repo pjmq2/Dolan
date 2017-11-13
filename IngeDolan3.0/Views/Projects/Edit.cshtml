@@ -1,4 +1,4 @@
-﻿@model IngeDolan3._0.Models.Project
+﻿@model IngeDolan3._0.Models.CreateProject
 
 @{
     ViewBag.Title = "Editar";
@@ -62,6 +62,15 @@
             <div class="col-md-10">
                 @Html.DropDownList("LeaderID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.LeaderID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" data-step="3" data-intro="Para seleccionar un desarrollador e incluirlo en el proyecto, se hace click y eso lo transfiere a la lista de los seleccionados">
+            @Html.Label("Disponibles", new { @class = "col-md-offset-2 col-md-2 control-label", @style = "text-align:center;margin-left:195px;" })
+            @Html.Label("Equipo", new { @class = "col-md-offset-2  col-md-2 control-label required", @style = "text-align:center;margin-left:10px;margin-bottom:10px" })
+            <div class="col-md-offset-2 col-md-10" style="margin-bottom:25px">
+                @Html.ListBoxFor(m => m.IncludedUsers, new MultiSelectList(ViewBag.DesarrolladoresDisp, "id", "name"), new { id = "list2", Multiple = "multiple", Size = 15, style = "width: 100%;" })
+                @Html.ValidationMessageFor(model => model.IncludedUsers, "", new { @class = "text-danger" })
             </div>
         </div>
 
