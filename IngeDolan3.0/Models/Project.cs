@@ -26,11 +26,11 @@ namespace IngeDolan3._0.Models
         [Display(Name = "Identificación")]
         public string ProjectID { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-dd-MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de inicio")]
         public Nullable<System.DateTime> StartingDate { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-dd-MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de finalización")]
         public Nullable<System.DateTime> FinalDate { get; set; }
         [Display(Name = "Descripción")]

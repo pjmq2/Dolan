@@ -35,6 +35,34 @@ namespace IngeDolan3._0
                     role.Name = "Profesor";
                     roleManager.Create(role);
                 }
+
+                //Add all 
+                AspNetRole roleAux = db.AspNetRoles.Where(x => x.Name == "Profesor").ToList().First();
+                //Get all permits given its a professor
+                var permisosList = db.Permisos.Where(x => true).ToList();
+                foreach (var per in permisosList)
+                {
+                    per.AspNetRoles.Add(roleAux);
+                    roleAux.Permisos.Add(per);
+                }
+                db.SaveChanges();
+
+
+                // creating Creating Asistente role    
+                if (!roleManager.RoleExists("Asistente"))
+                {
+                    var role = new IdentityRole();
+                    role.Name = "Asistente";
+                    roleManager.Create(role);
+                }
+
+                // creating Creating Asistente role    
+                if (!roleManager.RoleExists("Estudiante"))
+                {
+                    var role = new IdentityRole();
+                    role.Name = "Estudiante";
+                    roleManager.Create(role);
+                }
             }
             catch (SqlException e)
             {
@@ -46,33 +74,6 @@ namespace IngeDolan3._0
                     default:
                         throw;
                 }
-            }
-
-            //Add all 
-            AspNetRole roleAux = db.AspNetRoles.Where(x => x.Name == "Profesor").ToList().First();
-            //Get all permits given its a professor
-            var permisosList = db.Permisos.Where(x => true).ToList();
-            foreach (var per in permisosList){
-                per.AspNetRoles.Add(roleAux);
-                roleAux.Permisos.Add(per);
-            }
-            db.SaveChanges();
-                
-
-            // creating Creating Asistente role    
-            if (!roleManager.RoleExists("Asistente"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Asistente";
-                roleManager.Create(role);
-            }
-
-            // creating Creating Asistente role    
-            if (!roleManager.RoleExists("Estudiante"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Estudiante";
-                roleManager.Create(role);
             }
         }
     }

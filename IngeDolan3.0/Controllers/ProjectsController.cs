@@ -96,9 +96,9 @@ namespace IngeDolan3._0.Controllers
             {
                 return RedirectToAction("Denied", "Others");
             }
-            
-            ViewBag.LeaderID = new SelectList(db.Users.Where(x => x.ProjectID == null), "userID", "name");
-            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => x.ProjectID == null)).ToList();
+            string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
+            ViewBag.LeaderID = new SelectList(db.Users.Where(x => x.ProjectID == null && x.role == EstID), "userID", "name");
+            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => x.ProjectID == null && x.role == EstID)).ToList();
 
             return View();
         }
@@ -121,7 +121,6 @@ namespace IngeDolan3._0.Controllers
                 proyecto.ProjectName = project.ProjectName;
                 proyecto.ProjectID = id;
                 db.Projects.Add(proyecto);
-                db.SaveChanges();
 
                 if (project.IncludedUsers != null)
                 {
@@ -129,9 +128,17 @@ namespace IngeDolan3._0.Controllers
                     {
                         var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
                         f.ProjectID = id;
-                        db.SaveChanges();
                     }
                 }
+
+                if(project.LeaderID != null)
+                {
+                    var f = db.Users.Where(x => x.userID == project.LeaderID).ToList().FirstOrDefault();
+                    f.ProjectID = id;
+                }
+
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -167,13 +174,16 @@ namespace IngeDolan3._0.Controllers
             }
 
             project.IncludedUsers = lista;
+            project.PrevEditList = lista;
 
             if (project == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name", Proyecto.LeaderID);
-            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => ((x.ProjectID == null) || (x.ProjectID == id)))).ToList();
+
+            string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
+            ViewBag.LeaderID = new SelectList(db.Users.Where(x => (x.ProjectID == null && x.role == EstID) || (x.userID == project.LeaderID) || (x.ProjectID == id)), "userID", "name");
+            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => ((x.ProjectID == null) || (x.ProjectID == id)) && x.role == EstID)).ToList();
             return View(project);
         }
         
@@ -190,7 +200,41 @@ namespace IngeDolan3._0.Controllers
                 Proyecto.FinalDate = project.FinalDate;
                 Proyecto.Descriptions = project.Descriptions;
                 Proyecto.ProjectName = project.ProjectName;
+
+                if (project.IncludedUsers != null && project.PrevEditList != null)
+                {
+                    List<string> excludedOnes = project.PrevEditList.Except(project.IncludedUsers).ToList();
+                    List<string> newOnes = project.IncludedUsers.Except(project.PrevEditList).ToList();
+                    
+                    foreach (var c in newOnes)
+                    {
+                        var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
+                        f.ProjectID = project.ProjectID;
+                    }
+
+                    foreach (var c in excludedOnes)
+                    {
+                        var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
+                        f.ProjectID = null;
+                    }
+                }
+                else if(project.IncludedUsers != null)
+                {
+                    foreach (var c in project.IncludedUsers)
+                    {
+                        var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
+                        f.ProjectID = project.ProjectID;
+                    }
+                }
+
+                if (project.LeaderID != null)
+                {
+                    var f = db.Users.Where(x => x.userID == project.LeaderID).ToList().FirstOrDefault();
+                    f.ProjectID = project.ProjectID;
+                }
+
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             ViewBag.LeaderID = new SelectList(db.Users, "userID", "name", project.LeaderID);

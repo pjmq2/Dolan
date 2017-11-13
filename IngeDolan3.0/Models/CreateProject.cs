@@ -28,12 +28,12 @@ namespace IngeDolan3._0.Models
 
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de inicio")]
         public Nullable<System.DateTime> StartingDate { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de finalización")]
         public Nullable<System.DateTime> FinalDate { get; set; }
         [Display(Name = "Descripción")]
@@ -47,6 +47,8 @@ namespace IngeDolan3._0.Models
 
         public User users { get; set; }
         public List<string> IncludedUsers { get; set; }
+
+        public List<string> PrevEditList { get; set; }
 
         public string UserID { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
