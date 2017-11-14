@@ -7,6 +7,11 @@
 
 <h2>Detalles de Proyecto</h2>
 
+<div class="navbar-right" style="display:inline-block;">
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Borrar", "Delete", new { id = Model.ProjectID }, new { @class = "btn btn-default" })
+</div>
+
 <div>
     <hr />
     <dl class="dl-horizontal">
