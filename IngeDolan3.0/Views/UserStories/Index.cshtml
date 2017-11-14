@@ -13,10 +13,6 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 
 <h2>Backlog</h2>
 
-<p>
-    @Html.ActionLink("Crear Nuevo", "Create")
-</p>
-
 @*
     <table class="table">
         <tr>
@@ -96,6 +92,10 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
             <h2>Lista de Historias de Usuario</h2>
+
+            <div class="align-right">
+                @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
+            </div>   
 
             <nav class="navbar ">
                 <div class="container-fluid">
