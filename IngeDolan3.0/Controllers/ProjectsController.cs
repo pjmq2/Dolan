@@ -106,7 +106,7 @@ namespace IngeDolan3._0.Controllers
         // Crea el proyecto que se quiere insertar en la base de datos.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID,IncludedUsers")] CreateProject project)
+        public ActionResult Create(CreateProject project)
         {
             if (ModelState.IsValid)
             {
@@ -160,6 +160,7 @@ namespace IngeDolan3._0.Controllers
             project.FinalDate = Proyecto.FinalDate;
             project.Descriptions = Proyecto.Descriptions;
             project.ProjectName = Proyecto.ProjectName;
+            Proyecto.Pstate = project.Pstate;
             project.ProjectID = id;
             List<string> lista = new List<string>();
             List<User> listaU = db.Users.Where(x => x.ProjectID == id).ToList();
@@ -190,7 +191,7 @@ namespace IngeDolan3._0.Controllers
         // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjectID,StartingDate,FinalDate,Descriptions,ProjectName,LeaderID")] CreateProject project)
+        public ActionResult Edit(CreateProject project)
         {
             if (ModelState.IsValid)
             {
@@ -200,6 +201,7 @@ namespace IngeDolan3._0.Controllers
                 Proyecto.FinalDate = project.FinalDate;
                 Proyecto.Descriptions = project.Descriptions;
                 Proyecto.ProjectName = project.ProjectName;
+                Proyecto.Pstate = project.Pstate;
 
                 if (project.IncludedUsers != null && project.PrevEditList != null)
                 {
