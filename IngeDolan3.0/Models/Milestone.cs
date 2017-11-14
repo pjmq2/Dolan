@@ -12,12 +12,15 @@ namespace IngeDolan3._0.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Milestone
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public string StoryID { get; set; }
+        public string ProjectID { get; set; }
+        public int TaskNumero { get; set; }
+        public int Numero { get; set; }
+        public string Progress { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+    
+        public virtual Project Project { get; set; }
     }
 }

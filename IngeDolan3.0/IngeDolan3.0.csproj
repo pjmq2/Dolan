@@ -302,55 +302,64 @@
     </Compile>
     <Compile Include="IDGenerator.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CreateProject.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NewDolan2Model.Context.cs">
+    <Compile Include="Models\Milestone.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NewDolan2Model.Context.tt</DependentUpon>
+      <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NewDolan2Model.cs">
+    <Compile Include="Models\Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NewDolan2Model.Designer.cs">
+    <Compile Include="Models\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Permiso.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    <Compile Include="Models\Permisos.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Project.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProyectoList.cs" />
     <Compile Include="Models\RoleInt.cs" />
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    <Compile Include="Models\Scenario.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+    <Compile Include="Models\Sprint.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tasks.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserStory.cs">
-      <DependentUpon>NewDolan2Model.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UsuarioInt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -422,25 +431,25 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <EntityDeploy Include="Models\NewDolan2Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NewDolan2Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\NewDolan2Model.edmx.diagram">
-      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\NewDolan2Model.Context.tt">
+    <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
-      <LastGenOutput>NewDolan2Model.Context.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\NewDolan2Model.tt">
+    <Content Include="Models\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NewDolan2Model.edmx</DependentUpon>
-      <LastGenOutput>NewDolan2Model.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />

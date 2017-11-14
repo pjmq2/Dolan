@@ -1,94 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="dolanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityContainer Name="dolan2Entities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="C__MigrationHistory" EntityType="dolanModel.C__MigrationHistory" />
-    <EntitySet Name="AspNetRoles" EntityType="dolanModel.AspNetRole" />
-    <EntitySet Name="AspNetUserClaims" EntityType="dolanModel.AspNetUserClaim" />
-    <EntitySet Name="AspNetUserLogins" EntityType="dolanModel.AspNetUserLogin" />
-    <EntitySet Name="AspNetUsers" EntityType="dolanModel.AspNetUser" />
-    <EntitySet Name="Permisos" EntityType="dolanModel.Permiso" />
-    <EntitySet Name="Projects" EntityType="dolanModel.Project" />
-    <EntitySet Name="Users" EntityType="dolanModel.User" />
-    <EntitySet Name="UserStories" EntityType="dolanModel.UserStory" />
-    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="dolanModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="dolanModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-    </AssociationSet>
-    <AssociationSet Name="fk_AspUserId" Association="dolanModel.fk_AspUserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Project__LeaderI__31EC6D26" Association="dolanModel.FK__Project__LeaderI__31EC6D26">
-      <End Role="User" EntitySet="Users" />
-      <End Role="Project" EntitySet="Projects" />
-    </AssociationSet>
-    <AssociationSet Name="FK__UserStory__Proje__32E0915F" Association="dolanModel.FK__UserStory__Proje__32E0915F">
-      <End Role="Project" EntitySet="Projects" />
-      <End Role="UserStory" EntitySet="UserStories" />
-    </AssociationSet>
-    <AssociationSet Name="AspNetUserRoles" Association="dolanModel.AspNetUserRoles">
-      <End Role="AspNetRole" EntitySet="AspNetRoles" />
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-    </AssociationSet>
-    <AssociationSet Name="Rol_Permisos" Association="dolanModel.Rol_Permisos">
-      <End Role="Permiso" EntitySet="Permisos" />
-      <End Role="AspNetRole" EntitySet="AspNetRoles" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Users__role__6FE99F9F" Association="dolanModel.FK__Users__role__6FE99F9F">
-      <End Role="AspNetRole" EntitySet="AspNetRoles" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-  </EntityContainer>
+<Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
       <PropertyRef Name="ContextKey" />
     </Key>
-    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-    <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
-    <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
-  <EntityType Name="AspNetRole">
+  <EntityType Name="AspNetRoles">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUsers" Relationship="dolanModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
-    <NavigationProperty Name="Permisos" Relationship="dolanModel.Rol_Permisos" FromRole="AspNetRole" ToRole="Permiso" />
-    <NavigationProperty Name="Users" Relationship="dolanModel.FK__Users__role__6FE99F9F" FromRole="AspNetRole" ToRole="User" />
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Users__role__7720AD13" FromRole="AspNetRoles" ToRole="Users" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Permisos" Relationship="Self.role_permit" FromRole="AspNetRoles" ToRole="Permisos" />
   </EntityType>
-  <EntityType Name="AspNetUserClaim">
+  <EntityType Name="AspNetUserClaims">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUser" Relationship="dolanModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
   </EntityType>
-  <EntityType Name="AspNetUserLogin">
+  <EntityType Name="AspNetUserLogins">
     <Key>
       <PropertyRef Name="LoginProvider" />
       <PropertyRef Name="ProviderKey" />
       <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUser" Relationship="dolanModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
   </EntityType>
-  <EntityType Name="AspNetUser">
+  <EntityType Name="AspNetUsers">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
     <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -99,110 +56,183 @@
     <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="AspNetUserClaims" Relationship="dolanModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
-    <NavigationProperty Name="AspNetUserLogins" Relationship="dolanModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-    <NavigationProperty Name="Users" Relationship="dolanModel.fk_AspUserId" FromRole="AspNetUser" ToRole="User" />
-    <NavigationProperty Name="AspNetRoles" Relationship="dolanModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="Users" Relationship="Self.fk_AspUserId" FromRole="AspNetUsers" ToRole="Users" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
   </EntityType>
-  <EntityType Name="Permiso">
+  <EntityType Name="Milestone">
+    <Key>
+      <PropertyRef Name="StoryID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="TaskNumero" />
+      <PropertyRef Name="Numero" />
+    </Key>
+    <Property Name="StoryID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProjectID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TaskNumero" Type="Int32" Nullable="false" />
+    <Property Name="Numero" Type="Int32" Nullable="false" />
+    <Property Name="Progress" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Fecha" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Project" Relationship="Self.FK__Milestone__Story__7EC1CEDB" FromRole="Milestone" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Permisos">
     <Key>
       <PropertyRef Name="codigo" />
     </Key>
     <Property Name="codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nombre" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="AspNetRoles" Relationship="dolanModel.Rol_Permisos" FromRole="Permiso" ToRole="AspNetRole" />
+    <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.role_permit" FromRole="Permisos" ToRole="AspNetRoles" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
       <PropertyRef Name="ProjectID" />
     </Key>
-    <Property Name="ProjectID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="StartingDate" Type="DateTime" Precision="0" />
     <Property Name="FinalDate" Type="DateTime" Precision="0" />
     <Property Name="Descriptions" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="ProjectName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="LeaderID" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="User" Relationship="dolanModel.FK__Project__LeaderI__31EC6D26" FromRole="Project" ToRole="User" />
-    <NavigationProperty Name="UserStories" Relationship="dolanModel.FK__UserStory__Proje__32E0915F" FromRole="Project" ToRole="UserStory" />
+    <Property Name="Pstate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Milestone" Relationship="Self.FK__Milestone__Story__7EC1CEDB" FromRole="Project" ToRole="Milestone" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Project__LeaderI__73501C2F" FromRole="Project" ToRole="Users" />
+    <NavigationProperty Name="Scenario" Relationship="Self.FK__Scenario__StoryI__7CD98669" FromRole="Project" ToRole="Scenario" />
+    <NavigationProperty Name="Users1" Relationship="Self.FK__Users__ProjectID__762C88DA" FromRole="Project" ToRole="Users" />
+    <NavigationProperty Name="UserStory" Relationship="Self.FK__UserStory__Proje__7908F585" FromRole="Project" ToRole="UserStory" />
+    <NavigationProperty Name="Task" Relationship="Models.FK__Task__StoryID__7DCDAAA2" FromRole="Project" ToRole="Task" />
   </EntityType>
-  <EntityType Name="User">
+  <EntityType Name="Scenario">
+    <Key>
+      <PropertyRef Name="StoryID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="Numero" />
+    </Key>
+    <Property Name="StoryID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProjectID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Numero" Type="Int32" Nullable="false" />
+    <Property Name="Resultado" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Event" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="AcceptanceCriteria" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="Context" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Project" Relationship="Self.FK__Scenario__StoryI__7CD98669" FromRole="Scenario" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Sprint">
+    <Key>
+      <PropertyRef Name="numero" />
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="numero" Type="Int32" Nullable="false" />
+    <Property Name="StartingDate" Type="DateTime" Precision="0" />
+    <Property Name="FinalDate" Type="DateTime" Precision="0" />
+    <Property Name="ProjectID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
     <Key>
       <PropertyRef Name="userID" />
     </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="firstLastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
     <Property Name="secondLastName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-    <Property Name="userID" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
-    <Property Name="id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="role" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="userID" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="role" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="person_id" Type="Int32" />
     <Property Name="student_id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="AspNetUser" Relationship="dolanModel.fk_AspUserId" FromRole="User" ToRole="AspNetUser" />
-    <NavigationProperty Name="Projects" Relationship="dolanModel.FK__Project__LeaderI__31EC6D26" FromRole="User" ToRole="Project" />
-    <NavigationProperty Name="AspNetRole" Relationship="dolanModel.FK__Users__role__6FE99F9F" FromRole="User" ToRole="AspNetRole" />
+    <Property Name="ProjectID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.FK__Users__role__7720AD13" FromRole="Users" ToRole="AspNetRoles" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.fk_AspUserId" FromRole="Users" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Project" Relationship="Self.FK__Project__LeaderI__73501C2F" FromRole="Users" ToRole="Project" />
+    <NavigationProperty Name="Project1" Relationship="Self.FK__Users__ProjectID__762C88DA" FromRole="Users" ToRole="Project" />
   </EntityType>
   <EntityType Name="UserStory">
     <Key>
       <PropertyRef Name="StoryID" />
       <PropertyRef Name="ProjectID" />
     </Key>
-    <Property Name="StoryID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
-    <Property Name="ProjectID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="StoryID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProjectID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="SprintID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Modulo" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <Property Name="Priorities" Type="Int32" />
     <Property Name="ClientRole" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="Estimation" Type="Int32" />
     <Property Name="Reason" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Funtionality" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Alias" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Project" Relationship="dolanModel.FK__UserStory__Proje__32E0915F" FromRole="UserStory" ToRole="Project" />
+    <NavigationProperty Name="Project" Relationship="Self.FK__UserStory__Proje__7908F585" FromRole="UserStory" ToRole="Project" />
   </EntityType>
-  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-    <End Type="dolanModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="dolanModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+  <Association Name="FK__Users__role__7720AD13">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="AspNetUser">
+      <Principal Role="AspNetRoles">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="AspNetUserClaim">
+      <Dependent Role="Users">
+        <PropertyRef Name="role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-    <End Type="dolanModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Type="dolanModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="AspNetUser">
+      <Principal Role="AspNetUsers">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="AspNetUserLogin">
+      <Dependent Role="AspNetUserLogins">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="fk_AspUserId">
-    <End Type="dolanModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-    <End Type="dolanModel.User" Role="User" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="AspNetUser">
+      <Principal Role="AspNetUsers">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="User">
+      <Dependent Role="Users">
         <PropertyRef Name="id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Project__LeaderI__31EC6D26">
-    <End Type="dolanModel.User" Role="User" Multiplicity="0..1" />
-    <End Type="dolanModel.Project" Role="Project" Multiplicity="*" />
+  <Association Name="FK__Milestone__Story__7EC1CEDB">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="Milestone" Type="Self.Milestone" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User">
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="StoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Project__LeaderI__73501C2F">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
         <PropertyRef Name="userID" />
       </Principal>
       <Dependent Role="Project">
@@ -210,9 +240,33 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__UserStory__Proje__32E0915F">
-    <End Type="dolanModel.Project" Role="Project" Multiplicity="1" />
-    <End Type="dolanModel.UserStory" Role="UserStory" Multiplicity="*" />
+  <Association Name="FK__Scenario__StoryI__7CD98669">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="Scenario" Type="Self.Scenario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Scenario">
+        <PropertyRef Name="StoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__ProjectID__762C88DA">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserStory__Proje__7908F585">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="UserStory" Type="Self.UserStory" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Project">
         <PropertyRef Name="ProjectID" />
@@ -223,22 +277,98 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="AspNetUserRoles">
-    <End Type="dolanModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-    <End Type="dolanModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
   </Association>
-  <Association Name="Rol_Permisos">
-    <End Type="dolanModel.Permiso" Role="Permiso" Multiplicity="*" />
-    <End Type="dolanModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+  <Association Name="role_permit">
+    <End Role="Permisos" Type="Self.Permisos" Multiplicity="*" />
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
   </Association>
-  <Association Name="FK__Users__role__6FE99F9F">
-    <End Type="dolanModel.AspNetRole" Role="AspNetRole" Multiplicity="1" />
-    <End Type="dolanModel.User" Role="User" Multiplicity="*" />
+  <EntityContainer Name="NewDolan2Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+    <EntitySet Name="Milestone" EntityType="Self.Milestone" />
+    <EntitySet Name="Permisos" EntityType="Self.Permisos" />
+    <EntitySet Name="Project" EntityType="Self.Project" />
+    <EntitySet Name="Scenario" EntityType="Self.Scenario" />
+    <EntitySet Name="Sprint" EntityType="Self.Sprint" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="UserStory" EntityType="Self.UserStory" />
+    <AssociationSet Name="FK__Users__role__7720AD13" Association="Self.FK__Users__role__7720AD13">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AspUserId" Association="Self.fk_AspUserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Milestone__Story__7EC1CEDB" Association="Self.FK__Milestone__Story__7EC1CEDB">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Milestone" EntitySet="Milestone" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Project__LeaderI__73501C2F" Association="Self.FK__Project__LeaderI__73501C2F">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Scenario__StoryI__7CD98669" Association="Self.FK__Scenario__StoryI__7CD98669">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Scenario" EntitySet="Scenario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__ProjectID__762C88DA" Association="Self.FK__Users__ProjectID__762C88DA">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserStory__Proje__7908F585" Association="Self.FK__UserStory__Proje__7908F585">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="UserStory" EntitySet="UserStory" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <AssociationSet Name="role_permit" Association="Self.role_permit">
+      <End Role="Permisos" EntitySet="Permisos" />
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+    </AssociationSet>
+    <EntitySet Name="Tasks" EntityType="Models.Tasks" />
+    <AssociationSet Name="FK__Task__StoryID__7DCDAAA2" Association="Models.FK__Task__StoryID__7DCDAAA2">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Task" EntitySet="Tasks" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="StoryID" />
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="Numero" />
+    </Key>
+    <Property Name="StoryID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Numero" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="EstimateTime" Type="Int32" />
+    <NavigationProperty Name="Project" Relationship="Models.FK__Task__StoryID__7DCDAAA2" FromRole="Task" ToRole="Project" />
+  </EntityType>
+  <Association Name="FK__Task__StoryID__7DCDAAA2">
+    <End Type="Models.Project" Role="Project" Multiplicity="1" />
+    <End Type="Models.Tasks" Role="Task" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="AspNetRole">
-        <PropertyRef Name="Id" />
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
       </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="role" />
+      <Dependent Role="Task">
+        <PropertyRef Name="StoryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

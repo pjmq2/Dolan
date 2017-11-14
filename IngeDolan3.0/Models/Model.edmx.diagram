@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="89802d26faf94f5ab5fe8e02b423361c" Name="Diagram1">
+        <EntityTypeShape EntityType="Models.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.AspNetRoles" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.AspNetUserClaims" Width="1.5" PointX="7.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.AspNetUserLogins" Width="1.5" PointX="7.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.AspNetUsers" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Milestone" Width="1.5" PointX="15" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Permisos" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Project" Width="1.5" PointX="12.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Scenario" Width="1.5" PointX="15" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Sprint" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Users" Width="1.5" PointX="10.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.UserStory" Width="1.5" PointX="15" PointY="13.75" IsExpanded="true" />
+        <AssociationConnector Association="Models.FK__Users__role__7720AD13" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.fk_AspUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK__Milestone__Story__7EC1CEDB" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK__Project__LeaderI__73501C2F" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK__Scenario__StoryI__7CD98669" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK__Users__ProjectID__762C88DA" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK__UserStory__Proje__7908F585" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.role_permit" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Models.Tasks" Width="1.5" PointX="16" PointY="11.25" />
+        <AssociationConnector Association="Models.FK__Task__StoryID__7DCDAAA2" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

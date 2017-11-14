@@ -42,7 +42,7 @@ namespace IngeDolan3._0.Controllers
             if (userId != null)
             {
                 var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
-                var userRole = modelUser.AspNetRole;
+                var userRole = modelUser.AspNetRoles;
                 var permisos = userRole.Permisos;
 
                 //if found return true
@@ -63,7 +63,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // Obtiene los usuarios presentes en la base de datos para llenar el índice.
-        public List<User> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
+        public List<Users> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
             var v = (from a in db.Users
                      where
@@ -88,7 +88,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            Users user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -105,7 +105,7 @@ namespace IngeDolan3._0.Controllers
         // Confirma la creación del usuario
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] User user)
+        public ActionResult Create([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] Users user)
         {
             if (ModelState.IsValid)
             {
@@ -124,7 +124,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            Users user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -137,7 +137,7 @@ namespace IngeDolan3._0.Controllers
         // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] User user)
+        public ActionResult Edit([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] Users user)
         {
             ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.id);
             ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.role);
@@ -157,7 +157,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            Users user = db.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -170,12 +170,12 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Project potentialProyect = db.Projects.Where(x => x.LeaderID == id).ToList().FirstOrDefault();
+            Project potentialProyect = db.Project.Where(x => x.LeaderID == id).ToList().FirstOrDefault();
             if (potentialProyect == null)
             {
-                User user = db.Users.Find(id);
+                Users user = db.Users.Find(id);
                 string realid = user.id;
-                AspNetUser uSER = db.AspNetUsers.Find(realid);
+                AspNetUsers uSER = db.AspNetUsers.Find(realid);
                 db.AspNetUsers.Remove(uSER);
                 db.Users.Remove(user);
                 db.SaveChanges();

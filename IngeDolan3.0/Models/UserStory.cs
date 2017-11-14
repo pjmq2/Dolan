@@ -17,6 +17,8 @@ namespace IngeDolan3._0.Models
         public string StoryID { get; set; }
         public string ProjectID { get; set; }
         public string SprintID { get; set; }
+        public string Modulo { get; set; }
+        public string ID { get; set; }
         public Nullable<int> Priorities { get; set; }
         public string ClientRole { get; set; }
         public Nullable<int> Estimation { get; set; }

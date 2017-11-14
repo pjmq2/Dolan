@@ -11,41 +11,37 @@ namespace IngeDolan3._0.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
+    
     public partial class Project
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Project()
         {
-            this.Users = new HashSet<User>();
-            this.UserStories = new HashSet<UserStory>();
+            this.Milestone = new HashSet<Milestone>();
+            this.Scenario = new HashSet<Scenario>();
+            this.Users1 = new HashSet<Users>();
+            this.UserStory = new HashSet<UserStory>();
+            this.Task = new HashSet<Tasks>();
         }
-
-        [Display(Name = "Identificación")]
+    
         public string ProjectID { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-dd-MM}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha de inicio")]
         public Nullable<System.DateTime> StartingDate { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-dd-MM}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha de finalización")]
         public Nullable<System.DateTime> FinalDate { get; set; }
-        [Display(Name = "Descripción")]
         public string Descriptions { get; set; }
-        [Display(Name = "Nombre")]
         public string ProjectName { get; set; }
-        [Display(Name = "Líder")]
         public string LeaderID { get; set; }
-        [Display(Name = "Estado")]
         public string Pstate { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Milestone> Milestone { get; set; }
+        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserStory> UserStories { get; set; }
+        public virtual ICollection<Scenario> Scenario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Users> Users1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserStory> UserStory { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tasks> Task { get; set; }
     }
 }

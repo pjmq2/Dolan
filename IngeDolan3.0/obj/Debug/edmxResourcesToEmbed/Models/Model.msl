@@ -1,125 +1,175 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="dolanModelStoreContainer" CdmEntityContainer="dolan2Entities">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="NewDolan2Entities">
     <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="dolanModel.C__MigrationHistory">
+      <EntityTypeMapping TypeName="Models.C__MigrationHistory">
         <MappingFragment StoreEntitySet="__MigrationHistory">
-          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
           <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="dolanModel.AspNetRole">
+      <EntityTypeMapping TypeName="Models.AspNetRoles">
         <MappingFragment StoreEntitySet="AspNetRoles">
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="dolanModel.AspNetUserClaim">
+      <EntityTypeMapping TypeName="Models.AspNetUserClaims">
         <MappingFragment StoreEntitySet="AspNetUserClaims">
-          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="dolanModel.AspNetUserLogin">
+      <EntityTypeMapping TypeName="Models.AspNetUserLogins">
         <MappingFragment StoreEntitySet="AspNetUserLogins">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="dolanModel.AspNetUser">
+      <EntityTypeMapping TypeName="Models.AspNetUsers">
         <MappingFragment StoreEntitySet="AspNetUsers">
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Milestone">
+      <EntityTypeMapping TypeName="Models.Milestone">
+        <MappingFragment StoreEntitySet="Milestone">
+          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="TaskNumero" ColumnName="TaskNumero" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Progress" ColumnName="Progress" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Permisos">
-      <EntityTypeMapping TypeName="dolanModel.Permiso">
+      <EntityTypeMapping TypeName="Models.Permisos">
         <MappingFragment StoreEntitySet="Permisos">
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
           <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Projects">
-      <EntityTypeMapping TypeName="dolanModel.Project">
+    <EntitySetMapping Name="Project">
+      <EntityTypeMapping TypeName="Models.Project">
         <MappingFragment StoreEntitySet="Project">
-          <ScalarProperty Name="LeaderID" ColumnName="LeaderID" />
-          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-          <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
-          <ScalarProperty Name="FinalDate" ColumnName="FinalDate" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
+          <ScalarProperty Name="FinalDate" ColumnName="FinalDate" />
+          <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="LeaderID" ColumnName="LeaderID" />
+          <ScalarProperty Name="Pstate" ColumnName="Pstate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Scenario">
+      <EntityTypeMapping TypeName="Models.Scenario">
+        <MappingFragment StoreEntitySet="Scenario">
+          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+          <ScalarProperty Name="Event" ColumnName="Event" />
+          <ScalarProperty Name="AcceptanceCriteria" ColumnName="AcceptanceCriteria" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sprint">
+      <EntityTypeMapping TypeName="Models.Sprint">
+        <MappingFragment StoreEntitySet="Sprint">
+          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
+          <ScalarProperty Name="FinalDate" ColumnName="FinalDate" />
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="dolanModel.User">
+      <EntityTypeMapping TypeName="Models.Users">
         <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="student_id" ColumnName="student_id" />
-          <ScalarProperty Name="person_id" ColumnName="person_id" />
-          <ScalarProperty Name="role" ColumnName="role" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
-          <ScalarProperty Name="secondLastName" ColumnName="secondLastName" />
-          <ScalarProperty Name="firstLastName" ColumnName="firstLastName" />
           <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="firstLastName" ColumnName="firstLastName" />
+          <ScalarProperty Name="secondLastName" ColumnName="secondLastName" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="person_id" ColumnName="person_id" />
+          <ScalarProperty Name="student_id" ColumnName="student_id" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserStories">
-      <EntityTypeMapping TypeName="dolanModel.UserStory">
+    <EntitySetMapping Name="UserStory">
+      <EntityTypeMapping TypeName="Models.UserStory">
         <MappingFragment StoreEntitySet="UserStory">
-          <ScalarProperty Name="Alias" ColumnName="Alias" />
-          <ScalarProperty Name="Funtionality" ColumnName="Funtionality" />
-          <ScalarProperty Name="Reason" ColumnName="Reason" />
-          <ScalarProperty Name="Estimation" ColumnName="Estimation" />
-          <ScalarProperty Name="ClientRole" ColumnName="ClientRole" />
-          <ScalarProperty Name="Priorities" ColumnName="Priorities" />
+          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           <ScalarProperty Name="SprintID" ColumnName="SprintID" />
+          <ScalarProperty Name="Modulo" ColumnName="Modulo" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Priorities" ColumnName="Priorities" />
+          <ScalarProperty Name="ClientRole" ColumnName="ClientRole" />
+          <ScalarProperty Name="Estimation" ColumnName="Estimation" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Funtionality" ColumnName="Funtionality" />
+          <ScalarProperty Name="Alias" ColumnName="Alias" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="Models.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="role_permit" TypeName="Models.role_permit" StoreEntitySet="role_permit">
+      <EndProperty Name="Permisos">
+        <ScalarProperty Name="codigo" ColumnName="fk_permit_code" />
+      </EndProperty>
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="fk_role_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="Models.Tasks">
+        <MappingFragment StoreEntitySet="Task">
+          <ScalarProperty Name="EstimateTime" ColumnName="EstimateTime" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           <ScalarProperty Name="StoryID" ColumnName="StoryID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AspNetUserRoles" TypeName="dolanModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-      <EndProperty Name="AspNetUser">
-        <ScalarProperty Name="Id" ColumnName="UserId" />
-      </EndProperty>
-      <EndProperty Name="AspNetRole">
-        <ScalarProperty Name="Id" ColumnName="RoleId" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="Rol_Permisos" TypeName="dolanModel.Rol_Permisos" StoreEntitySet="Rol_Permisos">
-      <EndProperty Name="AspNetRole">
-        <ScalarProperty Name="Id" ColumnName="rol" />
-      </EndProperty>
-      <EndProperty Name="Permiso">
-        <ScalarProperty Name="codigo" ColumnName="permiso" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>
