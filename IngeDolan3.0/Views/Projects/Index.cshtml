@@ -64,11 +64,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     </style>
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
-            <h2>Lista de Proyectos</h2>
-
-            <div class="align-right">
-                @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
-            </div>   
+            <h2>Lista de Proyectos</h2>             
 
             <nav class="navbar ">
                     <div class="container-fluid">
@@ -84,9 +80,13 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 
 
                             }
+                            <div class="navbar-right" style="display:inline-block;">
+                                @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
+                            </div>  
                         </div>
+                        
                     </div>
-
+                    
                 </nav>      
 
             <div style="color:white;">

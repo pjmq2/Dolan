@@ -65,12 +65,6 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
             <h2>Lista de Usuarios</h2>
-            <div class="align-right">
-                @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", ProjectName = "form" }))
-                {
-                    <input type="submit" value="Crear Usuario" class="btn btn-default" />
-                }
-            </div> 
             <nav class="navbar ">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -82,6 +76,12 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                             <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
                             <button type="submit" value="Search" class="btn btn-success">Buscar</button>
                         }
+                        <div class="navbar-right" style="display:inline-block;">
+                            @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", ProjectName = "form" }))
+                            {
+                                <input type="submit" value="Crear Usuario" class="btn btn-default" />
+                            }
+                        </div> 
                     </div>
                 </div>
             </nav>
