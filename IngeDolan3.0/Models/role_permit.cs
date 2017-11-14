@@ -12,15 +12,14 @@ namespace IngeDolan3._0.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Milestone
+    public partial class role_permit
     {
-        public string StoryID { get; set; }
-        public string ProjectID { get; set; }
-        public int TaskNumero { get; set; }
-        public int Numero { get; set; }
-        public string Progress { get; set; }
-        public Nullable<System.DateTime> Fecha { get; set; }
+        public string fk_role_id { get; set; }
+        public int fk_permit_code { get; set; }
     
-        public virtual Project Project { get; set; }
+        public virtual AspNetRoles AspNetRoles { get; set; }
+        public virtual AspNetRoles AspNetRoles1 { get; set; }
+        public virtual Permisos Permisos { get; set; }
+        public virtual Permisos Permisos1 { get; set; }
     }
 }

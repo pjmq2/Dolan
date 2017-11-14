@@ -14,12 +14,17 @@ namespace IngeDolan3._0.Models
     
     public partial class Tasks
     {
-        public string StoryID { get; set; }
         public string ProjectID { get; set; }
-        public int Numero { get; set; }
+        public int SprintID { get; set; }
+        public string StoryID { get; set; }
+        public string TaskID { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> EstimateTime { get; set; }
+        public Nullable<int> Priority { get; set; }
+        public string Estado { get; set; }
+        public string userID { get; set; }
     
-        public virtual Project Project { get; set; }
+        public virtual UserStory UserStory { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

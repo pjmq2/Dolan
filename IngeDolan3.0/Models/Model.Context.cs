@@ -30,13 +30,14 @@ namespace IngeDolan3._0.Models
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public virtual DbSet<Milestone> Milestone { get; set; }
         public virtual DbSet<Permisos> Permisos { get; set; }
         public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<role_permit> role_permit { get; set; }
         public virtual DbSet<Scenario> Scenario { get; set; }
         public virtual DbSet<Sprint> Sprint { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Tasks> Tasks { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UserStory> UserStory { get; set; }
-        public virtual DbSet<Tasks> Tasks { get; set; }
     }
 }

@@ -56,18 +56,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Milestone">
-      <EntityTypeMapping TypeName="Models.Milestone">
-        <MappingFragment StoreEntitySet="Milestone">
-          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-          <ScalarProperty Name="TaskNumero" ColumnName="TaskNumero" />
-          <ScalarProperty Name="Numero" ColumnName="Numero" />
-          <ScalarProperty Name="Progress" ColumnName="Progress" />
-          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Permisos">
       <EntityTypeMapping TypeName="Models.Permisos">
         <MappingFragment StoreEntitySet="Permisos">
@@ -89,12 +77,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="role_permit">
+      <EntityTypeMapping TypeName="Models.role_permit">
+        <MappingFragment StoreEntitySet="role_permit">
+          <ScalarProperty Name="fk_role_id" ColumnName="fk_role_id" />
+          <ScalarProperty Name="fk_permit_code" ColumnName="fk_permit_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Scenario">
       <EntityTypeMapping TypeName="Models.Scenario">
         <MappingFragment StoreEntitySet="Scenario">
-          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-          <ScalarProperty Name="Numero" ColumnName="Numero" />
+          <ScalarProperty Name="SprintID" ColumnName="SprintID" />
+          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+          <ScalarProperty Name="ScenarioNumber" ColumnName="ScenarioNumber" />
           <ScalarProperty Name="Resultado" ColumnName="Resultado" />
           <ScalarProperty Name="Event" ColumnName="Event" />
           <ScalarProperty Name="AcceptanceCriteria" ColumnName="AcceptanceCriteria" />
@@ -105,10 +102,36 @@
     <EntitySetMapping Name="Sprint">
       <EntityTypeMapping TypeName="Models.Sprint">
         <MappingFragment StoreEntitySet="Sprint">
-          <ScalarProperty Name="numero" ColumnName="numero" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="SprintID" ColumnName="SprintID" />
           <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
           <ScalarProperty Name="FinalDate" ColumnName="FinalDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Models.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="Models.Tasks">
+        <MappingFragment StoreEntitySet="Tasks">
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="SprintID" ColumnName="SprintID" />
+          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="EstimateTime" ColumnName="EstimateTime" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -130,9 +153,9 @@
     <EntitySetMapping Name="UserStory">
       <EntityTypeMapping TypeName="Models.UserStory">
         <MappingFragment StoreEntitySet="UserStory">
-          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           <ScalarProperty Name="SprintID" ColumnName="SprintID" />
+          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
           <ScalarProperty Name="Modulo" ColumnName="Modulo" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Priorities" ColumnName="Priorities" />
@@ -152,24 +175,5 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="role_permit" TypeName="Models.role_permit" StoreEntitySet="role_permit">
-      <EndProperty Name="Permisos">
-        <ScalarProperty Name="codigo" ColumnName="fk_permit_code" />
-      </EndProperty>
-      <EndProperty Name="AspNetRoles">
-        <ScalarProperty Name="Id" ColumnName="fk_role_id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="Tasks">
-      <EntityTypeMapping TypeName="Models.Tasks">
-        <MappingFragment StoreEntitySet="Task">
-          <ScalarProperty Name="EstimateTime" ColumnName="EstimateTime" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="Numero" ColumnName="Numero" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

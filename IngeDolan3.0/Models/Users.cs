@@ -18,6 +18,8 @@ namespace IngeDolan3._0.Models
         public Users()
         {
             this.Project = new HashSet<Project>();
+            this.Project1 = new HashSet<Project>();
+            this.Tasks = new HashSet<Tasks>();
         }
     
         public string name { get; set; }
@@ -31,9 +33,15 @@ namespace IngeDolan3._0.Models
         public string ProjectID { get; set; }
     
         public virtual AspNetRoles AspNetRoles { get; set; }
+        public virtual AspNetRoles AspNetRoles1 { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> Project { get; set; }
-        public virtual Project Project1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Project> Project1 { get; set; }
+        public virtual Project Project2 { get; set; }
+        public virtual Project Project3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tasks> Tasks { get; set; }
     }
 }

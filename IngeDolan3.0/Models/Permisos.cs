@@ -19,10 +19,10 @@ namespace IngeDolan3._0.Models
         {
             this.AspNetRoles = new HashSet<AspNetRoles>();
         }
-    
+
         public int codigo { get; set; }
         public string nombre { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
     }

@@ -14,9 +14,16 @@ namespace IngeDolan3._0.Models
     
     public partial class UserStory
     {
-        public string StoryID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserStory()
+        {
+            this.Scenario = new HashSet<Scenario>();
+            this.Tasks = new HashSet<Tasks>();
+        }
+    
         public string ProjectID { get; set; }
-        public string SprintID { get; set; }
+        public int SprintID { get; set; }
+        public string StoryID { get; set; }
         public string Modulo { get; set; }
         public string ID { get; set; }
         public Nullable<int> Priorities { get; set; }
@@ -26,6 +33,10 @@ namespace IngeDolan3._0.Models
         public string Funtionality { get; set; }
         public string Alias { get; set; }
     
-        public virtual Project Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Scenario> Scenario { get; set; }
+        public virtual Sprint Sprint { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tasks> Tasks { get; set; }
     }
 }

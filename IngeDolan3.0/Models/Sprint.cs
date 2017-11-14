@@ -14,9 +14,19 @@ namespace IngeDolan3._0.Models
     
     public partial class Sprint
     {
-        public int numero { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Sprint()
+        {
+            this.UserStory = new HashSet<UserStory>();
+        }
+    
+        public string ProjectID { get; set; }
+        public int SprintID { get; set; }
         public Nullable<System.DateTime> StartingDate { get; set; }
         public Nullable<System.DateTime> FinalDate { get; set; }
-        public string ProjectID { get; set; }
+    
+        public virtual Project Project { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserStory> UserStory { get; set; }
     }
 }

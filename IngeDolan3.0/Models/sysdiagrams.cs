@@ -12,17 +12,12 @@ namespace IngeDolan3._0.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Scenario
+    public partial class sysdiagrams
     {
-        public string ProjectID { get; set; }
-        public int SprintID { get; set; }
-        public string StoryID { get; set; }
-        public int ScenarioNumber { get; set; }
-        public string Resultado { get; set; }
-        public string Event { get; set; }
-        public string AcceptanceCriteria { get; set; }
-        public string Context { get; set; }
-    
-        public virtual UserStory UserStory { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -17,11 +17,9 @@ namespace IngeDolan3._0.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Project()
         {
-            this.Milestone = new HashSet<Milestone>();
-            this.Scenario = new HashSet<Scenario>();
-            this.Users1 = new HashSet<Users>();
-            this.UserStory = new HashSet<UserStory>();
-            this.Task = new HashSet<Tasks>();
+            this.Sprint = new HashSet<Sprint>();
+            this.Users2 = new HashSet<Users>();
+            this.Users3 = new HashSet<Users>();
         }
     
         public string ProjectID { get; set; }
@@ -32,16 +30,13 @@ namespace IngeDolan3._0.Models
         public string LeaderID { get; set; }
         public string Pstate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Milestone> Milestone { get; set; }
         public virtual Users Users { get; set; }
+        public virtual Users Users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Scenario> Scenario { get; set; }
+        public virtual ICollection<Sprint> Sprint { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users1 { get; set; }
+        public virtual ICollection<Users> Users2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserStory> UserStory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tasks> Task { get; set; }
+        public virtual ICollection<Users> Users3 { get; set; }
     }
 }
