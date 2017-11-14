@@ -65,21 +65,32 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
             <h2>Lista de Proyectos</h2>
-            @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
-            <nav class="navbar ">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a href="#" class="navbar-brand">Buscar</a>
+
+
+            <div class="align-left">
+                <nav class="navbar ">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a href="#" class="navbar-brand">Buscar</a>
+                        </div>
+                        <div class="collapse navbar-collapse">
+                            @using (Html.BeginForm("index", "home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+                            {
+
+                                <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
+                                <button type="submit" value="Search" class="btn btn-success">Buscar</button>
+
+
+                            }
+                        </div>
                     </div>
-                    <div class="collapse navbar-collapse">
-                        @using (Html.BeginForm("index", "home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
-                        {
-                                    <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
-                                    <button type="submit" value="Search" class="btn btn-success">Buscar</button>
-                        }
-                    </div>
-                </div>
-            </nav>
+
+                </nav>
+            </div>
+
+            <div class="align-right">
+                @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
+            </div>   
 
             <div style="color:white;">
                 @grid.Table(

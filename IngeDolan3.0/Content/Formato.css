@@ -47,3 +47,11 @@ navbar-header {
     color: #e1e9f7;
     text-decoration: underline;
 }
+
+.align-left {
+    float: left;
+}
+
+.align-right {
+    float: right;
+}
