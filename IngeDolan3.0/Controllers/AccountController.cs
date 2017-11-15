@@ -183,8 +183,8 @@ namespace IngeDolan3._0.Controllers
                 var result = await UserManager.CreateAsync(user, model.password);
                 if (result.Succeeded)
                 {
-                    try
-                    {
+                    //try
+                    //{
                         var modelUser = new User();
                         modelUser.name = model.name;
                         modelUser.firstLastName = model.lastName1;
@@ -193,24 +193,24 @@ namespace IngeDolan3._0.Controllers
                         modelUser.person_id = Int32.Parse(model.personID); //Parse to int given that personID's are always numbers
                         modelUser.student_id = model.studentID;
                         modelUser.AspNetUser = db.AspNetUsers.Where(x => x.Email == model.email).ToList().FirstOrDefault();
-                        modelUser.userID = modelUser.AspNetUser.Id;
+                        modelUser.userID = modelUser.name;
                         db.Users.Add(modelUser);
                         db.SaveChanges();
-                    }
-                    catch (DbEntityValidationException e)
-                    {
-                        foreach (var eve in e.EntityValidationErrors)
-                        {
-                            Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                            foreach (var ve in eve.ValidationErrors)
-                            {
-                                Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                    ve.PropertyName, ve.ErrorMessage);
-                            }
-                        }
-                        throw;
-                    }
+                    //}
+                    //catch (DbEntityValidationException e)
+                    //{
+                        //foreach (var eve in e.EntityValidationErrors)
+                        //{
+                            //Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                //eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                            //foreach (var ve in eve.ValidationErrors)
+                            //{
+                                //Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                    //ve.PropertyName, ve.ErrorMessage);
+                            //}
+                        //}
+                        //throw;
+                    //}
                     //var modelUser = new User();
                     //modelUser.id = "a";
                     //modelUser.name = "alonso";
