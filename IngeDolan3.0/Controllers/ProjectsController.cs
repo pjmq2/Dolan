@@ -111,7 +111,6 @@ namespace IngeDolan3._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                int number;
                 string id = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
                 Project proyecto = new Project();
                 AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
