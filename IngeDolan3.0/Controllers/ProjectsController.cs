@@ -98,8 +98,8 @@ namespace IngeDolan3._0.Controllers
                 return RedirectToAction("Denied", "Others");
             }
             string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
-            ViewBag.LeaderID = new SelectList(db.Users.Where(x => x.ProjectID == null && x.role == EstID), "userID", "name");
-            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => x.ProjectID == null && x.role == EstID)).ToList();
+            ViewBag.LeaderID = new SelectList(db.Users.Where(x => x.Project == null && x.AspNetRole.Id == EstID), "userID", "name");
+            ViewBag.DesarrolladoresDisp = db.Users.Where(x => x.Project == null && x.AspNetRole.Id == EstID).ToList();
 
             return View();
         }
@@ -136,7 +136,7 @@ namespace IngeDolan3._0.Controllers
                 if(project.LeaderID != null)
                 {
                     var f = db.Users.Where(x => x.userID == project.LeaderID).ToList().FirstOrDefault();
-                    f.ProjectID = id;
+                    f.Project.ProjectID = id;
                 }
 
                 db.SaveChanges();
@@ -157,7 +157,8 @@ namespace IngeDolan3._0.Controllers
             }
             Project Proyecto = db.Projects.Find(id);
             CreateProject project = new CreateProject();
-            project.LeaderID = Proyecto.LeaderID;
+            User leader = db.Users.Where(x => x.Projects.FirstOrDefault().ProjectID == Proyecto.ProjectID).FirstOrDefault();
+            project.LeaderID = Proyecto.User.userID;
             project.StartingDate = Proyecto.StartingDate;
             project.FinalDate = Proyecto.FinalDate;
             project.Descriptions = Proyecto.Descriptions;
@@ -165,13 +166,13 @@ namespace IngeDolan3._0.Controllers
             Proyecto.Pstate = project.Pstate;
             project.ProjectID = id;
             List<string> lista = new List<string>();
-            List<User> listaU = db.Users.Where(x => x.ProjectID == id).ToList();
+            List<User> listaU = db.Users.Where(x => x.Project.ProjectID == id).ToList();
 
             if (listaU != null)
             {
                 foreach (var c in listaU)
                 {
-                    string Nombre = c.id;
+                    string Nombre = c.AspNetUser.Id;
                     lista.Add(Nombre);
                 }
             }
@@ -185,8 +186,8 @@ namespace IngeDolan3._0.Controllers
             }
 
             string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
-            ViewBag.LeaderID = new SelectList(db.Users.Where(x => (x.ProjectID == null && x.role == EstID) || (x.userID == project.LeaderID) || (x.ProjectID == id)), "userID", "name");
-            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => ((x.ProjectID == null) || (x.ProjectID == id)) && x.role == EstID)).ToList();
+            ViewBag.LeaderID = new SelectList((db.Users.Where(x => (x.Projects == null || x.Projects.FirstOrDefault().ProjectID == id) && x.AspNetRole.Id == EstID)), "userID", "name");
+            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => (x.Projects == null || x.Projects.FirstOrDefault().ProjectID == id) && x.AspNetRole.Id == EstID)).ToList();
             return View(project);
         }
         
@@ -198,12 +199,15 @@ namespace IngeDolan3._0.Controllers
             if (ModelState.IsValid)
             {
                 var Proyecto = db.Projects.Where(x => x.ProjectID == project.ProjectID).ToList().FirstOrDefault();
-                Proyecto.LeaderID = project.LeaderID;
+                var oldleader = db.Users.Where(x => x.AspNetUser.Id == Proyecto.User.AspNetUser.Id).FirstOrDefault();
+                oldleader.Projects.Clear();
+                var newleader = db.Users.Where(x => x.AspNetUser.Id == project.LeaderID).FirstOrDefault();
                 Proyecto.StartingDate = project.StartingDate;
                 Proyecto.FinalDate = project.FinalDate;
                 Proyecto.Descriptions = project.Descriptions;
                 Proyecto.ProjectName = project.ProjectName;
                 Proyecto.Pstate = project.Pstate;
+                newleader.Projects.Add(Proyecto);
 
                 if (project.IncludedUsers != null && project.PrevEditList != null)
                 {
@@ -212,29 +216,30 @@ namespace IngeDolan3._0.Controllers
                     
                     foreach (var c in newOnes)
                     {
-                        var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
-                        f.ProjectID = project.ProjectID;
+                        var f = db.Users.Where(x => x.AspNetUser.Id == c).ToList().FirstOrDefault();
+                        f.Project = Proyecto;
                     }
 
                     foreach (var c in excludedOnes)
                     {
-                        var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
-                        f.ProjectID = null;
+                        var f = db.Users.Where(x => x.AspNetUser.Id == c).ToList().FirstOrDefault();
+                        f.Projects.Clear();
                     }
                 }
                 else if(project.IncludedUsers != null)
                 {
                     foreach (var c in project.IncludedUsers)
                     {
-                        var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
-                        f.ProjectID = project.ProjectID;
+                        var f = db.Users.Where(x => x.AspNetUser.Id == c).ToList().FirstOrDefault();
+                        f.Project = Proyecto;
                     }
                 }
 
                 if (project.LeaderID != null)
                 {
                     var f = db.Users.Where(x => x.userID == project.LeaderID).ToList().FirstOrDefault();
-                    f.ProjectID = project.ProjectID;
+                    Proyecto.Users.Add(f);
+
                 }
 
                 db.SaveChanges();
@@ -252,7 +257,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Project.Find(id);
+            Project project = db.Projects.Find(id);
             if (project == null)
             {
                 return HttpNotFound();

@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="Models.AspNetRoles">
+      <EntityTypeMapping TypeName="Models.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -20,17 +20,16 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="Models.AspNetUserClaims">
+      <EntityTypeMapping TypeName="Models.AspNetUserClaim">
         <MappingFragment StoreEntitySet="AspNetUserClaims">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
           <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="Models.AspNetUserLogins">
+      <EntityTypeMapping TypeName="Models.AspNetUserLogin">
         <MappingFragment StoreEntitySet="AspNetUserLogins">
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
           <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -39,7 +38,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="Models.AspNetUsers">
+      <EntityTypeMapping TypeName="Models.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -57,14 +56,14 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Permisos">
-      <EntityTypeMapping TypeName="Models.Permisos">
+      <EntityTypeMapping TypeName="Models.Permiso">
         <MappingFragment StoreEntitySet="Permisos">
           <ScalarProperty Name="codigo" ColumnName="codigo" />
           <ScalarProperty Name="nombre" ColumnName="nombre" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Project">
+    <EntitySetMapping Name="Projects">
       <EntityTypeMapping TypeName="Models.Project">
         <MappingFragment StoreEntitySet="Project">
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
@@ -72,20 +71,25 @@
           <ScalarProperty Name="FinalDate" ColumnName="FinalDate" />
           <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
           <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-          <ScalarProperty Name="LeaderID" ColumnName="LeaderID" />
           <ScalarProperty Name="Pstate" ColumnName="Pstate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="role_permit">
-      <EntityTypeMapping TypeName="Models.role_permit">
-        <MappingFragment StoreEntitySet="role_permit">
-          <ScalarProperty Name="fk_role_id" ColumnName="fk_role_id" />
-          <ScalarProperty Name="fk_permit_code" ColumnName="fk_permit_code" />
+    <EntitySetMapping Name="ProjectTasks">
+      <EntityTypeMapping TypeName="Models.ProjectTask">
+        <MappingFragment StoreEntitySet="ProjectTask">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="SprintID" ColumnName="SprintID" />
+          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="EstimateTime" ColumnName="EstimateTime" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Scenario">
+    <EntitySetMapping Name="Scenarios">
       <EntityTypeMapping TypeName="Models.Scenario">
         <MappingFragment StoreEntitySet="Scenario">
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
@@ -99,7 +103,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Sprint">
+    <EntitySetMapping Name="Sprints">
       <EntityTypeMapping TypeName="Models.Sprint">
         <MappingFragment StoreEntitySet="Sprint">
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
@@ -110,7 +114,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="Models.sysdiagrams">
+      <EntityTypeMapping TypeName="Models.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -120,37 +124,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Tasks">
-      <EntityTypeMapping TypeName="Models.Tasks">
-        <MappingFragment StoreEntitySet="Tasks">
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-          <ScalarProperty Name="SprintID" ColumnName="SprintID" />
-          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
-          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
-          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-          <ScalarProperty Name="EstimateTime" ColumnName="EstimateTime" />
-          <ScalarProperty Name="Priority" ColumnName="Priority" />
-          <ScalarProperty Name="Estado" ColumnName="Estado" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="Models.Users">
+      <EntityTypeMapping TypeName="Models.User">
         <MappingFragment StoreEntitySet="Users">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="firstLastName" ColumnName="firstLastName" />
           <ScalarProperty Name="secondLastName" ColumnName="secondLastName" />
           <ScalarProperty Name="userID" ColumnName="userID" />
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="role" ColumnName="role" />
           <ScalarProperty Name="person_id" ColumnName="person_id" />
           <ScalarProperty Name="student_id" ColumnName="student_id" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserStory">
+    <EntitySetMapping Name="UserStories">
       <EntityTypeMapping TypeName="Models.UserStory">
         <MappingFragment StoreEntitySet="UserStory">
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
@@ -167,12 +153,73 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="FK__Users__role__25518C17" TypeName="Models.FK__Users__role__25518C17" StoreEntitySet="Users">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="role" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="userID" ColumnName="userID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" TypeName="Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" StoreEntitySet="AspNetUserClaims">
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetUserClaims">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="fk_AspUserId" TypeName="Models.fk_AspUserId" StoreEntitySet="Users">
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="id" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="userID" ColumnName="userID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK__Project__LeaderI__2180FB33" TypeName="Models.FK__Project__LeaderI__2180FB33" StoreEntitySet="Project">
+      <EndProperty Name="Users">
+        <ScalarProperty Name="userID" ColumnName="LeaderID" />
+      </EndProperty>
+      <EndProperty Name="Project">
+        <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="LeaderID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK__Users__ProjectID__245D67DE" TypeName="Models.FK__Users__ProjectID__245D67DE" StoreEntitySet="Users">
+      <EndProperty Name="Project">
+        <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="userID" ColumnName="userID" />
+      </EndProperty>
+      <Condition IsNull="false" ColumnName="ProjectID" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FK__Task__userID__43D61337" TypeName="Models.FK__Task__userID__43D61337" StoreEntitySet="ProjectTask">
+      <EndProperty Name="Users">
+        <ScalarProperty Name="userID" ColumnName="userID" />
+      </EndProperty>
+      <EndProperty Name="ProjectTask">
+        <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        <ScalarProperty Name="SprintID" ColumnName="SprintID" />
+        <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+        <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+      </EndProperty>
+    </AssociationSetMapping>
     <AssociationSetMapping Name="AspNetUserRoles" TypeName="Models.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>
       <EndProperty Name="AspNetUsers">
         <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="role_permit" TypeName="Models.role_permit" StoreEntitySet="role_permit">
+      <EndProperty Name="Permisos">
+        <ScalarProperty Name="codigo" ColumnName="fk_permit_code" />
+      </EndProperty>
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="fk_role_id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

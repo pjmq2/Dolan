@@ -64,8 +64,9 @@ namespace IngeDolan3._0.Controllers
 
         public Boolean CanDo(string permission){
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
-            var userRole = modelUser.AspNetRoles;
+            var modelUser = db.AspNetUsers.Where(x => x.Id == userId).ToList().First();
+            var usedUser = modelUser.Users.FirstOrDefault();
+            var userRole = usedUser.AspNetRole;
             var permisos = userRole.Permisos;
 
             //if found return true

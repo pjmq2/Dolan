@@ -41,8 +41,8 @@ namespace IngeDolan3._0.Controllers
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             if (userId != null)
             {
-                var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
-                var userRole = modelUser.AspNetRoles;
+                var modelUser = db.Users.Where(x => x.AspNetRole.Id == userId).ToList().FirstOrDefault();
+                var userRole = modelUser.AspNetRole;
                 var permisos = userRole.Permisos;
 
                 //if found return true
@@ -129,8 +129,8 @@ namespace IngeDolan3._0.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.id);
-            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.role);
+            ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.AspNetRole.Id);
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.AspNetRole.Name);
             return View(user);
         }
 
@@ -139,8 +139,8 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] User user)
         {
-            ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.id);
-            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.role);
+            ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.AspNetRole.Id);
+            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.AspNetRole.Name);
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;

@@ -80,6 +80,23 @@
     <Property Name="LeaderID" Type="varchar" MaxLength="11" />
     <Property Name="Pstate" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="ProjectTask">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SprintID" />
+      <PropertyRef Name="StoryID" />
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SprintID" Type="int" Nullable="false" />
+    <Property Name="StoryID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="TaskID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="400" />
+    <Property Name="EstimateTime" Type="int" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="Estado" Type="varchar" MaxLength="40" />
+    <Property Name="userID" Type="varchar" MaxLength="11" Nullable="false" />
+  </EntityType>
   <EntityType Name="role_permit">
     <Key>
       <PropertyRef Name="fk_role_id" />
@@ -123,23 +140,6 @@
     <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
-  <EntityType Name="Tasks">
-    <Key>
-      <PropertyRef Name="ProjectID" />
-      <PropertyRef Name="SprintID" />
-      <PropertyRef Name="StoryID" />
-      <PropertyRef Name="TaskID" />
-    </Key>
-    <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
-    <Property Name="SprintID" Type="int" Nullable="false" />
-    <Property Name="StoryID" Type="varchar" MaxLength="40" Nullable="false" />
-    <Property Name="TaskID" Type="varchar" MaxLength="40" Nullable="false" />
-    <Property Name="Descripcion" Type="varchar" MaxLength="400" />
-    <Property Name="EstimateTime" Type="int" />
-    <Property Name="Priority" Type="int" />
-    <Property Name="Estado" Type="varchar" MaxLength="40" />
-    <Property Name="userID" Type="varchar" MaxLength="11" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -185,18 +185,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Project__LeaderI__6B24EA82">
-    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-    <End Role="Project" Type="Self.Project" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="userID" />
-      </Principal>
-      <Dependent Role="Project">
-        <PropertyRef Name="LeaderID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK__Project__LeaderI__6B24EA82' has been omitted from the storage model. Column 'LeaderID' of table 'Models.Store.Project' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
+        <Association Name="FK__Project__LeaderI__6B24EA82">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="LeaderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>-->
   <Association Name="FK__role_perm__fk_pe__0D7A0286">
     <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
     <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
@@ -209,18 +211,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__role_perm__fk_pe__22751F6C">
-    <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
-    <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Permisos">
-        <PropertyRef Name="codigo" />
-      </Principal>
-      <Dependent Role="role_permit">
-        <PropertyRef Name="fk_permit_code" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK__role_perm__fk_pe__22751F6C' has been omitted from the storage model. Column 'fk_permit_code' of table 'Models.Store.role_permit' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
+        <Association Name="FK__role_perm__fk_pe__22751F6C">
+          <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+          <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permisos">
+              <PropertyRef Name="codigo" />
+            </Principal>
+            <Dependent Role="role_permit">
+              <PropertyRef Name="fk_permit_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>-->
   <Association Name="FK__role_perm__fk_ro__0C85DE4D">
     <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
     <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
@@ -233,18 +237,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__role_perm__fk_ro__236943A5">
-    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
-    <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetRoles">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="role_permit">
-        <PropertyRef Name="fk_role_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK__role_perm__fk_ro__236943A5' has been omitted from the storage model. Column 'fk_role_id' of table 'Models.Store.role_permit' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
+        <Association Name="FK__role_perm__fk_ro__236943A5">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="role_permit">
+              <PropertyRef Name="fk_role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>-->
   <Association Name="FK__Scenario__41EDCAC5">
     <End Role="UserStory" Type="Self.UserStory" Multiplicity="1" />
     <End Role="Scenario" Type="Self.Scenario" Multiplicity="*" />
@@ -275,14 +281,14 @@
   </Association>
   <Association Name="FK__Task__42E1EEFE">
     <End Role="UserStory" Type="Self.UserStory" Multiplicity="1" />
-    <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+    <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserStory">
         <PropertyRef Name="ProjectID" />
         <PropertyRef Name="SprintID" />
         <PropertyRef Name="StoryID" />
       </Principal>
-      <Dependent Role="Tasks">
+      <Dependent Role="ProjectTask">
         <PropertyRef Name="ProjectID" />
         <PropertyRef Name="SprintID" />
         <PropertyRef Name="StoryID" />
@@ -291,12 +297,12 @@
   </Association>
   <Association Name="FK__Task__userID__43D61337">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
-    <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+    <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users">
         <PropertyRef Name="userID" />
       </Principal>
-      <Dependent Role="Tasks">
+      <Dependent Role="ProjectTask">
         <PropertyRef Name="userID" />
       </Dependent>
     </ReferentialConstraint>
@@ -313,18 +319,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Users__ProjectID__70DDC3D8">
-    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
-    <End Role="Users" Type="Self.Users" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Project">
-        <PropertyRef Name="ProjectID" />
-      </Principal>
-      <Dependent Role="Users">
-        <PropertyRef Name="ProjectID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK__Users__ProjectID__70DDC3D8' has been omitted from the storage model. Column 'ProjectID' of table 'Models.Store.Users' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
+        <Association Name="FK__Users__ProjectID__70DDC3D8">
+          <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>-->
   <Association Name="FK__Users__role__25518C17">
     <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
     <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -337,18 +345,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Users__role__6FE99F9F">
-    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
-    <End Role="Users" Type="Self.Users" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AspNetRoles">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Users">
-        <PropertyRef Name="role" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitted from the storage model. Column 'role' of table 'Models.Store.Users' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
+        <Association Name="FK__Users__role__6FE99F9F">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>-->
   <Association Name="FK__UserStory__40F9A68C">
     <End Role="Sprint" Type="Self.Sprint" Multiplicity="1" />
     <End Role="UserStory" Type="Self.UserStory" Multiplicity="*" />
@@ -440,18 +450,14 @@
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permisos" EntityType="Self.Permisos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectTask" EntityType="Self.ProjectTask" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="role_permit" EntityType="Self.role_permit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Scenario" EntityType="Self.Scenario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sprint" EntityType="Self.Sprint" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserStory" EntityType="Self.UserStory" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__Project__LeaderI__2180FB33" Association="Self.FK__Project__LeaderI__2180FB33">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="Project" EntitySet="Project" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Project__LeaderI__6B24EA82" Association="Self.FK__Project__LeaderI__6B24EA82">
       <End Role="Users" EntitySet="Users" />
       <End Role="Project" EntitySet="Project" />
     </AssociationSet>
@@ -459,15 +465,7 @@
       <End Role="Permisos" EntitySet="Permisos" />
       <End Role="role_permit" EntitySet="role_permit" />
     </AssociationSet>
-    <AssociationSet Name="FK__role_perm__fk_pe__22751F6C" Association="Self.FK__role_perm__fk_pe__22751F6C">
-      <End Role="Permisos" EntitySet="Permisos" />
-      <End Role="role_permit" EntitySet="role_permit" />
-    </AssociationSet>
     <AssociationSet Name="FK__role_perm__fk_ro__0C85DE4D" Association="Self.FK__role_perm__fk_ro__0C85DE4D">
-      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-      <End Role="role_permit" EntitySet="role_permit" />
-    </AssociationSet>
-    <AssociationSet Name="FK__role_perm__fk_ro__236943A5" Association="Self.FK__role_perm__fk_ro__236943A5">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="role_permit" EntitySet="role_permit" />
     </AssociationSet>
@@ -481,25 +479,17 @@
     </AssociationSet>
     <AssociationSet Name="FK__Task__42E1EEFE" Association="Self.FK__Task__42E1EEFE">
       <End Role="UserStory" EntitySet="UserStory" />
-      <End Role="Tasks" EntitySet="Tasks" />
+      <End Role="ProjectTask" EntitySet="ProjectTask" />
     </AssociationSet>
     <AssociationSet Name="FK__Task__userID__43D61337" Association="Self.FK__Task__userID__43D61337">
       <End Role="Users" EntitySet="Users" />
-      <End Role="Tasks" EntitySet="Tasks" />
+      <End Role="ProjectTask" EntitySet="ProjectTask" />
     </AssociationSet>
     <AssociationSet Name="FK__Users__ProjectID__245D67DE" Association="Self.FK__Users__ProjectID__245D67DE">
       <End Role="Project" EntitySet="Project" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
-    <AssociationSet Name="FK__Users__ProjectID__70DDC3D8" Association="Self.FK__Users__ProjectID__70DDC3D8">
-      <End Role="Project" EntitySet="Project" />
-      <End Role="Users" EntitySet="Users" />
-    </AssociationSet>
     <AssociationSet Name="FK__Users__role__25518C17" Association="Self.FK__Users__role__25518C17">
-      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-      <End Role="Users" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Users__role__6FE99F9F" Association="Self.FK__Users__role__6FE99F9F">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="Users" EntitySet="Users" />
     </AssociationSet>
