@@ -104,7 +104,7 @@ namespace IngeDolan3._0.Controllers
             //var algo = input.testSring;
             //Console.WriteLine(algo);
             
-            AspNetRoles role = input.role;
+            AspNetRole role = input.role;
             var allPermits = input.AllPermits;
             var assignedPermits = input.AssignedPermits;
             var selectedPermits = input.SelectedPermits;

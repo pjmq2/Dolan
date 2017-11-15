@@ -32,7 +32,7 @@ namespace IngeDolan3._0.Controllers
         // Obtiene los usuarios presentes en la base de datos.
         public List<UserStory> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idProyecto)
         {
-            var v = (from a in db.UserStory
+            var v = (from a in db.UserStories
                      where
                         a.ProjectID.Equals(idProyecto) && (
                             a.StoryID.Contains(search) ||
@@ -61,7 +61,7 @@ namespace IngeDolan3._0.Controllers
             var userStory = new UserStory();
             userStory.StoryID = storyId;
             userStory.ProjectID = projectId;
-            var listaDeHistorias = db.UserStory.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
             
             if (listaDeHistorias.Count() > 0)
             {
@@ -77,7 +77,7 @@ namespace IngeDolan3._0.Controllers
         // Presenta la pantalla donde se crea la historia de usuario.
         public ActionResult Create()
         {
-            ViewBag.ProjectID = new SelectList(db.Project, "ProjectID", "Descriptions");
+            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
             return View();
         }
 
@@ -88,12 +88,12 @@ namespace IngeDolan3._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.UserStory.Add(userStory);
+                db.UserStories.Add(userStory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectID = new SelectList(db.Project, "ProjectID", "Descriptions", userStory.ProjectID);
+            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
             return View(userStory);
         }
 
@@ -107,7 +107,7 @@ namespace IngeDolan3._0.Controllers
             var userStory = new UserStory();
             userStory.StoryID = storyId;
             userStory.ProjectID = projectId;
-            var listaDeHistorias = db.UserStory.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
 
             if (listaDeHistorias.Count() > 0)
             {
@@ -131,7 +131,7 @@ namespace IngeDolan3._0.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProjectID = new SelectList(db.Project, "ProjectID", "Descriptions", userStory.ProjectID);
+            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
             return View(userStory);
         }
 
@@ -145,7 +145,7 @@ namespace IngeDolan3._0.Controllers
             var userStory = new UserStory();
             userStory.StoryID = storyId;
             userStory.ProjectID = projectId;
-            var listaDeHistorias = db.UserStory.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
 
             if (listaDeHistorias.Count() > 0)
             {
@@ -163,8 +163,8 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            UserStory userStory = db.UserStory.Find(id);
-            db.UserStory.Remove(userStory);
+            UserStory userStory = db.UserStories.Find(id);
+            db.UserStories.Remove(userStory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -60,7 +60,7 @@ namespace IngeDolan3._0.Controllers
         // Obtiene los proyectos presentes en la base de datos para llenar el índice.
         public List<Project> GetProjects(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
-            var v = (from a in db.Project
+            var v = (from a in db.Projects
                      where
                         a.Descriptions.Contains(search) ||
                         a.ProjectName.Contains(search)
@@ -82,7 +82,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project pROJECT = db.Project.Find(id);
+            Project pROJECT = db.Projects.Find(id);
             if (pROJECT == null)
             {
                 return HttpNotFound();
@@ -156,7 +156,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project Proyecto = db.Project.Find(id);
+            Project Proyecto = db.Projects.Find(id);
             CreateProject project = new CreateProject();
             project.LeaderID = Proyecto.LeaderID;
             project.StartingDate = Proyecto.StartingDate;
@@ -198,7 +198,7 @@ namespace IngeDolan3._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Proyecto = db.Project.Where(x => x.ProjectID == project.ProjectID).ToList().FirstOrDefault();
+                var Proyecto = db.Projects.Where(x => x.ProjectID == project.ProjectID).ToList().FirstOrDefault();
                 Proyecto.LeaderID = project.LeaderID;
                 Proyecto.StartingDate = project.StartingDate;
                 Proyecto.FinalDate = project.FinalDate;
