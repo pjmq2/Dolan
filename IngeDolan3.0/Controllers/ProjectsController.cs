@@ -127,8 +127,7 @@ namespace IngeDolan3._0.Controllers
                 {
                     foreach (var c in project.IncludedUsers)
                     {
-                        AspNetUser user = (db.AspNetUsers.Where(x => x.Id == c).ToList().FirstOrDefault());
-                        User includedUser = leader.Users.FirstOrDefault();
+                        User includedUser = db.Users.Where(x => x.userID == c).ToList().FirstOrDefault();
                         includedUser.Projects.Add(proyecto);
                     }
                 }
@@ -216,13 +215,13 @@ namespace IngeDolan3._0.Controllers
                     
                     foreach (var c in newOnes)
                     {
-                        var f = db.Users.Where(x => x.AspNetUser.Id == c).ToList().FirstOrDefault();
+                        var f = db.Users.Where(x => x.userID == c).ToList().FirstOrDefault();
                         f.Project = Proyecto;
                     }
 
                     foreach (var c in excludedOnes)
                     {
-                        var f = db.Users.Where(x => x.AspNetUser.Id == c).ToList().FirstOrDefault();
+                        var f = db.Users.Where(x => x.userID == c).ToList().FirstOrDefault();
                         f.Projects.Clear();
                     }
                 }
@@ -230,7 +229,7 @@ namespace IngeDolan3._0.Controllers
                 {
                     foreach (var c in project.IncludedUsers)
                     {
-                        var f = db.Users.Where(x => x.AspNetUser.Id == c).ToList().FirstOrDefault();
+                        var f = db.Users.Where(x => x.userID == c).ToList().FirstOrDefault();
                         f.Project = Proyecto;
                     }
                 }
