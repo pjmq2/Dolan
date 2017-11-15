@@ -32,7 +32,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Permisos permiso = await db.Permisos.FindAsync(id);
+            Permiso permiso = await db.Permisos.FindAsync(id);
             if (permiso == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "codigo,nombre")] Permisos permiso)
+        public async Task<ActionResult> Create([Bind(Include = "codigo,nombre")] Permiso permiso)
         {
             if (ModelState.IsValid)
             {
@@ -152,7 +152,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Permisos permiso = await db.Permisos.FindAsync(id);
+            Permiso permiso = await db.Permisos.FindAsync(id);
             if (permiso == null)
             {
                 return HttpNotFound();
@@ -165,7 +165,7 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Permisos permiso = await db.Permisos.FindAsync(id);
+            Permiso permiso = await db.Permisos.FindAsync(id);
             db.Permisos.Remove(permiso);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

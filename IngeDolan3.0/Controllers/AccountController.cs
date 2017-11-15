@@ -184,15 +184,15 @@ namespace IngeDolan3._0.Controllers
                 {
                     try
                     {
-                        var modelUser = new Users();
-                        modelUser.id = user.Id;
-                        modelUser.userID = model.name;
+                        var modelUser = new User();
                         modelUser.name = model.name;
                         modelUser.firstLastName = model.lastName1;
                         modelUser.secondLastName = model.lastName2;
-                        modelUser.role = model.role;
-                        modelUser.AspNetUsers = db.AspNetUsers.Find(user.Id);
-                        modelUser.AspNetRoles = db.AspNetRoles.Where(x => x.Name == model.role).ToList().First(); 
+                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Id == model.role).ToList().First();
+                        modelUser.person_id = Int32.Parse(model.personID); //Parse to int given that personID's are always numbers
+                        modelUser.student_id = model.studentID;
+                        modelUser.AspNetUser = db.AspNetUsers.Where(x => x.Email == model.email).ToList().FirstOrDefault();
+                        modelUser.userID = modelUser.AspNetUser.Id;
                         db.Users.Add(modelUser);
                         db.SaveChanges();
                     }

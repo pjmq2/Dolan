@@ -14,7 +14,7 @@ namespace IngeDolan3._0.Controllers
         // Obtiene los proyectos presentes en la base de datos.
         public List<Project> GetProjects()
         {
-            var v = (from a in db.Project select a);
+            var v = (from a in db.Projects select a);
             return v.ToList();
         }
 

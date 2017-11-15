@@ -45,7 +45,7 @@ namespace IngeDolan3._0.Models
         [Display(Name = "Estado")]
         public string Pstate { get; set; }
 
-        public Users users { get; set; }
+        public User users { get; set; }
         public List<string> IncludedUsers { get; set; }
 
         public List<string> PrevEditList { get; set; }

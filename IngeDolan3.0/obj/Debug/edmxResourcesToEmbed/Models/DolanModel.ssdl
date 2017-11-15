@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dolan2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permisos">
+    <Key>
+      <PropertyRef Name="codigo" />
+    </Key>
+    <Property Name="codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="StartingDate" Type="date" />
+    <Property Name="FinalDate" Type="date" />
+    <Property Name="Descriptions" Type="varchar" MaxLength="100" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="30" />
+    <Property Name="LeaderID" Type="varchar" MaxLength="11" />
+    <Property Name="Pstate" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="role_permit">
+    <Key>
+      <PropertyRef Name="fk_role_id" />
+      <PropertyRef Name="fk_permit_code" />
+    </Key>
+    <Property Name="fk_role_id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="fk_permit_code" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Scenario">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SprintID" />
+      <PropertyRef Name="StoryID" />
+      <PropertyRef Name="ScenarioNumber" />
+    </Key>
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SprintID" Type="int" Nullable="false" />
+    <Property Name="StoryID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="ScenarioNumber" Type="int" Nullable="false" />
+    <Property Name="Resultado" Type="varchar" MaxLength="400" />
+    <Property Name="Event" Type="varchar" MaxLength="400" />
+    <Property Name="AcceptanceCriteria" Type="varchar" MaxLength="400" />
+    <Property Name="Context" Type="varchar" MaxLength="400" />
+  </EntityType>
+  <EntityType Name="Sprint">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SprintID" />
+    </Key>
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SprintID" Type="int" Nullable="false" />
+    <Property Name="StartingDate" Type="date" />
+    <Property Name="FinalDate" Type="date" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SprintID" />
+      <PropertyRef Name="StoryID" />
+      <PropertyRef Name="TaskID" />
+    </Key>
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SprintID" Type="int" Nullable="false" />
+    <Property Name="StoryID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="TaskID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="400" />
+    <Property Name="EstimateTime" Type="int" />
+    <Property Name="Priority" Type="int" />
+    <Property Name="Estado" Type="varchar" MaxLength="40" />
+    <Property Name="userID" Type="varchar" MaxLength="11" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="name" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="firstLastName" Type="varchar" MaxLength="25" />
+    <Property Name="secondLastName" Type="varchar" MaxLength="25" />
+    <Property Name="userID" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="role" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="person_id" Type="int" />
+    <Property Name="student_id" Type="nchar" MaxLength="10" />
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="UserStory">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SprintID" />
+      <PropertyRef Name="StoryID" />
+    </Key>
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SprintID" Type="int" Nullable="false" />
+    <Property Name="StoryID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Modulo" Type="varchar" MaxLength="40" />
+    <Property Name="ID" Type="varchar" MaxLength="40" />
+    <Property Name="Priorities" Type="int" />
+    <Property Name="ClientRole" Type="varchar" MaxLength="30" />
+    <Property Name="Estimation" Type="int" />
+    <Property Name="Reason" Type="varchar" MaxLength="150" />
+    <Property Name="Funtionality" Type="varchar" MaxLength="150" />
+    <Property Name="Alias" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <Association Name="FK__Project__LeaderI__2180FB33">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="LeaderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Project__LeaderI__6B24EA82">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="LeaderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__role_perm__fk_pe__0D7A0286">
+    <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+    <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permisos">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="role_permit">
+        <PropertyRef Name="fk_permit_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__role_perm__fk_pe__22751F6C">
+    <End Role="Permisos" Type="Self.Permisos" Multiplicity="1" />
+    <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permisos">
+        <PropertyRef Name="codigo" />
+      </Principal>
+      <Dependent Role="role_permit">
+        <PropertyRef Name="fk_permit_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__role_perm__fk_ro__0C85DE4D">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+    <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="role_permit">
+        <PropertyRef Name="fk_role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__role_perm__fk_ro__236943A5">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+    <End Role="role_permit" Type="Self.role_permit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="role_permit">
+        <PropertyRef Name="fk_role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Scenario__41EDCAC5">
+    <End Role="UserStory" Type="Self.UserStory" Multiplicity="1" />
+    <End Role="Scenario" Type="Self.Scenario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserStory">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+        <PropertyRef Name="StoryID" />
+      </Principal>
+      <Dependent Role="Scenario">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+        <PropertyRef Name="StoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sprint__ProjectI__40058253">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="Sprint" Type="Self.Sprint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Sprint">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Task__42E1EEFE">
+    <End Role="UserStory" Type="Self.UserStory" Multiplicity="1" />
+    <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserStory">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+        <PropertyRef Name="StoryID" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+        <PropertyRef Name="StoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Task__userID__43D61337">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__ProjectID__245D67DE">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__ProjectID__70DDC3D8">
+    <End Role="Project" Type="Self.Project" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__role__25518C17">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__role__6FE99F9F">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserStory__40F9A68C">
+    <End Role="Sprint" Type="Self.Sprint" Multiplicity="1" />
+    <End Role="UserStory" Type="Self.UserStory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sprint">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+      </Principal>
+      <Dependent Role="UserStory">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AspUserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dolan2ModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permisos" EntityType="Self.Permisos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="role_permit" EntityType="Self.role_permit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Scenario" EntityType="Self.Scenario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sprint" EntityType="Self.Sprint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserStory" EntityType="Self.UserStory" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Project__LeaderI__2180FB33" Association="Self.FK__Project__LeaderI__2180FB33">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Project__LeaderI__6B24EA82" Association="Self.FK__Project__LeaderI__6B24EA82">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK__role_perm__fk_pe__0D7A0286" Association="Self.FK__role_perm__fk_pe__0D7A0286">
+      <End Role="Permisos" EntitySet="Permisos" />
+      <End Role="role_permit" EntitySet="role_permit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__role_perm__fk_pe__22751F6C" Association="Self.FK__role_perm__fk_pe__22751F6C">
+      <End Role="Permisos" EntitySet="Permisos" />
+      <End Role="role_permit" EntitySet="role_permit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__role_perm__fk_ro__0C85DE4D" Association="Self.FK__role_perm__fk_ro__0C85DE4D">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="role_permit" EntitySet="role_permit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__role_perm__fk_ro__236943A5" Association="Self.FK__role_perm__fk_ro__236943A5">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="role_permit" EntitySet="role_permit" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Scenario__41EDCAC5" Association="Self.FK__Scenario__41EDCAC5">
+      <End Role="UserStory" EntitySet="UserStory" />
+      <End Role="Scenario" EntitySet="Scenario" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sprint__ProjectI__40058253" Association="Self.FK__Sprint__ProjectI__40058253">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Sprint" EntitySet="Sprint" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Task__42E1EEFE" Association="Self.FK__Task__42E1EEFE">
+      <End Role="UserStory" EntitySet="UserStory" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Task__userID__43D61337" Association="Self.FK__Task__userID__43D61337">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__ProjectID__245D67DE" Association="Self.FK__Users__ProjectID__245D67DE">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__ProjectID__70DDC3D8" Association="Self.FK__Users__ProjectID__70DDC3D8">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__role__25518C17" Association="Self.FK__Users__role__25518C17">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__role__6FE99F9F" Association="Self.FK__Users__role__6FE99F9F">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserStory__40F9A68C" Association="Self.FK__UserStory__40F9A68C">
+      <End Role="Sprint" EntitySet="Sprint" />
+      <End Role="UserStory" EntitySet="UserStory" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AspUserId" Association="Self.fk_AspUserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -22,8 +22,9 @@ namespace IngeDolan3._0.Controllers
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             if (userId != null)
             {
-                var modelUser = db.Users.Where(x => x.id == userId).ToList().First();
-                var userRole = modelUser.AspNetRoles;
+                var modelUser = db.AspNetUsers.Where(x => x.Id == userId).ToList().FirstOrDefault();
+                var user2 = modelUser.Users.FirstOrDefault();
+                var userRole = user2.AspNetRole;
                 var permisos = userRole.Permisos;
 
                 //if found return true
@@ -110,24 +111,26 @@ namespace IngeDolan3._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                string cuenta = db.Project.Max(x => x.ProjectID);
                 int number;
                 string id = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
                 Project proyecto = new Project();
-                proyecto.LeaderID = project.LeaderID;
+                AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
+                User leaderUser = leader.Users.FirstOrDefault();
                 proyecto.StartingDate = project.StartingDate;
                 proyecto.FinalDate = project.FinalDate;
                 proyecto.Descriptions = project.Descriptions;
                 proyecto.ProjectName = project.ProjectName;
                 proyecto.ProjectID = id;
-                db.Project.Add(proyecto);
+                leaderUser.Projects.Add(proyecto);
+                db.Projects.Add(proyecto);
 
                 if (project.IncludedUsers != null)
                 {
                     foreach (var c in project.IncludedUsers)
                     {
-                        var f = db.Users.Where(x => x.id == c).ToList().FirstOrDefault();
-                        f.ProjectID = id;
+                        AspNetUser user = (db.AspNetUsers.Where(x => x.Id == c).ToList().FirstOrDefault());
+                        User includedUser = leader.Users.FirstOrDefault();
+                        includedUser.Projects.Add(proyecto);
                     }
                 }
 
@@ -163,7 +166,7 @@ namespace IngeDolan3._0.Controllers
             Proyecto.Pstate = project.Pstate;
             project.ProjectID = id;
             List<string> lista = new List<string>();
-            List<Users> listaU = db.Users.Where(x => x.ProjectID == id).ToList();
+            List<User> listaU = db.Users.Where(x => x.ProjectID == id).ToList();
 
             if (listaU != null)
             {
@@ -263,26 +266,24 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            List<Users> modelUser = db.Users.Where(x => x.ProjectID == id).ToList();
-            List<UserStory> modelstory = db.UserStory.Where(x => x.ProjectID == id).ToList();
+            Project pro = db.Projects.Where(x => x.ProjectID == id).ToList().FirstOrDefault();
+            List<User> modelUser = (pro).Users.ToList();
+            List<UserStory> modelstory = db.UserStories.Where(x => x.ProjectID == id).ToList();
             if (modelUser != null)
             {
-                foreach (var c in modelUser)
-                {
-                    c.ProjectID = null;
-                    db.SaveChanges();
-                }
+                pro.Users.Clear();
+                db.SaveChanges();
             }
             if (modelstory != null)
             {
                 foreach (var c in modelstory)
                 {
-                    db.UserStory.Remove(c);
+                    db.UserStories.Remove(c);
                     db.SaveChanges();
                 }
             }
-            Project project = db.Project.Find(id);
-            db.Project.Remove(project);
+            Project project = db.Projects.Find(id);
+            db.Projects.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

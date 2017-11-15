@@ -37,7 +37,7 @@ namespace IngeDolan3._0
                 }
 
                 //Add all 
-                AspNetRoles roleAux = db.AspNetRoles.Where(x => x.Name == "Profesor").ToList().First();
+                AspNetRole roleAux = db.AspNetRoles.Where(x => x.Name == "Profesor").ToList().First();
                 //Get all permits given its a professor
                 var permisosList = db.Permisos.Where(x => true).ToList();
                 foreach (var per in permisosList)
