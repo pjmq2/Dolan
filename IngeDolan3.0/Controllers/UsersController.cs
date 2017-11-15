@@ -37,12 +37,14 @@ namespace IngeDolan3._0.Controllers
         }
 
         // Reviza los permisos que tiene el usuario para determinar si debe o no denegar el acceso del usuario
-        public Boolean CanDo(string permission){
+        public Boolean CanDo(string permission)
+        {
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             if (userId != null)
             {
-                var modelUser = db.Users.Where(x => x.AspNetRole.Id == userId).ToList().FirstOrDefault();
-                var userRole = modelUser.AspNetRole;
+                var modelUser = db.AspNetUsers.Where(x => x.Id == userId).ToList().FirstOrDefault();
+                var user2 = modelUser.Users.FirstOrDefault();
+                var userRole = user2.AspNetRole;
                 var permisos = userRole.Permisos;
 
                 //if found return true

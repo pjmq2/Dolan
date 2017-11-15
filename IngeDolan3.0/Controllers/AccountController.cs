@@ -189,7 +189,7 @@ namespace IngeDolan3._0.Controllers
                         modelUser.name = model.name;
                         modelUser.firstLastName = model.lastName1;
                         modelUser.secondLastName = model.lastName2;
-                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Id == model.role).ToList().First();
+                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Name == model.role).ToList().FirstOrDefault();
                         modelUser.person_id = Int32.Parse(model.personID); //Parse to int given that personID's are always numbers
                         modelUser.student_id = model.studentID;
                         modelUser.AspNetUser = db.AspNetUsers.Where(x => x.Email == model.email).ToList().FirstOrDefault();
