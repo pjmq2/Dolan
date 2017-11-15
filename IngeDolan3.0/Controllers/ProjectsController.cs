@@ -113,8 +113,7 @@ namespace IngeDolan3._0.Controllers
             {
                 string id = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
                 Project proyecto = new Project();
-                AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
-                User leaderUser = leader.Users.FirstOrDefault();
+                User leaderUser = db.Users.Where(x => x.userID == project.LeaderID).FirstOrDefault();
                 proyecto.StartingDate = project.StartingDate;
                 proyecto.FinalDate = project.FinalDate;
                 proyecto.Descriptions = project.Descriptions;
@@ -135,7 +134,7 @@ namespace IngeDolan3._0.Controllers
                 if(project.LeaderID != null)
                 {
                     var f = db.Users.Where(x => x.userID == project.LeaderID).ToList().FirstOrDefault();
-                    f.Project.ProjectID = id;
+                    f.Project = proyecto;
                 }
 
                 db.SaveChanges();
@@ -200,7 +199,7 @@ namespace IngeDolan3._0.Controllers
                 var Proyecto = db.Projects.Where(x => x.ProjectID == project.ProjectID).ToList().FirstOrDefault();
                 var oldleader = db.Users.Where(x => x.AspNetUser.Id == Proyecto.User.AspNetUser.Id).FirstOrDefault();
                 oldleader.Projects.Clear();
-                var newleader = db.Users.Where(x => x.AspNetUser.Id == project.LeaderID).FirstOrDefault();
+                var newleader = db.Users.Where(x => x.userID == project.LeaderID).FirstOrDefault();
                 Proyecto.StartingDate = project.StartingDate;
                 Proyecto.FinalDate = project.FinalDate;
                 Proyecto.Descriptions = project.Descriptions;
