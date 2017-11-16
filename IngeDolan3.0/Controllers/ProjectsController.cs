@@ -113,15 +113,23 @@ namespace IngeDolan3._0.Controllers
             {
                 string id = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
                 Project proyecto = new Project();
+                Sprint sprint = new Sprint();
                 User leaderUser = db.Users.Where(x => x.userID == project.LeaderID).FirstOrDefault();
+
                 proyecto.StartingDate = project.StartingDate;
                 proyecto.FinalDate = project.FinalDate;
                 proyecto.Descriptions = project.Descriptions;
                 proyecto.ProjectName = project.ProjectName;
                 proyecto.ProjectID = id;
                 leaderUser.Projects.Add(proyecto);
-                db.Projects.Add(proyecto);
 
+                sprint.Project = proyecto;
+                sprint.SprintID = 1;
+                sprint.StartingDate = project.StartingDate;
+                sprint.FinalDate = project.FinalDate;
+                db.Projects.Add(proyecto);
+                db.Sprints.Add(sprint);
+                
                 if (project.IncludedUsers != null)
                 {
                     foreach (var c in project.IncludedUsers)
