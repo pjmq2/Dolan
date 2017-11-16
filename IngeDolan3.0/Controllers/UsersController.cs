@@ -31,7 +31,7 @@ namespace IngeDolan3._0.Controllers
             }
             else{
                 Console.WriteLine("Usuario no puede listar usuarios");
-                return PartialView("~/Views/Others/Denied.cshtml");
+                return RedirectToAction("Denied", "Others");
             }
 
         }

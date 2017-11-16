@@ -94,9 +94,9 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                     tableStyle: "table table-responsive table-bordered",
                     columns: grid.Columns(
                         grid.Column(columnName: "ProjectName", header: "Nombre"),
-                        grid.Column(columnName: "Descriptions", header: "Descripcion"),
-                        grid.Column( "StartingDate", "Fecha Inicial", format: (item) => item.StartingDate != null ? item.StartingDate.ToString("MM/dd/yy") : "", canSort: true),
-                        grid.Column( "FinalDate", "Fecha Final", format: (item) => item.FinalDate != null ? item.FinalDate.ToString("MM/dd/yy") : "", canSort: true),
+                        grid.Column(columnName: "LeaderID", header: "Lider", format: @<span>@if (item.User.name != null) { @item.User.name }</span>),
+                        grid.Column("StartingDate", "Fecha Inicial", format: (item) => item.StartingDate != null ? item.StartingDate.ToString("MM/dd/yy") : "", canSort: true),
+                        grid.Column("FinalDate", "Fecha Final", format: (item) => item.FinalDate != null ? item.FinalDate.ToString("MM/dd/yy") : "", canSort: true),
                         grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { id = item.ProjectID }))
                     )
                 )
