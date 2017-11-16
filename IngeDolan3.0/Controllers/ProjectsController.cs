@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -170,7 +170,7 @@ namespace IngeDolan3._0.Controllers
             {
                 foreach (var c in listaU)
                 {
-                    string Nombre = c.AspNetUser.Id;
+                    string Nombre = c.userID;
                     lista.Add(Nombre);
                 }
             }
@@ -184,8 +184,7 @@ namespace IngeDolan3._0.Controllers
             }
 
             string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
-            ViewBag.LeaderID = new SelectList((db.Users.Where(x => (x.Projects == null || x.Projects.FirstOrDefault().ProjectID == id) && x.AspNetRole.Id == EstID)), "userID", "name");
-            //ViewBag.DesarrolladoresDisp = db.Users.Where(x => x.Project == null && x.AspNetRole.Id == EstID).ToList();
+            ViewBag.LeaderID = new SelectList((db.Users.Where(x => (x.Project == null || x.Projects.Where(y => y.ProjectID == id).FirstOrDefault().ProjectID == id) && x.AspNetRole.Id == EstID)), "userID", "name");
             ViewBag.DesarrolladoresDisp = (db.Users.Where(x => (x.Project == null || x.Project.ProjectID == id) && x.AspNetRole.Id == EstID)).ToList();
             return View(project);
         }
