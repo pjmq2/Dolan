@@ -7,9 +7,9 @@
 
 <h2>Eliminar</h2>
 
-<h3>Esta seguro que quiere eliminar esta Historia de Usuario?</h3>
+<h3>¿Realmente desea borrar la historia de usuario seleccionada?</h3>
 <div>
-    <h4></h4>
+    <h4>Historia de Usuario</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -78,13 +78,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Aceptar" class="btn btn-default" /> |
-            <input type="reset" value="Cancelar" class="btn btn-default" />
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
         </div>
     }
 </div>

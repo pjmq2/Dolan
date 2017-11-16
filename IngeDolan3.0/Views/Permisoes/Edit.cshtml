@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Editar</h2>
 
 @using (Html.BeginForm("Edit", "Permisoes", FormMethod.Post)){
 
@@ -15,6 +15,8 @@
          @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+        <h4>Permiso</h4>
+        <hr />
         <div class="form-group">
             @Html.LabelFor(m => m.testSring, "Nombre*", new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
@@ -23,7 +25,9 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Edit" class="btn btn-default"/>
+                <input type="submit" value="Aceptar" class="btn btn-default" />
+
+                <input type="reset" value="Cancelar" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -44,5 +48,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar", "Index")
 </div>

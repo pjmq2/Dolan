@@ -93,7 +93,7 @@ namespace IngeDolan3._0.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
+            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "ProjectID", userStory.ProjectID);
             return View(userStory);
         }
 

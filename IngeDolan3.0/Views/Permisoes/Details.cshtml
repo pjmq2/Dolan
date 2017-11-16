@@ -5,14 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
     <h4>Permiso</h4>
     <hr />
+
+    @*
+    <div class="navbar-right" style="display:inline-block;">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.userID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Borrar", "Delete", new { id = Model.userID }, new { @class = "btn btn-default" })
+    </div>
+    *@
+
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.nombre)
+            Nombre
         </dt>
 
         <dd>
@@ -22,6 +30,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.codigo }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar", "Index")
 </p>

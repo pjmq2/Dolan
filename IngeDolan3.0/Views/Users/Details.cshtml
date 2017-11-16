@@ -41,24 +41,42 @@
         </dd>
 
         <dt>
-            Rol
+            Cédula
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AspNetRole.Name)
+            @Html.DisplayFor(model => model.person_id)
         </dd>
 
+        @if (Model != null && !String.IsNullOrEmpty(Model.student_id))
+        {
+            <dt>
+                Carnet
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.student_id)
+            </dd>
+        }
+
         <dt>
-            Email
+            Correo Electrónico
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.AspNetUser.Email)
         </dd>
 
+        <dt>
+            Rol
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetRole.Name)
+        </dd>       
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.userID }) |
     @Html.ActionLink("Regresar", "Index")
 </p>

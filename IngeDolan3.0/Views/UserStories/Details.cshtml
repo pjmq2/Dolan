@@ -79,10 +79,8 @@
         <dd>
             @Html.DisplayFor(model => model.Project.Descriptions)
         </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { storyId = Model.StoryID, projectId = Model.ProjectID }) |
-    @Html.ActionLink("Volver a la lista", "Index", new { storyId = Model.StoryID, projectId = Model.ProjectID })
+    @Html.ActionLink("Regresar", "Index")
 </p>

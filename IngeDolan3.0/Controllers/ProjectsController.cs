@@ -185,14 +185,15 @@ namespace IngeDolan3._0.Controllers
 
             string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
             ViewBag.LeaderID = new SelectList((db.Users.Where(x => (x.Projects == null || x.Projects.FirstOrDefault().ProjectID == id) && x.AspNetRole.Id == EstID)), "userID", "name");
-            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => (x.Projects == null || x.Projects.FirstOrDefault().ProjectID == id) && x.AspNetRole.Id == EstID)).ToList();
+            //ViewBag.DesarrolladoresDisp = db.Users.Where(x => x.Project == null && x.AspNetRole.Id == EstID).ToList();
+            ViewBag.DesarrolladoresDisp = (db.Users.Where(x => (x.Project == null || x.Project.ProjectID == id) && x.AspNetRole.Id == EstID)).ToList();
             return View(project);
         }
         
         // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CreateProject project)
+        public ActionResult Edit(CreateProject project, string id)
         {
             if (ModelState.IsValid)
             {
@@ -244,7 +245,8 @@ namespace IngeDolan3._0.Controllers
 
                 return RedirectToAction("Index");
             }
-            ViewBag.LeaderID = new SelectList(db.Users, "userID", "name", project.LeaderID);
+            string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
+            ViewBag.LeaderID = new SelectList((db.Users.Where(x => (x.Projects == null || x.Projects.FirstOrDefault().ProjectID == id) && x.AspNetRole.Id == EstID)), "userID", "name");
             return View(project);
         }
         

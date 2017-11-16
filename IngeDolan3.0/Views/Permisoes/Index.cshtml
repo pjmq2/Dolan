@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Lista de permisos</h2>
 
 <p>
     @Html.ActionLink("Editar Estudiante", "Edit", new { roleID = ViewBag.EstudianteID});
@@ -26,9 +26,9 @@
             @Html.DisplayFor(modelItem => item.nombre)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.codigo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.codigo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.codigo })
+            @Html.ActionLink("Editar", "Edit",  new { id=item.codigo }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.codigo }) |
+            @Html.ActionLink("Borrar", "Delete", new { id=item.codigo })
         </td>
     </tr>
 }

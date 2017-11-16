@@ -36,19 +36,38 @@
         </dd>
 
         <dt>
+            Cédula
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.person_id)
+        </dd>
+
+        @if (Model != null && !String.IsNullOrEmpty(Model.student_id))
+        {
+            <dt>
+                Carnet
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.student_id)
+            </dd>
+        }
+
+        <dt>
+            Correo Electrónico
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
             Rol
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.AspNetRole.Name)
-        </dd>
-
-        <dt>
-            Email
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
         </dd>
 
     </dl>

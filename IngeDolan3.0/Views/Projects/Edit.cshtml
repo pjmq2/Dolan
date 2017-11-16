@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Editar Proyecto</h2>
+<h2>Editar</h2>
 
 
 @using (Html.BeginForm())
@@ -13,6 +13,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+        <h4>Proyecto</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ProjectID)
@@ -24,12 +25,28 @@
                 @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.LeaderID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LeaderID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LeaderID, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Descriptions, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Descriptions, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Descriptions, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Pstate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Pstate, new SelectList(new List<string>() { "Pendiente", "En ejecución", "Cancelado", "Terminado" }), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Pstate, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -49,22 +66,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Pstate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Pstate, new SelectList(new List<string>() { "Pendiente", "En ejecución", "Cancelado", "Terminado" }), htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Pstate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LeaderID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("LeaderID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.LeaderID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group" data-step="3" data-intro="Para seleccionar un desarrollador e incluirlo en el proyecto, se hace click y eso lo transfiere a la lista de los seleccionados">
             @Html.Label("Disponibles", new { @class = "col-md-offset-2 col-md-2 control-label", @style = "text-align:center;margin-left:195px;" })
             @Html.Label("Equipo", new { @class = "col-md-offset-2  col-md-2 control-label required", @style = "text-align:center;margin-left:10px;margin-bottom:10px" })
@@ -81,7 +82,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
+                <input type="submit" value="Aceptar" class="btn btn-default" />
                 <input type="reset" value="Cancelar" class="btn btn-default" />
             </div>
         </div>
@@ -89,7 +90,7 @@
 }
 
 <div>
-    @Html.ActionLink("Volver", "Index")
+    @Html.ActionLink("Regresar", "Index")
 </div>
 
 <style type="text/css">

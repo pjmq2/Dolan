@@ -5,38 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Borrar Usuario</h2>
+<h2>Borrar</h2>
 
-<h3>Seguro que quiere borrar este usuario?</h3>
+<h3>¿Realmente desea borrar el proyecto seleccionado?</h3>
 <div>
+    <h4>Proyecto</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.StartingDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartingDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FinalDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FinalDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descriptions)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descriptions)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectName)
+            Nombre del Proyecto
         </dt>
 
         <dd>
@@ -44,11 +21,43 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.name)
+            Lider del proyecto
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.User.name)
+        </dd>
+
+        <dt>
+            Descripción
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descriptions)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pstate)
+        </dd>
+
+        <dt>
+            Fecha de Inicio
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingDate)
+        </dd>
+
+        <dt>
+            Fecha Final
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalDate)
         </dd>
 
     </dl>
@@ -57,9 +66,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Borrar" class="btn btn-default" />
-            <input type="button" value="Cancelar" class="btn btn-default" />|
-            @Html.ActionLink("Volver al indice", "Index")
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Regresar", "Index")
         </div>
     }
 </div>
