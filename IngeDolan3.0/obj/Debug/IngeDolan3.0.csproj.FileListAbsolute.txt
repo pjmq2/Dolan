@@ -1275,3 +1275,4 @@ C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAs
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csproj.CoreCompileInputs.cache
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
+C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
