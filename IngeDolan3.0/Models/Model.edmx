@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -65,6 +65,21 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Milestone">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="SprintID" />
+            <PropertyRef Name="StoryID" />
+            <PropertyRef Name="TaskID" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="SprintID" Type="int" Nullable="false" />
+          <Property Name="StoryID" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="TaskID" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Progress" Type="int" />
         </EntityType>
         <EntityType Name="Permisos">
           <Key>
@@ -178,6 +193,24 @@
           <Property Name="Funtionality" Type="varchar" MaxLength="150" />
           <Property Name="Alias" Type="varchar" MaxLength="25" />
         </EntityType>
+        <Association Name="FK__Milestone__46B27FE2">
+          <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
+          <End Role="Milestone" Type="Self.Milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="ProjectID" />
+              <PropertyRef Name="SprintID" />
+              <PropertyRef Name="StoryID" />
+              <PropertyRef Name="TaskID" />
+            </Principal>
+            <Dependent Role="Milestone">
+              <PropertyRef Name="ProjectID" />
+              <PropertyRef Name="SprintID" />
+              <PropertyRef Name="StoryID" />
+              <PropertyRef Name="TaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Project__LeaderI__2180FB33">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -453,6 +486,7 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Milestone" EntityType="Self.Milestone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permisos" EntityType="Self.Permisos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectTask" EntityType="Self.ProjectTask" Schema="dbo" store:Type="Tables" />
@@ -462,6 +496,10 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserStory" EntityType="Self.UserStory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Milestone__46B27FE2" Association="Self.FK__Milestone__46B27FE2">
+            <End Role="ProjectTask" EntitySet="ProjectTask" />
+            <End Role="Milestone" EntitySet="Milestone" />
+          </AssociationSet>
           <AssociationSet Name="FK__Project__LeaderI__2180FB33" Association="Self.FK__Project__LeaderI__2180FB33">
             <End Role="Users" EntitySet="Users" />
             <End Role="Project" EntitySet="Project" />
@@ -523,8 +561,7 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -628,6 +665,7 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
           <Property Name="Estado" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserStory" Relationship="Self.FK__Task__42E1EEFE" FromRole="ProjectTask" ToRole="UserStory" />
           <NavigationProperty Name="User" Relationship="Self.FK__Task__userID__43D61337" FromRole="ProjectTask" ToRole="Users" />
+          <NavigationProperty Name="Milestones" Relationship="Models.FK__Milestone__46B27FE2" FromRole="ProjectTask" ToRole="Milestone" />
         </EntityType>
         <EntityType Name="Scenario">
           <Key>
@@ -877,7 +915,46 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
             <End Role="Permisos" EntitySet="Permisos" />
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
           </AssociationSet>
+          <EntitySet Name="Milestones" EntityType="Models.Milestone" />
+          <AssociationSet Name="FK__Milestone__46B27FE2" Association="Models.FK__Milestone__46B27FE2">
+            <End Role="ProjectTask" EntitySet="ProjectTasks" />
+            <End Role="Milestone" EntitySet="Milestones" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Milestone">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="SprintID" />
+            <PropertyRef Name="StoryID" />
+            <PropertyRef Name="TaskID" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="ProjectID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="SprintID" Type="Int32" Nullable="false" />
+          <Property Name="StoryID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="TaskID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Progress" Type="Int32" />
+          <NavigationProperty Name="ProjectTask" Relationship="Models.FK__Milestone__46B27FE2" FromRole="Milestone" ToRole="ProjectTask" />
+        </EntityType>
+        <Association Name="FK__Milestone__46B27FE2">
+          <End Type="Models.ProjectTask" Role="ProjectTask" Multiplicity="1" />
+          <End Type="Models.Milestone" Role="Milestone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectTask">
+              <PropertyRef Name="ProjectID" />
+              <PropertyRef Name="SprintID" />
+              <PropertyRef Name="StoryID" />
+              <PropertyRef Name="TaskID" />
+            </Principal>
+            <Dependent Role="Milestone">
+              <PropertyRef Name="ProjectID" />
+              <PropertyRef Name="SprintID" />
+              <PropertyRef Name="StoryID" />
+              <PropertyRef Name="TaskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1105,6 +1182,18 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
               <ScalarProperty Name="Id" ColumnName="fk_role_id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Milestones">
+            <EntityTypeMapping TypeName="Models.Milestone">
+              <MappingFragment StoreEntitySet="Milestone">
+                <ScalarProperty Name="Progress" ColumnName="Progress" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+                <ScalarProperty Name="SprintID" ColumnName="SprintID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -14,6 +14,12 @@ namespace IngeDolan3._0.Models
     
     public partial class ProjectTask
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProjectTask()
+        {
+            this.Milestones = new HashSet<Milestone>();
+        }
+    
         public string ProjectID { get; set; }
         public int SprintID { get; set; }
         public string StoryID { get; set; }
@@ -25,5 +31,7 @@ namespace IngeDolan3._0.Models
     
         public virtual UserStory UserStory { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Milestone> Milestones { get; set; }
     }
 }

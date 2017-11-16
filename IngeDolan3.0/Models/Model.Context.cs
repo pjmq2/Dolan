@@ -38,5 +38,6 @@ namespace IngeDolan3._0.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserStory> UserStories { get; set; }
+        public virtual DbSet<Milestone> Milestones { get; set; }
     }
 }

@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3230ac6e93e6451bb821ade76bc924f9" Name="Diagram1">
-        <EntityTypeShape EntityType="Models.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.AspNetRole" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.AspNetUserClaim" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.AspNetUserLogin" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.AspNetUser" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.Permiso" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+      <Diagram DiagramId="3230ac6e93e6451bb821ade76bc924f9" Name="Diagram1" ZoomLevel="47">
+        <EntityTypeShape EntityType="Models.C__MigrationHistory" Width="1.5" PointX="1.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.AspNetRole" Width="1.5" PointX="6.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.AspNetUserClaim" Width="1.5" PointX="3.625" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.AspNetUserLogin" Width="1.5" PointX="3.625" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.AspNetUser" Width="1.5" PointX="6.125" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Permiso" Width="1.5" PointX="3.5" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.Project" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.ProjectTask" Width="1.5" PointX="19.5" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.Scenario" Width="1.5" PointX="19.5" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.ProjectTask" Width="1.5" PointX="13.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Scenario" Width="1.5" PointX="17.375" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.Sprint" Width="1.5" PointX="15" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Models.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.sysdiagram" Width="1.5" PointX="3.375" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.User" Width="1.5" PointX="10.5" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.UserStory" Width="1.5" PointX="17.25" PointY="5.25" IsExpanded="true" />
         <AssociationConnector Association="Models.FK__Users__role__25518C17" ManuallyRouted="false" />
@@ -31,6 +31,8 @@
         <AssociationConnector Association="Models.FK__UserStory__40F9A68C" ManuallyRouted="false" />
         <AssociationConnector Association="Models.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="Models.role_permit" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Models.Milestone" Width="1.5" PointX="17.125" PointY="1.875" />
+        <AssociationConnector Association="Models.FK__Milestone__46B27FE2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
