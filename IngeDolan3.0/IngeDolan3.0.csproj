@@ -292,9 +292,12 @@
     <Compile Include="Controllers\BacklogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MilestonesController.cs" />
     <Compile Include="Controllers\OthersController.cs" />
     <Compile Include="Controllers\PermisoesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ProjectTasksController.cs" />
+    <Compile Include="Controllers\ScenariosController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UserStoriesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -314,6 +317,7 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserStoryInt.cs" />
     <Compile Include="Models\CreateProject.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -532,6 +536,21 @@
     <Content Include="Views\Permisoes\Details.cshtml" />
     <Content Include="Views\Permisoes\Edit.cshtml" />
     <Content Include="Views\Permisoes\Index.cshtml" />
+    <Content Include="Views\Milestones\Create.cshtml" />
+    <Content Include="Views\Milestones\Delete.cshtml" />
+    <Content Include="Views\Milestones\Details.cshtml" />
+    <Content Include="Views\Milestones\Edit.cshtml" />
+    <Content Include="Views\Milestones\Index.cshtml" />
+    <Content Include="Views\Scenarios\Create.cshtml" />
+    <Content Include="Views\Scenarios\Delete.cshtml" />
+    <Content Include="Views\Scenarios\Details.cshtml" />
+    <Content Include="Views\Scenarios\Edit.cshtml" />
+    <Content Include="Views\Scenarios\Index.cshtml" />
+    <Content Include="Views\ProjectTasks\Create.cshtml" />
+    <Content Include="Views\ProjectTasks\Delete.cshtml" />
+    <Content Include="Views\ProjectTasks\Details.cshtml" />
+    <Content Include="Views\ProjectTasks\Edit.cshtml" />
+    <Content Include="Views\ProjectTasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

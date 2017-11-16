@@ -61,6 +61,21 @@
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
+  <EntityType Name="Milestone">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SprintID" />
+      <PropertyRef Name="StoryID" />
+      <PropertyRef Name="TaskID" />
+      <PropertyRef Name="Date" />
+    </Key>
+    <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="SprintID" Type="int" Nullable="false" />
+    <Property Name="StoryID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="TaskID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Progress" Type="int" />
+  </EntityType>
   <EntityType Name="Permisos">
     <Key>
       <PropertyRef Name="codigo" />
@@ -173,6 +188,24 @@
     <Property Name="Funtionality" Type="varchar" MaxLength="150" />
     <Property Name="Alias" Type="varchar" MaxLength="25" />
   </EntityType>
+  <Association Name="FK__Milestone__46B27FE2">
+    <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
+    <End Role="Milestone" Type="Self.Milestone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectTask">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+        <PropertyRef Name="StoryID" />
+        <PropertyRef Name="TaskID" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+        <PropertyRef Name="StoryID" />
+        <PropertyRef Name="TaskID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Project__LeaderI__2180FB33">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -448,6 +481,7 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Milestone" EntityType="Self.Milestone" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Permisos" EntityType="Self.Permisos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProjectTask" EntityType="Self.ProjectTask" Schema="dbo" store:Type="Tables" />
@@ -457,6 +491,10 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserStory" EntityType="Self.UserStory" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Milestone__46B27FE2" Association="Self.FK__Milestone__46B27FE2">
+      <End Role="ProjectTask" EntitySet="ProjectTask" />
+      <End Role="Milestone" EntitySet="Milestone" />
+    </AssociationSet>
     <AssociationSet Name="FK__Project__LeaderI__2180FB33" Association="Self.FK__Project__LeaderI__2180FB33">
       <End Role="Users" EntitySet="Users" />
       <End Role="Project" EntitySet="Project" />

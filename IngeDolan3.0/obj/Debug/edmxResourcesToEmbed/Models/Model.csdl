@@ -100,6 +100,7 @@
     <Property Name="Estado" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="UserStory" Relationship="Self.FK__Task__42E1EEFE" FromRole="ProjectTask" ToRole="UserStory" />
     <NavigationProperty Name="User" Relationship="Self.FK__Task__userID__43D61337" FromRole="ProjectTask" ToRole="Users" />
+    <NavigationProperty Name="Milestones" Relationship="Models.FK__Milestone__46B27FE2" FromRole="ProjectTask" ToRole="Milestone" />
   </EntityType>
   <EntityType Name="Scenario">
     <Key>
@@ -349,5 +350,44 @@
       <End Role="Permisos" EntitySet="Permisos" />
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
     </AssociationSet>
+    <EntitySet Name="Milestones" EntityType="Models.Milestone" />
+    <AssociationSet Name="FK__Milestone__46B27FE2" Association="Models.FK__Milestone__46B27FE2">
+      <End Role="ProjectTask" EntitySet="ProjectTasks" />
+      <End Role="Milestone" EntitySet="Milestones" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Milestone">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+      <PropertyRef Name="SprintID" />
+      <PropertyRef Name="StoryID" />
+      <PropertyRef Name="TaskID" />
+      <PropertyRef Name="Date" />
+    </Key>
+    <Property Name="ProjectID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="SprintID" Type="Int32" Nullable="false" />
+    <Property Name="StoryID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="TaskID" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Progress" Type="Int32" />
+    <NavigationProperty Name="ProjectTask" Relationship="Models.FK__Milestone__46B27FE2" FromRole="Milestone" ToRole="ProjectTask" />
+  </EntityType>
+  <Association Name="FK__Milestone__46B27FE2">
+    <End Type="Models.ProjectTask" Role="ProjectTask" Multiplicity="1" />
+    <End Type="Models.Milestone" Role="Milestone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectTask">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+        <PropertyRef Name="StoryID" />
+        <PropertyRef Name="TaskID" />
+      </Principal>
+      <Dependent Role="Milestone">
+        <PropertyRef Name="ProjectID" />
+        <PropertyRef Name="SprintID" />
+        <PropertyRef Name="StoryID" />
+        <PropertyRef Name="TaskID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

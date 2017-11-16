@@ -222,5 +222,17 @@
         <ScalarProperty Name="Id" ColumnName="fk_role_id" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Milestones">
+      <EntityTypeMapping TypeName="Models.Milestone">
+        <MappingFragment StoreEntitySet="Milestone">
+          <ScalarProperty Name="Progress" ColumnName="Progress" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="StoryID" ColumnName="StoryID" />
+          <ScalarProperty Name="SprintID" ColumnName="SprintID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
