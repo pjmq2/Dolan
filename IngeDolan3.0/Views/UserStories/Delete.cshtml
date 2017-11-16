@@ -21,11 +21,11 @@
         </dd>
 
         <dt>
-            Prioridad
+            Alias
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Priorities)
+            @Html.DisplayFor(model => model.Alias)
         </dd>
 
         <dt>
@@ -37,22 +37,6 @@
         </dd>
 
         <dt>
-            Estimación
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Estimation)
-        </dd>
-
-        <dt>
-            Razon
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Reason)
-        </dd>
-
-        <dt>
             Funcionalidad
         </dt>
 
@@ -61,21 +45,36 @@
         </dd>
 
         <dt>
-            Alias
+            Razón
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Alias)
+            @Html.DisplayFor(model => model.Reason)
         </dd>
 
         <dt>
-            Descripcion
+            Prioridad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Priorities)
+        </dd>
+
+        <dt>
+            Estimación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estimation)
+        </dd>
+
+        <dt>
+            Proyecto al que pertenece
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Project.Descriptions)
         </dd>
-
     </dl>
 
     @using (Html.BeginForm())
