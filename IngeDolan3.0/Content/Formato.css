@@ -55,3 +55,17 @@ navbar-header {
 .align-right {
     float: right;
 }
+
+.header {
+  display: inline-block; 
+  width: 100%;
+}
+
+.playerOne {
+  float: right;
+  margin-bottom: 15px;
+}
+.playerTwo {
+  float: left;
+  margin-bottom: 15px;
+}
