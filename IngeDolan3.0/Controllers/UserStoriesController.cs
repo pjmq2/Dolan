@@ -77,6 +77,7 @@ namespace IngeDolan3._0.Controllers
         // Presenta la pantalla donde se crea la historia de usuario.
         public ActionResult Create(string projectId)
         {
+            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
             ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "Sprint");
             return View();
         }
@@ -84,11 +85,26 @@ namespace IngeDolan3._0.Controllers
         // Confirma la creación de la historia de usuario.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserStory userStory)
+        public ActionResult Create(UserStoryInt userStory)
         {
             if (ModelState.IsValid)
             {
-                db.UserStories.Add(userStory);
+                UserStory userStoryX = new UserStory();
+                userStoryX.Alias = userStory.Alias;
+                userStoryX.ClientRole = userStory.ClientRole;
+                userStoryX.Estimation = userStory.Estimation;
+                userStoryX.Funtionality = userStory.Funtionality;
+                userStoryX.ID = userStory.ID;
+                userStoryX.Modulo = userStory.Modulo;
+                userStoryX.Priorities = userStory.Priorities;
+                userStoryX.ProjectID = userStory.ProjectID;
+                userStoryX.ProjectTasks = userStory.ProjectTasks;
+                userStoryX.Reason = userStory.Reason;
+                userStoryX.Scenarios = userStory.Scenarios;
+                userStoryX.Sprint = userStory.Sprint;
+                userStoryX.SprintID = userStory.SprintID;
+                userStoryX.StoryID = userStory.StoryID;
+                db.UserStories.Add(userStoryX);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
