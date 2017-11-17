@@ -9,3 +9,6 @@
 IngeDolan3.0/bin/IngeDolan3.0.dll
 *.dll
 *.pdb
+*.dll
+.vs/IngeDolan3.0/v15/.suo
+*.ide

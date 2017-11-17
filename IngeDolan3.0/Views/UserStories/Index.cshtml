@@ -4,80 +4,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    @*Aca viene la parte extra*@
-
-var grid = new WebGrid(canPage: true, rowsPerPage: 10);
-grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
+    var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+    grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
 
 <h2>Product Backlog</h2>
 
-@*
-    <table class="table">
-        <tr>
-            <th>
-               Id historia de Usuario
-            </th>
-            <th>
-                Prioridad
-            </th>
-            <th>
-                Rol del cliente
-            </th>
-            <th>
-                Estimacion
-            </th>
-            <th>
-                Razon
-            </th>
-            <th>
-                Funcionalidad
-            </th>
-            <th>
-                Alias
-            </th>
-            <th>
-                Descripcion
-            </th>
-            <th></th>
-        </tr>
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SprintID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priorities)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientRole)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estimation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reason)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Funtionality)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Alias)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Project.Descriptions)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { storyId = item.StoryID, projectId = item.ProjectID }) |
-                @Html.ActionLink("Details", "Details", new { storyId=item.StoryID, projectId=item.ProjectID }) |
-                @Html.ActionLink("Delete", "Delete", new { storyId = item.StoryID, projectId = item.ProjectID })
-            </td>
-        </tr>
-    }
-
-    </table>
-    *@
 
 <!DOCTYPE html>
 
@@ -107,7 +40,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                             <button type="submit" value="Search" class="btn btn-success">Buscar</button>
                         }
                         <div class="navbar-right" style="display:inline-block;">
-                            @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" }, new {@* Model.First().ProjectID *@}) 
                         </div> 
                     </div>
                 </div>
