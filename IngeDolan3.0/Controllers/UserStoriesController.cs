@@ -17,15 +17,16 @@ namespace IngeDolan3._0.Controllers
 
 
         // Presenta la lista de todas las historias de usuario que han sido registradas en la página
-        public ActionResult Index(ProyectoList projecto, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
+        public ActionResult Index(string projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
         {
             int pageSize = 10;
             int totalRecord = 0;
             if (page < 1) page = 1;
             int skip = (page * pageSize) - pageSize;
-            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projecto.id);
+            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projectId);
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
+            ViewBag.Proyecto = projectId;
             return View(data);
         }
 
@@ -77,7 +78,7 @@ namespace IngeDolan3._0.Controllers
         // Presenta la pantalla donde se crea la historia de usuario.
         public ActionResult Create(string projectId)
         {
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
+            ViewBag.ProjectID = projectId;
             ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "Sprint");
             return View();
         }
