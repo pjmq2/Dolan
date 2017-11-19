@@ -83,7 +83,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProjectID,SprintID,StoryID,TaskID,Date,Progress")] Milestone milestone)
+        public async Task<ActionResult> Edit(Milestone milestone)
         {
             if (ModelState.IsValid)
             {

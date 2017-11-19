@@ -17,15 +17,16 @@ namespace IngeDolan3._0.Controllers
 
 
         // Presenta la lista de todas las historias de usuario que han sido registradas en la página
-        public ActionResult Index(ProyectoList projecto, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
+        public ActionResult Index(string projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
         {
             int pageSize = 10;
             int totalRecord = 0;
             if (page < 1) page = 1;
             int skip = (page * pageSize) - pageSize;
-            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projecto.id);
+            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projectId);
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
+            ViewBag.Proyecto = projectId;
             return View(data);
         }
 
@@ -75,20 +76,36 @@ namespace IngeDolan3._0.Controllers
         }
 
         // Presenta la pantalla donde se crea la historia de usuario.
-        public ActionResult Create()
+        public ActionResult Create(string projectId)
         {
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
+            ViewBag.ProjectID = projectId;
+            ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "Sprint");
             return View();
         }
 
         // Confirma la creación de la historia de usuario.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StoryID,ProjectID,SprintID,Priorities,ClientRole,Estimation,Reason,Funtionality,Alias")] UserStory userStory)
+        public ActionResult Create(UserStoryInt userStory)
         {
             if (ModelState.IsValid)
             {
-                db.UserStories.Add(userStory);
+                UserStory userStoryX = new UserStory();
+                userStoryX.Alias = userStory.Alias;
+                userStoryX.ClientRole = userStory.ClientRole;
+                userStoryX.Estimation = userStory.Estimation;
+                userStoryX.Funtionality = userStory.Funtionality;
+                userStoryX.ID = userStory.ID;
+                userStoryX.Modulo = userStory.Modulo;
+                userStoryX.Priorities = userStory.Priorities;
+                userStoryX.ProjectID = userStory.ProjectID;
+                userStoryX.ProjectTasks = userStory.ProjectTasks;
+                userStoryX.Reason = userStory.Reason;
+                userStoryX.Scenarios = userStory.Scenarios;
+                userStoryX.Sprint = userStory.Sprint;
+                userStoryX.SprintID = userStory.SprintID;
+                userStoryX.StoryID = userStory.StoryID;
+                db.UserStories.Add(userStoryX);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -123,7 +140,7 @@ namespace IngeDolan3._0.Controllers
         // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StoryID,ProjectID,SprintID,Priorities,ClientRole,Estimation,Reason,Funtionality,Alias")] UserStory userStory)
+        public ActionResult Edit(UserStory userStory)
         {
             if (ModelState.IsValid)
             {

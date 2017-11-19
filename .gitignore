@@ -2,10 +2,18 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/IngeDolan3.0/v15/.suo
+/.vs/Dolan/v15/.suo
 /.vs/IngeDolan3.0/v15/Server/sqlite3/db.lock
+.vs/IngeDolan3.0/v15/sqlite3/storage.ide-shm
+.vs/IngeDolan3.0/v15/sqlite3/storage.ide-shm
+IngeDolan3.0/bin/IngeDolan3.0.dll
+*.dll
+*.pdb
+*.dll
+.vs/IngeDolan3.0/v15/.suo
+*.ide
+.vs/IngeDolan3.0/v15/.suo
+*.ide
+*.cache
 /.vs/IngeDolan3.0/v15/Server/sqlite3/storage.ide-shm
 /.vs/IngeDolan3.0/v15/Server/sqlite3/storage.ide-wal
-/.vs/IngeDolan3.0/v15/sqlite3/storage.ide-shm
-/.vs/IngeDolan3.0/v15/sqlite3/storage.ide-wal
-/.vs/IngeDolan3.0/v15/Server/sqlite3/storage.ide-shm

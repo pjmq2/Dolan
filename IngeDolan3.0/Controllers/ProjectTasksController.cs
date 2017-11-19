@@ -16,20 +16,20 @@ namespace IngeDolan3._0.Controllers
         private NewDolan2Entities db = new NewDolan2Entities();
 
         // GET: ProjectTasks
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(String projectId, string storyId)
         {
             var projectTasks = db.ProjectTasks.Include(p => p.UserStory);
             return View(await projectTasks.ToListAsync());
         }
 
         // GET: ProjectTasks/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(String projectId, string storyId, string taskId)
         {
-            if (id == null)
+            if (taskId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectTask projectTask = await db.ProjectTasks.FindAsync(id);
+            ProjectTask projectTask = await db.ProjectTasks.FindAsync(taskId);
             if (projectTask == null)
             {
                 return HttpNotFound();
@@ -49,7 +49,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StoryID,TaskID,Descripcion,EstimateTime,Priority,Estado")] ProjectTask projectTask)
+        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StoryID,taskId,Descripcion,EstimateTime,Priority,Estado")] ProjectTask projectTask)
         {
             if (ModelState.IsValid)
             {
@@ -63,13 +63,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(String projectId, string storyId, string taskId)
         {
-            if (id == null)
+            if (taskId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectTask projectTask = await db.ProjectTasks.FindAsync(id);
+            ProjectTask projectTask = await db.ProjectTasks.FindAsync(taskId);
             if (projectTask == null)
             {
                 return HttpNotFound();
@@ -83,7 +83,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProjectID,SprintID,StoryID,TaskID,Descripcion,EstimateTime,Priority,Estado")] ProjectTask projectTask)
+        public async Task<ActionResult> Edit([Bind(Include = "ProjectID,SprintID,StoryID,taskId,Descripcion,EstimateTime,Priority,Estado")] ProjectTask projectTask)
         {
             if (ModelState.IsValid)
             {
@@ -96,13 +96,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(String projectId, string storyId, string taskId)
         {
-            if (id == null)
+            if (taskId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectTask projectTask = await db.ProjectTasks.FindAsync(id);
+            ProjectTask projectTask = await db.ProjectTasks.FindAsync(taskId);
             if (projectTask == null)
             {
                 return HttpNotFound();
@@ -113,9 +113,9 @@ namespace IngeDolan3._0.Controllers
         // POST: ProjectTasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(String projectId, string storyId, string taskId)
         {
-            ProjectTask projectTask = await db.ProjectTasks.FindAsync(id);
+            ProjectTask projectTask = await db.ProjectTasks.FindAsync(taskId);
             db.ProjectTasks.Remove(projectTask);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
