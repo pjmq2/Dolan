@@ -79,9 +79,10 @@ namespace IngeDolan3._0.Controllers
         // Presenta la pantalla donde se crea la historia de usuario.
         public ActionResult Create(string projectId)
         {
-            ViewBag.ProjectID = projectId;
-            ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "Sprint");
-            return View();
+            UserStoryInt usht = new UserStoryInt();
+            usht.ProjectID = projectId;
+            ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "Sprint").FirstOrDefault();
+            return View(usht);
         }
 
         // Confirma la creación de la historia de usuario.
