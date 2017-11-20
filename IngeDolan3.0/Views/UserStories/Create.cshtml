@@ -37,13 +37,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ClientRole, "Rol del cliente", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ClientRole, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.ClientRole, new SelectList(new List<string>() { "Asistente", "Estudiante", "Profesor" }), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ClientRole, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Funtionality, "Funcionalidad", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Funtionality, "Descripcion", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Funtionality, new { htmlAttributes = new { @class = "form-control", style = "height:200px" } })
                 @Html.ValidationMessageFor(model => model.Funtionality, "", new { @class = "text-danger" })
