@@ -106,7 +106,7 @@ namespace IngeDolan3._0.Controllers
                 userStoryX.ProjectTasks = userStory.ProjectTasks;
                 userStoryX.Reason = userStory.Reason;
                 userStoryX.Scenarios = userStory.Scenarios;
-                userStoryX.Sprint = userStory.Sprint;
+                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
                 userStoryX.SprintID = userStory.SprintID;
                 userStoryX.StoryID = userStory.StoryID;
                 db.UserStories.Add(userStoryX);
