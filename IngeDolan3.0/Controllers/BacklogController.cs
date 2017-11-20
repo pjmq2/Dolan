@@ -32,12 +32,19 @@ namespace IngeDolan3._0.Controllers
                     Value = c.ProjectID
                 });
             }
-
+            
             var pl = new ProyectoList();
             pl.Nombres = item;
 
             return View(pl);
-            //ViewBag.ProjectName = new SelectList(db.Projects, "ProjectName", "ProjectName");
+            
         }
+        /*public ActionResult Index()
+        {
+            var v = (from a in db.Projects select a).Distinct();
+            SelectList proyectList = new SelectList(v);
+            ViewBag.proyectList = proyectList;
+            return View();
+        }*/
     }
 }
