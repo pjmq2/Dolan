@@ -17,8 +17,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(m => m.ProjectID, new { @Value = ViewBag.ProjectID })
+
         <div class="form-group">
-            @Html.LabelFor(model => model.StoryID, "Id de la historia de Usuario" , htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StoryID, "Id de Historia de Usuario" , htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StoryID, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.StoryID, "", new { @class = "text-danger" })
@@ -90,7 +91,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SprintID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SprintID, "" , new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Sprints", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SprintID, "", new { @class = "text-danger" })
             </div>
         </div>

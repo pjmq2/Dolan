@@ -80,8 +80,10 @@ namespace IngeDolan3._0.Controllers
         public ActionResult Create(string projectId)
         {
             UserStoryInt usht = new UserStoryInt();
+            string ID = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
             usht.ProjectID = projectId;
-            ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "Sprint").FirstOrDefault();
+            usht.StoryID = ID;
+            ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "SprintID");
             return View(usht);
         }
 
