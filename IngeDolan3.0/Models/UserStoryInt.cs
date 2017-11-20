@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 
@@ -36,5 +37,9 @@ namespace IngeDolan3._0.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Scenario> Scenarios { get; set; }
         public virtual Sprint Sprint { get; set; }
+
+
+        public List<SelectListItem> ListaSprints { get; set; }
+
     }
 }

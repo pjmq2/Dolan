@@ -17,7 +17,7 @@ namespace IngeDolan3._0.Controllers
 
 
         // Presenta la lista de todas las historias de usuario que han sido registradas en la página
-        public ActionResult Index(int page = 1, string sort = "Funtionality", string sortdir = "asc", string search = "")
+        public ActionResult Index(string storyId, int page = 1, string sort = "Funtionality", string sortdir = "asc", string search = "")
         {
             int pageSize = 10;
             int totalRecord = 0;
@@ -26,6 +26,7 @@ namespace IngeDolan3._0.Controllers
             var data = GetUserStories(search, sort, sortdir, skip, pageSize, out totalRecord);
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
+            ViewBag.ProyectoId = storyId;
             return View(data);
         }
 
@@ -75,12 +76,27 @@ namespace IngeDolan3._0.Controllers
         // Presenta la pantalla donde se crea la historia de usuario.
         public ActionResult Create(string projectId)
         {
-            UserStoryInt usht = new UserStoryInt();
+            List<Sprint> data = new List<Sprint>();
+            var v = db.Sprints.Where(m => m.ProjectID == projectId);
+            data = v.ToList();
+            List<SelectListItem> item = new List<SelectListItem>();
+            foreach (var c in data)
+            {
+                item.Add(new SelectListItem
+                {
+                    Text = c.SprintID.ToString(),
+                    Value = c.SprintID.ToString()
+                });
+            }
+
+            var pl = new UserStoryInt();
+            pl.ListaSprints = item;
+            
             string ID = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
-            usht.ProjectID = projectId;
-            usht.StoryID = ID;
+            pl.ProjectID = projectId;
+            pl.StoryID = ID;
             ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "SprintID");
-            return View(usht);
+            return View(pl);
         }
 
         // Confirma la creación de la historia de usuario.
