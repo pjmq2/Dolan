@@ -58,6 +58,8 @@ namespace IngeDolan3._0.Controllers
             userStory.StoryID = storyId;
             userStory.ProjectID = projectId;
             var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+            var proyectos = db.Projects.Where(m => m.ProjectID == projectId);
+            ViewBag.nombreProyecto = proyectos.First();
             
             if (listaDeHistorias.Count() > 0)
             {
@@ -123,7 +125,8 @@ namespace IngeDolan3._0.Controllers
             userStory.StoryID = storyId;
             userStory.ProjectID = projectId;
             var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
-
+            var proyectos = db.Projects.Where(m => m.ProjectID == projectId);
+            ViewBag.nombreProyecto = proyectos.First();
             if (listaDeHistorias.Count() > 0)
             {
                 var userStories = listaDeHistorias.First();
@@ -161,7 +164,8 @@ namespace IngeDolan3._0.Controllers
             userStory.StoryID = storyId;
             userStory.ProjectID = projectId;
             var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
-
+            var proyectos = db.Projects.Where(m => m.ProjectID == projectId);
+            ViewBag.nombreProyecto = proyectos.First();
             if (listaDeHistorias.Count() > 0)
             {
                 var userStories = listaDeHistorias.First();
@@ -176,9 +180,9 @@ namespace IngeDolan3._0.Controllers
         // Este método borra la historia de usuario que tenga el id presentado de la base de datos.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string storyId, string projectId)
         {
-            UserStory userStory = db.UserStories.Find(id);
+            UserStory userStory = db.UserStories.Where(m => m.StoryID == storyId && m.ProjectID == projectId).First();
             db.UserStories.Remove(userStory);
             db.SaveChanges();
             return RedirectToAction("Index");
