@@ -17,31 +17,25 @@ namespace IngeDolan3._0.Controllers
 
 
         // Presenta la lista de todas las historias de usuario que han sido registradas en la página
-        public ActionResult Index(ProyectoList projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
+        public ActionResult Index(int page = 1, string sort = "Funtionality", string sortdir = "asc", string search = "")
         {
             int pageSize = 10;
             int totalRecord = 0;
             if (page < 1) page = 1;
             int skip = (page * pageSize) - pageSize;
-            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projectId.id);
+            var data = GetUserStories(search, sort, sortdir, skip, pageSize, out totalRecord);
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
-            ViewBag.ProyectoId = projectId.id;
-            ViewBag.ProyectoNombre = "hola";
             return View(data);
         }
 
         // Obtiene los usuarios presentes en la base de datos.
-        public List<UserStory> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idProyecto)
+        public List<UserStory> GetUserStories(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
             var v = (from a in db.UserStories
                      where
-                        a.ProjectID.Equals(idProyecto) && (
-                            a.StoryID.Contains(search) ||
-                            a.Alias.Contains(search) ||
-                            a.Funtionality.Contains(search) ||
-                            a.Reason.Contains(search)
-                        )
+                        a.Funtionality.Contains(search) ||
+                        a.Alias.Contains(search)
                      select a
                         );
             totalRecord = v.Count();
@@ -80,8 +74,10 @@ namespace IngeDolan3._0.Controllers
         public ActionResult Create(string projectId)
         {
             UserStoryInt usht = new UserStoryInt();
+            string ID = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
             usht.ProjectID = projectId;
-            ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "Sprint").FirstOrDefault();
+            usht.StoryID = ID;
+            ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "SprintID");
             return View(usht);
         }
 
@@ -104,7 +100,7 @@ namespace IngeDolan3._0.Controllers
                 userStoryX.ProjectTasks = userStory.ProjectTasks;
                 userStoryX.Reason = userStory.Reason;
                 userStoryX.Scenarios = userStory.Scenarios;
-                userStoryX.Sprint = userStory.Sprint;
+                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
                 userStoryX.SprintID = userStory.SprintID;
                 userStoryX.StoryID = userStory.StoryID;
                 db.UserStories.Add(userStoryX);
