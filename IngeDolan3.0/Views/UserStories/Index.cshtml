@@ -40,7 +40,7 @@
                             <button type="submit" value="Search" class="btn btn-success">Buscar</button>
                         }
                         <div class="navbar-right" style="display:inline-block;">
-                            @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" }, new {ViewBag.Proyecto}) 
+                            @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProyectoId}) 
                         </div> 
                     </div>
                 </div>

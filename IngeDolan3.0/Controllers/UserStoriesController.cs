@@ -17,16 +17,17 @@ namespace IngeDolan3._0.Controllers
 
 
         // Presenta la lista de todas las historias de usuario que han sido registradas en la página
-        public ActionResult Index(string projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
+        public ActionResult Index(ProyectoList projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
         {
             int pageSize = 10;
             int totalRecord = 0;
             if (page < 1) page = 1;
             int skip = (page * pageSize) - pageSize;
-            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projectId);
+            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projectId.id);
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
-            ViewBag.Proyecto = projectId;
+            ViewBag.ProyectoId = projectId.id;
+            ViewBag.ProyectoNombre = "hola";
             return View(data);
         }
 
