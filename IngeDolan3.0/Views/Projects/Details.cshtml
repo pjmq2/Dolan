@@ -11,31 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.StartingDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartingDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FinalDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FinalDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descriptions)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descriptions)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectName)
+            Nombre del Proyecto
         </dt>
 
         <dd>
@@ -43,13 +19,40 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.name)
+            Descripcion
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descriptions)
+        </dd>
+
+        <dt>
+            Lider del proyecto
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.User.name)
         </dd>
 
+        <dt>
+            Fecha de Inicio
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingDate)
+        </dd>
+
+        <dt>
+            Fecha Final
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalDate)
+        </dd>
+
+        <div>
+            @Html.ActionLink("Volver a la lista", "Index")
+        </div>
     </dl>
 </div>
 

@@ -7,21 +7,51 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
+using System.Linq.Dynamic;
 
 namespace IngeDolan3._0.Controllers
 {
     public class UserStoriesController : Controller
     {
-        private dolan2Entities db = new dolan2Entities();
+        private NewDolan2Entities db = new NewDolan2Entities();
 
-        // GET: UserStories
-        public ActionResult Index()
+
+        // Presenta la lista de todas las historias de usuario que han sido registradas en la página
+        public ActionResult Index(ProyectoList projecto, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
         {
-            var userStories = db.UserStories.Include(u => u.Project);
-            return View(userStories.ToList());
+            int pageSize = 10;
+            int totalRecord = 0;
+            if (page < 1) page = 1;
+            int skip = (page * pageSize) - pageSize;
+            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projecto.id);
+            ViewBag.TotalRows = totalRecord;
+            ViewBag.search = search;
+            return View(data);
         }
 
-        // GET: UserStories/Details/5
+        // Obtiene los usuarios presentes en la base de datos.
+        public List<UserStory> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idProyecto)
+        {
+            var v = (from a in db.UserStories
+                     where
+                        a.ProjectID.Equals(idProyecto) && (
+                            a.StoryID.Contains(search) ||
+                            a.Alias.Contains(search) ||
+                            a.Funtionality.Contains(search) ||
+                            a.Reason.Contains(search)
+                        )
+                     select a
+                        );
+            totalRecord = v.Count();
+            v = v.OrderBy(sort + " " + sortdir);
+            if (pageSize > 0)
+            {
+                v = v.Skip(skip).Take(pageSize);
+            }
+            return v.ToList();
+        }
+
+        // Presenta los detalles de la historia de usuario que tenga el ID de proyecto e historia presentados como parámetros.
         public ActionResult Details(string storyId, string projectId)
         {
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
@@ -36,7 +66,7 @@ namespace IngeDolan3._0.Controllers
             if (listaDeHistorias.Count() > 0)
             {
                 var userStories = listaDeHistorias.First();
-                return View(userStory);
+                return View(userStories);
             }
             else
             {
@@ -44,16 +74,14 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-        // GET: UserStories/Create
+        // Presenta la pantalla donde se crea la historia de usuario.
         public ActionResult Create()
         {
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
             return View();
         }
 
-        // POST: UserStories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Confirma la creación de la historia de usuario.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StoryID,ProjectID,SprintID,Priorities,ClientRole,Estimation,Reason,Funtionality,Alias")] UserStory userStory)
@@ -69,25 +97,30 @@ namespace IngeDolan3._0.Controllers
             return View(userStory);
         }
 
-        // GET: UserStories/Edit/5
-        public ActionResult Edit(string id)
+        // Prepara la vista donde se editará la historia usuario que tenga el ID presentado como parámetro.
+        public ActionResult Edit(string storyId, string projectId)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserStory userStory = db.UserStories.Find(id);
-            if (userStory == null)
+            var userStory = new UserStory();
+            userStory.StoryID = storyId;
+            userStory.ProjectID = projectId;
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+
+            if (listaDeHistorias.Count() > 0)
+            {
+                var userStories = listaDeHistorias.First();
+                return View(userStories);
+            }
+            else
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
-            return View(userStory);
         }
 
-        // POST: UserStories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StoryID,ProjectID,SprintID,Priorities,ClientRole,Estimation,Reason,Funtionality,Alias")] UserStory userStory)
@@ -102,22 +135,30 @@ namespace IngeDolan3._0.Controllers
             return View(userStory);
         }
 
-        // GET: UserStories/Delete/5
-        public ActionResult Delete(string id)
+        // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar la historia de usuario.
+        public ActionResult Delete(string storyId, string projectId)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserStory userStory = db.UserStories.Find(id);
-            if (userStory == null)
+            var userStory = new UserStory();
+            userStory.StoryID = storyId;
+            userStory.ProjectID = projectId;
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+
+            if (listaDeHistorias.Count() > 0)
+            {
+                var userStories = listaDeHistorias.First();
+                return View(userStories);
+            }
+            else
             {
                 return HttpNotFound();
             }
-            return View(userStory);
         }
 
-        // POST: UserStories/Delete/5
+        // Este método borra la historia de usuario que tenga el id presentado de la base de datos.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -128,6 +169,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
+        // Hace que este control sea inutilizable
         protected override void Dispose(bool disposing)
         {
             if (disposing)
