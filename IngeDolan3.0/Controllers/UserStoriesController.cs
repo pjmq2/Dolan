@@ -27,7 +27,8 @@ namespace IngeDolan3._0.Controllers
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
             ViewBag.ProyectoId = projectId.id;
-            ViewBag.ProyectoNombre = "hola";
+            var v = db.Projects.Where(m => m.ProjectID == projectId.id);
+            ViewBag.ProyectoNombre = v.First().ProjectName;
             return View(data);
         }
 
@@ -112,20 +113,24 @@ namespace IngeDolan3._0.Controllers
             if (ModelState.IsValid)
             {
                 UserStory userStoryX = new UserStory();
-                userStoryX.Alias = userStory.Alias;
-                userStoryX.ClientRole = userStory.ClientRole;
-                userStoryX.Estimation = userStory.Estimation;
-                userStoryX.Funtionality = userStory.Funtionality;
-                userStoryX.ID = userStory.ID;
-                userStoryX.Modulo = userStory.Modulo;
-                userStoryX.Priorities = userStory.Priorities;
                 userStoryX.ProjectID = userStory.ProjectID;
-                userStoryX.ProjectTasks = userStory.ProjectTasks;
-                userStoryX.Reason = userStory.Reason;
-                userStoryX.Scenarios = userStory.Scenarios;
-                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
                 userStoryX.SprintID = userStory.SprintID;
                 userStoryX.StoryID = userStory.StoryID;
+                userStoryX.Modulo = userStory.Modulo;
+                userStoryX.ID = userStory.ID;
+                userStoryX.Priorities = userStory.Priorities;
+                userStoryX.ClientRole = userStory.ClientRole;
+                userStoryX.Estimation = userStory.Estimation;
+                userStoryX.Reason = userStory.Reason;
+                userStoryX.Funtionality = userStory.Funtionality;
+                userStoryX.Alias = userStory.Alias;
+                
+                
+                userStoryX.ProjectTasks = userStory.ProjectTasks;
+                userStoryX.Scenarios = userStory.Scenarios;
+                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
+                
+                
                 db.UserStories.Add(userStoryX);
                 db.SaveChanges();
                 return RedirectToAction("Index");
