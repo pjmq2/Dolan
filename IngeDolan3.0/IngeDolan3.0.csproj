@@ -352,7 +352,7 @@
     <Compile Include="Models\ProjectTask.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProyectoList.cs" />
+    <Compile Include="Models\GenericList.cs" />
     <Compile Include="Models\RoleInt.cs" />
     <Compile Include="Models\Scenario.cs">
       <DependentUpon>Model.tt</DependentUpon>

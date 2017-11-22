@@ -16,20 +16,20 @@ namespace IngeDolan3._0.Controllers
         private NewDolan2Entities db = new NewDolan2Entities();
 
         // GET: Sprints
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string projectId)
         {
             var sprints = db.Sprints.Include(s => s.Project);
             return View(await sprints.ToListAsync());
         }
 
         // GET: Sprints/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(string projectId, string SprintId)
         {
-            if (id == null)
+            if (SprintId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sprint sprint = await db.Sprints.FindAsync(id);
+            Sprint sprint = await db.Sprints.FindAsync(SprintId);
             if (sprint == null)
             {
                 return HttpNotFound();
@@ -38,7 +38,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Sprints/Create
-        public ActionResult Create()
+        public ActionResult Create(string projectId)
         {
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
             return View();
@@ -63,13 +63,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Sprints/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(string projectId, string SprintId)
         {
-            if (id == null)
+            if (SprintId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sprint sprint = await db.Sprints.FindAsync(id);
+            Sprint sprint = await db.Sprints.FindAsync(SprintId);
             if (sprint == null)
             {
                 return HttpNotFound();
