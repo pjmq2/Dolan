@@ -5,9 +5,7 @@
 }
 
 <h2>Product Backlog </h2>
-<div class="ddlm">
-    <div class="col-md-8">
-        <section id="productBacklogForm">
+
             @using (Html.BeginForm("Index", "UserStories", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", ProjectName = "form" }))
             {
                 @Html.AntiForgeryToken()
@@ -15,11 +13,8 @@
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    @*@Html.LabelFor(model => model.ProjectName, "Nombre Proyecto", htmlAttributes: new { @class = "control-label col-md-2" })*@
                     <div class="col-md-10">
-                        @*@Html.DropDownListFor(model=>model.ProjectID, (SelectList)ViewBag.proyectList, htmlAttributes: new { @class = "form-control" })*@
                         @Html.DropDownListFor(model => model.id, Model.Nombres, htmlAttributes: new { @class = "form-control" })
-                        @*@Html.DropDownList("ProjectName", null, htmlAttributes: new { @class = "form-control" })*@
                     </div>
                  </div>
 
@@ -30,9 +25,6 @@
                     </div>
                 </div>
                 }
-            </section>
-        </div>
-    </div>
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
