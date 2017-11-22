@@ -141,6 +141,7 @@ namespace IngeDolan3._0.Controllers
             usuarioInt.lastName1 = user.firstLastName;
             usuarioInt.lastName2 = user.secondLastName;
             usuarioInt.student_id = user.student_id;
+            usuarioInt.person_id = user.person_id;
             
             return View(usuarioInt);
         }
@@ -173,6 +174,7 @@ namespace IngeDolan3._0.Controllers
 
 
                     modelUser.person_id = usuarioInt.person_id;
+                    modelUser.student_id = usuarioInt.student_id
                     modelUser.name = usuarioInt.name;
                     modelUser.firstLastName = usuarioInt.lastName1;
                     modelUser.secondLastName = usuarioInt.lastName2;
