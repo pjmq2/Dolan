@@ -17,8 +17,7 @@ namespace IngeDolan3._0
             ConfigureAuth(app);
             createRolesandUsers(app);
         }
-        private void createRolesandUsers(IAppBuilder app)
-        {
+        private void createRolesandUsers(IAppBuilder app){
             ApplicationDbContext context = new ApplicationDbContext();
             NewDolan2Entities db = new NewDolan2Entities();
 

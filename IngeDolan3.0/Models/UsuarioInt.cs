@@ -53,5 +53,7 @@ namespace IngeDolan3._0.Models
         [Display(Name = "Rol")]
         public String role { get; set; }
 
+        public String id { get; set; }
+
     }
 }

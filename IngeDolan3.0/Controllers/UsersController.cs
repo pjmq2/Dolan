@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -9,12 +10,18 @@ using System.Web.Mvc;
 using IngeDolan3._0.Models;
 using System.Linq.Dynamic;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace IngeDolan3._0.Controllers
 {
     public class UsersController : Controller
     {
         private NewDolan2Entities db = new NewDolan2Entities();
+        ApplicationDbContext context = new ApplicationDbContext();
+
+        
+
+        private ApplicationUserManager _userManager;
 
         // Presenta la lista de todos los usuarios que han sido registrados en la página
         public ActionResult Index(int page = 1, string sort = "name", string sortdir = "asc", string search = "")
@@ -86,13 +93,11 @@ namespace IngeDolan3._0.Controllers
         // Presenta los detalles del proyecto que tenga el ID presentado como parámetro.
         public ActionResult Details(string id)
         {
-            if (id == null)
-            {
+            if (id == null){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Find(id);
-            if (user == null)
-            {
+            if (user == null){
                 return HttpNotFound();
             }
             return PartialView(user);
@@ -120,36 +125,69 @@ namespace IngeDolan3._0.Controllers
         }
 
         // Prepara la vista donde se editará el usuario que tenga el ID presentado como parámetro.
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
+        public ActionResult Edit(string id){
+            if (id == null){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users.Where(x => x.AspNetUser.Id == id).ToList().FirstOrDefault();
             if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.AspNetRole.Id);
-            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.AspNetRole.Name);
-            return View(user);
+            UsuarioInt usuarioInt = new UsuarioInt();
+            
+            ViewBag.Id = id;
+            
+            return View(usuarioInt);
         }
 
         // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] User user)
-        {
-            ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.AspNetRole.Id);
-            ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.AspNetRole.Name);
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+        public ActionResult Edit(UsuarioInt usuarioInt){
+            //ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.AspNetRole.Id);
+            //ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.AspNetRole.Name);
+
+            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            if (ModelState.IsValid){
+
+                var aspUser = db.AspNetUsers.Where(x => x.Id == usuarioInt.id).ToList().FirstOrDefault();
+                var modelUser = db.Users.Where(x => x.AspNetUser.Id == aspUser.Id).ToList().First();
+
+                if (aspUser != null && modelUser != null){
+                   aspUser.Email = usuarioInt.email;
+                   aspUser.AspNetRoles.Clear();
+                   //get new role 
+                    var role = db.AspNetRoles.Where(x => x.Name == usuarioInt.role).ToList().FirstOrDefault();
+                   aspUser.AspNetRoles.Add(role);
+                    if (!role.AspNetUsers.Contains(aspUser)){
+                        role.AspNetUsers.Add(aspUser);
+                    }
+                    db.AspNetUsers.AddOrUpdate(aspUser);
+                    db.AspNetRoles.AddOrUpdate(role);
+
+
+                    modelUser.person_id = Int32.Parse(usuarioInt.personID);
+                    modelUser.name = usuarioInt.name;
+                    modelUser.firstLastName = usuarioInt.lastName1;
+                    modelUser.secondLastName = usuarioInt.lastName2;
+                    db.Users.AddOrUpdate(modelUser);
+                    db.SaveChanges();
+                }
+
+
+
+                //var aspUser = db.AspNetUsers.Where(x => x.Id == usuarioInt.id);
+                //var modelUser = db.Users.Where(x => x.AspNetUser == aspUser);
+
+
+
+                //db.Entry(user).State = EntityState.Modified;
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
             }            
-            return View(user);
+            return RedirectToAction("Index");
         }
 
         // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar el usuario.
