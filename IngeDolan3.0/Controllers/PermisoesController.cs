@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -26,10 +27,8 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Permisoes/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Details(int? id){
+            if (id == null){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Permiso permiso = await db.Permisos.FindAsync(id);
@@ -41,8 +40,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Permisoes/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create(){
             return View();
         }
 
@@ -74,7 +72,7 @@ namespace IngeDolan3._0.Controllers
 
             //Get all permit objects
             ViewBag.AllPermits = db.Permisos.Where(x => true).ToList();
-
+            ViewBag.Id = roleId;
              
 
             RoleInt roleInt = new RoleInt();
@@ -83,8 +81,7 @@ namespace IngeDolan3._0.Controllers
             //Get all permits
             roleInt.AllPermits = db.Permisos.Where(x => true).ToList();
             //Get all of that roles assigned permissions
-            roleInt.AssignedPermits = roleInt.role.Permisos;
-            ViewBag.AssignedPermits = roleInt.role.Permisos;
+            roleInt.CodeList = roleInt.role.Permisos.Select(x => x.codigo).ToList();
 
 
             return View(roleInt);
@@ -98,51 +95,41 @@ namespace IngeDolan3._0.Controllers
         //public async Task<ActionResult> Edit([Bind(Include = "codigo,nombre")] Permiso permiso)
        
 
-        public async Task<ActionResult> Edit(RoleInt input)
-        {
+        public async Task<ActionResult> Edit(RoleInt input){
 
-            //var algo = input.testSring;
-            //Console.WriteLine(algo);
             
-            AspNetRole role = input.role;
-            var allPermits = input.AllPermits;
-            var assignedPermits = input.AssignedPermits;
-            var selectedPermits = input.SelectedPermits;
-            var codeList = input.CodeList;
+            AspNetRole role = db.AspNetRoles.Where(x => x.Id == input.Id).ToList().FirstOrDefault();
+            //Remove all permisions from role
+            role.Permisos.Clear();
 
-            foreach (var item in codeList)
-            {
-                Console.WriteLine(item);
-            }
-
-
-            Console.WriteLine(role.Name);
-            foreach (var item in allPermits){
-                Console.WriteLine(item.nombre);
-            }
-
-            foreach (var item in assignedPermits)
-            {
-                Console.WriteLine(item.nombre);
-            }
-
-            foreach (var item in selectedPermits)
-            {
-                Console.WriteLine(item.nombre);
-            }
-
-
-            if (ModelState.IsValid){
-
-                if (input.role != null && input.AllPermits != null && input.AssignedPermits != null &&
-                    input.SelectedPermits != null){
+            if (input.CodeList.Count != 0){
+                //For each new permission
+                foreach (var code in input.CodeList)
+                {
+                    //Get it
+                    var permit = db.Permisos.Where(x => x.codigo == code).ToList().First();
+                    //add that permit to that role
+                    role.Permisos.Add(permit);
+                    //If the permit didnt had that role associated then add it
+                    if (!permit.AspNetRoles.Contains(role))
+                    {
+                        permit.AspNetRoles.Add(role);
+                    }
+                    db.Permisos.AddOrUpdate(permit);
                 }
-               // db.Entry(permiso).State = EntityState.Modified;
-                //await db.SaveChangesAsync();
-                //return RedirectToAction("Index");
+            }
+            db.AspNetRoles.AddOrUpdate(role);
+            db.SaveChanges();
+            
+            if (ModelState.IsValid){
+                foreach (var item in input.CodeList){
+                    Console.WriteLine(item);
+                }
+             
+            
             }
     
-            return View(input);
+            return RedirectToAction("Index");
         }
 
         // GET: Permisoes/Delete/5

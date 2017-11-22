@@ -77,10 +77,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Project.Descriptions)
+            @ViewBag.nombreProyecto.ProjectName;
         </dd>
     </dl>
 </div>
 <p>
+    @*
     @Html.ActionLink("Regresar", "Index")
+    *@
 </p>

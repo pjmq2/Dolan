@@ -12,11 +12,11 @@ namespace IngeDolan3._0.Models
 
         public MultiSelectList group { get; set; }
 
-        public AspNetRole role;
-        public List<Permiso> AllPermits;
-        public ICollection<Permiso> AssignedPermits;
-        public ICollection<Permiso> SelectedPermits;
-        public List<int> CodeList;
-        public string testSring;
+        public AspNetRole role { get; set; }
+        public List<Permiso> AllPermits { get; set; }
+        public ICollection<Permiso> AssignedPermits { get; set; }
+        public ICollection<Permiso> SelectedPermits { get; set; }
+        public List<int> CodeList { get; set; }
+        public string Id { get; set; }
     }
 }

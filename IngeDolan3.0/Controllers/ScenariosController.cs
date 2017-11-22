@@ -16,20 +16,20 @@ namespace IngeDolan3._0.Controllers
         private NewDolan2Entities db = new NewDolan2Entities();
 
         // GET: Scenarios
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(String projectId, string storyId)
         {
             var scenarios = db.Scenarios.Include(s => s.UserStory);
             return View(await scenarios.ToListAsync());
         }
 
         // GET: Scenarios/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(String projectId, string storyId, string ScenarioId)
         {
-            if (id == null)
+            if (ScenarioId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Scenario scenario = await db.Scenarios.FindAsync(id);
+            Scenario scenario = await db.Scenarios.FindAsync(ScenarioId);
             if (scenario == null)
             {
                 return HttpNotFound();
@@ -49,7 +49,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StoryID,ScenarioNumber,Resultado,Event,AcceptanceCriteria,Context")] Scenario scenario)
+        public async Task<ActionResult> Create(Scenario scenario)
         {
             if (ModelState.IsValid)
             {
@@ -63,13 +63,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Scenarios/Edit/5
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(String projectId, string storyId, string ScenarioId)
         {
-            if (id == null)
+            if (ScenarioId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Scenario scenario = await db.Scenarios.FindAsync(id);
+            Scenario scenario = await db.Scenarios.FindAsync(ScenarioId);
             if (scenario == null)
             {
                 return HttpNotFound();
@@ -83,7 +83,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProjectID,SprintID,StoryID,ScenarioNumber,Resultado,Event,AcceptanceCriteria,Context")] Scenario scenario)
+        public async Task<ActionResult> Edit(Scenario scenario)
         {
             if (ModelState.IsValid)
             {
@@ -96,13 +96,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Scenarios/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(String projectId, string storyId, string ScenarioId)
         {
-            if (id == null)
+            if (ScenarioId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Scenario scenario = await db.Scenarios.FindAsync(id);
+            Scenario scenario = await db.Scenarios.FindAsync(ScenarioId);
             if (scenario == null)
             {
                 return HttpNotFound();
@@ -113,9 +113,9 @@ namespace IngeDolan3._0.Controllers
         // POST: Scenarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(String projectId, string storyId, string ScenarioId)
         {
-            Scenario scenario = await db.Scenarios.FindAsync(id);
+            Scenario scenario = await db.Scenarios.FindAsync(ScenarioId);
             db.Scenarios.Remove(scenario);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

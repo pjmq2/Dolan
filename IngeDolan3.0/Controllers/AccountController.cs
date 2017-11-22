@@ -24,45 +24,36 @@ namespace IngeDolan3._0.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager ){
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
         public ApplicationSignInManager SignInManager
         {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
+            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>(); }
+            private set { _signInManager = value; }
         }
 
         public ApplicationUserManager UserManager
         {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
         }
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl){
+        public ActionResult Login(string returnUrl)
+        {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
 
-        public Boolean CanDo(string permission){
+        public Boolean CanDo(string permission)
+        {
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var modelUser = db.AspNetUsers.Where(x => x.Id == userId).ToList().First();
             var usedUser = modelUser.Users.FirstOrDefault();
@@ -70,8 +61,10 @@ namespace IngeDolan3._0.Controllers
             var permisos = userRole.Permisos;
 
             //if found return true
-            foreach (var per in permisos){
-                if(per.nombre == permission){
+            foreach (var per in permisos)
+            {
+                if (per.nombre == permission)
+                {
                     return true;
                 }
             }
@@ -93,7 +86,8 @@ namespace IngeDolan3._0.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
+                shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -101,7 +95,7 @@ namespace IngeDolan3._0.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new {ReturnUrl = returnUrl, RememberMe = model.RememberMe});
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -119,7 +113,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new VerifyCodeViewModel {Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe});
         }
 
         //
@@ -138,7 +132,8 @@ namespace IngeDolan3._0.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code,
+                isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,12 +150,13 @@ namespace IngeDolan3._0.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register(){
+        public ActionResult Register()
+        {
             //if (this.CanDo("Crear Usuarios")){
 
             var list = db.AspNetRoles.Where(x => true).ToList();
             ViewBag.role = new SelectList(list, "Name", "Name");
-                return View();
+            return View();
             /*}else
             {
                 Console.Write("user cant create users");
@@ -179,58 +175,38 @@ namespace IngeDolan3._0.Controllers
             ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.email, Email = model.email };
+                var user = new ApplicationUser {UserName = model.email, Email = model.email};
                 var result = await UserManager.CreateAsync(user, model.password);
                 if (result.Succeeded)
                 {
                     //try
                     //{
-                        var modelUser = new User();
-                        modelUser.name = model.name;
-                        modelUser.firstLastName = model.lastName1;
-                        modelUser.secondLastName = model.lastName2;
-                        modelUser.AspNetRole = db.AspNetRoles.Where(x => x.Name == model.role).ToList().FirstOrDefault();
-                        modelUser.person_id = Int32.Parse(model.personID); //Parse to int given that personID's are always numbers
-                        modelUser.student_id = model.studentID;
-                        modelUser.AspNetUser = db.AspNetUsers.Where(x => x.Email == model.email).ToList().FirstOrDefault();
-                        modelUser.userID = modelUser.name;
-                        db.Users.Add(modelUser);
-                        db.SaveChanges();
-                    //}
-                    //catch (DbEntityValidationException e)
-                    //{
-                        //foreach (var eve in e.EntityValidationErrors)
-                        //{
-                            //Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                                //eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                            //foreach (var ve in eve.ValidationErrors)
-                            //{
-                                //Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                    //ve.PropertyName, ve.ErrorMessage);
-                            //}
-                        //}
-                        //throw;
-                    //}
-                    //var modelUser = new User();
-                    //modelUser.id = "a";
-                    //modelUser.name = "alonso";
-                    //modelUser.role = "dad";
-                    //modelUser.AspNetUser = db.AspNetUsers.Find(user.Id);
-                    //db.Users.Add(modelUser);
-                    //db.SaveChanges();
+                    var modelUser = new User();
+                    modelUser.name = model.name;
+                    modelUser.firstLastName = model.lastName1;
+                    modelUser.secondLastName = model.lastName2;
+                    modelUser.AspNetRole =
+                        db.AspNetRoles.Where(x => x.Name == model.role).ToList().FirstOrDefault();
+                    modelUser.person_id =
+                        Int32.Parse(model.personID); //Parse to int given that personID's are always numbers
+                    modelUser.student_id = model.studentID;
+                    modelUser.AspNetUser =
+                        db.AspNetUsers.Where(x => x.Email == model.email).ToList().FirstOrDefault();
+                    modelUser.userID = model.name;
+                    db.Users.Add(modelUser);
+                    db.SaveChanges();
+
 
                     return RedirectToAction("Index", "Home");
                 }
-                AddErrors(result);
+                // If we got this far, something failed, redisplay form
+                return View(model);
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //
+        
         // GET: /Account/ConfirmEmail
-        [AllowAnonymous]
+            [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)

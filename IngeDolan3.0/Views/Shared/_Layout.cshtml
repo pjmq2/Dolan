@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+@using System.Linq
+@using System.Web.Mvc.Html;
+@using IngeDolan3._0.Helpers;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -24,10 +27,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Permisos", "Index", "Permisoes")</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
-                    <li>@Html.ActionLink("Proyectos", "Index", "PROJECTs")</li>
-                    <li>@Html.ActionLink("Product Backlog", "Index", "Backlog")</li>
+                    <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "Permisoes")"><a href="@Url.Action("Index", "Permisoes")" class="inlineText"></i>Permisos</a></li>
+                    
+                    <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "Users") @Html.IsSelected(actions: "Register", controllers: "Account")"><a href="@Url.Action("Index", "Users")" class="inlineText"></i>Usuarios</a></li>
+                    
+                    <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "Projects")"><a href="@Url.Action("Index", "Projects")" class="inlineText"></i>Proyectos</a></li>
+                    
+                    <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "Backlog,UserStories,Milestones,Scenarios")"><a href="@Url.Action("Index", "Backlog")" class="inlineText"></i>Backlog</a></li>
                     @*@if (User.Identity.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("Cambiar Contraseña", "ChangePassword", "Manage")</li>
