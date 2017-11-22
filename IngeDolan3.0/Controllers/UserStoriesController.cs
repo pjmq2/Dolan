@@ -135,10 +135,9 @@ namespace IngeDolan3._0.Controllers
                 
                 db.UserStories.Add(userStoryX);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Index,Home");
         }
 
         // Prepara la vista donde se editará la historia usuario que tenga el ID presentado como parámetro.
@@ -148,16 +147,28 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var userStory = new UserStory();
-            userStory.StoryID = storyId;
-            userStory.ProjectID = projectId;
-            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == userStory.StoryID && m.ProjectID == projectId);
+
+            List<Sprint> data = new List<Sprint>();
+            var v = db.Sprints.Where(m => m.ProjectID == projectId);
+            data = v.ToList();
+            List<SelectListItem> item = new List<SelectListItem>();
+            foreach (var c in data)
+            {
+                item.Add(new SelectListItem
+                {
+                    Text = c.SprintID.ToString(),
+                    Value = c.SprintID.ToString()
+                });
+            }
+            
+            var listaDeHistorias = db.UserStories.Where(m => m.StoryID == storyId && m.ProjectID == projectId);
             var proyectos = db.Projects.Where(m => m.ProjectID == projectId);
             ViewBag.nombreProyecto = proyectos.First();
             if (listaDeHistorias.Count() > 0)
             {
                 var userStories = listaDeHistorias.First();
-                return View(userStories);
+                UserStoryInt pl = ConvertirInt(userStories,item);
+                return View(pl);
             }
             else
             {
@@ -165,19 +176,57 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
+        public UserStoryInt ConvertirInt(UserStory userStory, List<SelectListItem> lista)
+        {
+            var usi = new UserStoryInt();
+            usi.ListaSprints = lista;
+            usi.Alias = userStory.Alias;
+            usi.ClientRole = userStory.ClientRole;
+            usi.Estimation = userStory.Estimation;
+            usi.Funtionality = userStory.Funtionality;
+            usi.ID = userStory.ID;
+            usi.Modulo = userStory.Modulo;
+            usi.Priorities = userStory.Priorities;
+            usi.ProjectID = userStory.ProjectID;
+            usi.ProjectTasks = userStory.ProjectTasks;
+            usi.Reason = userStory.Reason;
+            usi.Scenarios = userStory.Scenarios;
+            usi.Sprint = userStory.Sprint;
+            usi.SprintID = userStory.SprintID;
+            usi.StoryID = userStory.StoryID;
+            return usi;
+        }
+
         // Guarda los cambios solicitados.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserStory userStory)
+        public ActionResult Edit(UserStoryInt userStory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(userStory).State = EntityState.Modified;
+                UserStory userStoryX = new UserStory();
+                userStoryX.ProjectID = userStory.ProjectID;
+                userStoryX.SprintID = userStory.SprintID;
+                userStoryX.StoryID = userStory.StoryID;
+                userStoryX.Modulo = userStory.Modulo;
+                userStoryX.ID = userStory.ID;
+                userStoryX.Priorities = userStory.Priorities;
+                userStoryX.ClientRole = userStory.ClientRole;
+                userStoryX.Estimation = userStory.Estimation;
+                userStoryX.Reason = userStory.Reason;
+                userStoryX.Funtionality = userStory.Funtionality;
+                userStoryX.Alias = userStory.Alias;
+
+
+                userStoryX.ProjectTasks = userStory.ProjectTasks;
+                userStoryX.Scenarios = userStory.Scenarios;
+                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
+
+
+                db.UserStories.Add(userStoryX);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", userStory.ProjectID);
-            return View(userStory);
+            return RedirectToAction("Index,Home");
         }
 
         // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar la historia de usuario.
@@ -212,7 +261,7 @@ namespace IngeDolan3._0.Controllers
             UserStory userStory = db.UserStories.Where(m => m.StoryID == storyId && m.ProjectID == projectId).First();
             db.UserStories.Remove(userStory);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index,Home");
         }
 
         // Hace que este control sea inutilizable
