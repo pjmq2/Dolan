@@ -107,7 +107,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // Confirma la creación de la historia de usuario.
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserStoryInt userStory)
         {
@@ -129,7 +129,7 @@ namespace IngeDolan3._0.Controllers
                 
                 userStoryX.ProjectTasks = userStory.ProjectTasks;
                 userStoryX.Scenarios = userStory.Scenarios;
-                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault();
+                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID && m.ProjectID == userStory.ProjectID).ToList().FirstOrDefault();
                 
                 
                 db.UserStories.Add(userStoryX);
