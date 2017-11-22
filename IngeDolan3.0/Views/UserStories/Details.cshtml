@@ -81,8 +81,14 @@
         </dd>
     </dl>
 </div>
-<p>
-    @*
-    @Html.ActionLink("Regresar", "Index")
-    *@
-</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.StoryID)
+    @Html.HiddenFor(model => model.ProjectID)
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Volver a la lista" formaction="Cancel" class="btn btn-default" />
+    </div>
+}

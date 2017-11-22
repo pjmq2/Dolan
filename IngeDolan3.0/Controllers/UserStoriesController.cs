@@ -199,13 +199,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // Guarda los cambios solicitados.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserStoryInt userStory)
         {
             if (ModelState.IsValid)
             {
-                UserStory userStoryX = new UserStory();
+                var userStoryX = db.UserStories.Where(x => x.ProjectID == userStory.ProjectID && x.SprintID == userStory.SprintID && x.StoryID == userStory.StoryID).ToList().FirstOrDefault();
                 userStoryX.ProjectID = userStory.ProjectID;
                 userStoryX.SprintID = userStory.SprintID;
                 userStoryX.StoryID = userStory.StoryID;
@@ -221,10 +221,8 @@ namespace IngeDolan3._0.Controllers
 
                 userStoryX.ProjectTasks = userStory.ProjectTasks;
                 userStoryX.Scenarios = userStory.Scenarios;
-                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
-
-
-                db.UserStories.Add(userStoryX);
+                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID && m.ProjectID == userStory.ProjectID).ToList().FirstOrDefault(); ;
+                
                 db.SaveChanges();
             }
             var pl = new GenericList();
