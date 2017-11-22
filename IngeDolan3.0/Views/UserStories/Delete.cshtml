@@ -9,6 +9,17 @@
 
 <h3>¿Realmente desea borrar la historia de usuario seleccionada?</h3>
 <div>
+    <div class="navbar-right" style="display:inline-block;">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.StoryID)
+            @Html.HiddenFor(model => model.ProjectID)
+            
+            <input type="submit" value="Borrar" formaction="Delete" class="btn btn-default" />
+            <input type="submit" value="Volver a la Lista" formaction="Cancel" class="btn btn-default" />
+        }
+    </div>
     <h4>Historia de Usuario</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -73,19 +84,7 @@
         </dt>
 
         <dd>
-            @ViewBag.nombreProyecto.ProjectName;
+            @ViewBag.nombreProyecto.ProjectName
         </dd>
     </dl>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.StoryID)
-        @Html.HiddenFor(model => model.ProjectID)
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Borrar" formaction="Delete" class="btn btn-default" /> |
-            <input type="submit" value="Cancelar" formaction="Cancel" class="btn btn-default" />
-        </div>
-    }
 </div>
