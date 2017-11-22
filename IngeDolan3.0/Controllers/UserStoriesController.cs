@@ -29,6 +29,7 @@ namespace IngeDolan3._0.Controllers
             ViewBag.ProyectoId = projectId.id;
             var v = db.Projects.Where(m => m.ProjectID == projectId.id);
             ViewBag.ProyectoNombre = v.First().ProjectName;
+            ViewBag.List = projectId;
             return View(data);
         }
 
@@ -101,6 +102,7 @@ namespace IngeDolan3._0.Controllers
             string ID = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
             pl.ProjectID = projectId;
             pl.StoryID = ID;
+            ViewBag.proyectoId = projectId;
             ViewBag.Sprints = new SelectList(db.Sprints.Where(x => x.ProjectID == projectId), "SprintID", "SprintID");
             return View(pl);
         }

@@ -31,14 +31,6 @@ namespace IngeDolan3._0.Controllers
             pl.Nombres = item;
 
             return View(pl);
-            
         }
-        /*public ActionResult Index()
-        {
-            var v = (from a in db.Projects select a).Distinct();
-            SelectList proyectList = new SelectList(v);
-            ViewBag.proyectList = proyectList;
-            return View();
-        }*/
     }
 }
