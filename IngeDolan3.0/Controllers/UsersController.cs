@@ -135,8 +135,12 @@ namespace IngeDolan3._0.Controllers
                 return HttpNotFound();
             }
             UsuarioInt usuarioInt = new UsuarioInt();
-            
-            ViewBag.Id = id;
+            usuarioInt.email = user.AspNetUser.Email;
+            usuarioInt.role = user.AspNetUser.AspNetRoles.First().Name;
+            usuarioInt.name = user.name;
+            usuarioInt.lastName1 = user.firstLastName;
+            usuarioInt.lastName2 = user.secondLastName;
+            usuarioInt.student_id = user.student_id;
             
             return View(usuarioInt);
         }
@@ -168,7 +172,7 @@ namespace IngeDolan3._0.Controllers
                     db.AspNetRoles.AddOrUpdate(role);
 
 
-                    modelUser.person_id = Int32.Parse(usuarioInt.personID);
+                    modelUser.person_id = usuarioInt.person_id;
                     modelUser.name = usuarioInt.name;
                     modelUser.firstLastName = usuarioInt.lastName1;
                     modelUser.secondLastName = usuarioInt.lastName2;
@@ -197,7 +201,7 @@ namespace IngeDolan3._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users.Where(x => x.AspNetUser.Id == id).ToList().FirstOrDefault();
             if (user == null)
             {
                 return HttpNotFound();
@@ -211,8 +215,8 @@ namespace IngeDolan3._0.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
-            User leaderUser = leader.Users.FirstOrDefault();
-            Project potentialProyect = leaderUser.Projects.FirstOrDefault();
+            User leaderUser = leader.Users.First();
+            Project potentialProyect = leaderUser.Projects.First();
             if (potentialProyect == null)
             {
                 leader.Users.Clear();
