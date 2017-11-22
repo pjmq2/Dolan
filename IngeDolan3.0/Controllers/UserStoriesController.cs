@@ -137,9 +137,8 @@ namespace IngeDolan3._0.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "ProjectID", userStory.ProjectID);
-            return View(userStory);
+            
+            return RedirectToAction("Index");
         }
 
         // Prepara la vista donde se editará la historia usuario que tenga el ID presentado como parámetro.

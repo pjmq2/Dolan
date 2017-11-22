@@ -557,7 +557,6 @@
     <Content Include="Views\Sprints\Details.cshtml" />
     <Content Include="Views\Sprints\Edit.cshtml" />
     <Content Include="Views\Sprints\Index.cshtml" />
-    <Content Include="Views\UserStories\Crear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
