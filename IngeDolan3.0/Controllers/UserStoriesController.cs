@@ -15,8 +15,8 @@ namespace IngeDolan3._0.Controllers
     {
         private NewDolan2Entities db = new NewDolan2Entities();
 
-
         // Presenta la lista de todas las historias de usuario que han sido registradas en la página
+        [HttpPost, ActionName("Index")]
         public ActionResult Index(GenericList projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
         {
             int pageSize = 10;
@@ -29,8 +29,7 @@ namespace IngeDolan3._0.Controllers
             ViewBag.ProyectoId = projectId.id;
             var v = db.Projects.Where(m => m.ProjectID == projectId.id);
             ViewBag.ProyectoNombre = v.First().ProjectName;
-            ViewBag.List = projectId;
-            return View(data);
+            return View("Index", data);
         }
 
         // Obtiene los usuarios presentes en la base de datos.
@@ -130,14 +129,16 @@ namespace IngeDolan3._0.Controllers
                 
                 userStoryX.ProjectTasks = userStory.ProjectTasks;
                 userStoryX.Scenarios = userStory.Scenarios;
-                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
+                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault();
                 
                 
                 db.UserStories.Add(userStoryX);
                 db.SaveChanges();
             }
-
-            return RedirectToAction("Index,Home");
+            
+            var pl = new GenericList();
+            pl.id = userStory.ProjectID;
+            return Index(projectId: pl);
         }
 
         // Prepara la vista donde se editará la historia usuario que tenga el ID presentado como parámetro.
@@ -226,7 +227,9 @@ namespace IngeDolan3._0.Controllers
                 db.UserStories.Add(userStoryX);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index,Home");
+            var pl = new GenericList();
+            pl.id = userStory.ProjectID;
+            return Index(projectId: pl);
         }
 
         // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar la historia de usuario.
@@ -261,7 +264,18 @@ namespace IngeDolan3._0.Controllers
             UserStory userStory = db.UserStories.Where(m => m.StoryID == storyId && m.ProjectID == projectId).First();
             db.UserStories.Remove(userStory);
             db.SaveChanges();
-            return RedirectToAction("Index,Home");
+            GenericList pl = new GenericList();
+            pl.id = projectId;
+            return Index(projectId: pl);
+        }
+
+        [HttpPost, ActionName("Cancel")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Cancel(string storyId, string projectId)
+        {
+            GenericList pl = new GenericList();
+            pl.id = projectId;
+            return Index(projectId: pl);
         }
 
         // Hace que este control sea inutilizable

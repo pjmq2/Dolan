@@ -80,10 +80,12 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.StoryID)
+        @Html.HiddenFor(model => model.ProjectID)
 
         <div class="form-actions no-color">
-            <input type="submit" value="Borrar" class="btn btn-default" /> |
-            @Html.ActionLink("Regresar", "Index")
+            <input type="submit" value="Borrar" formaction="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Cancelar" formaction="Cancel" class="btn btn-default" />
         </div>
     }
 </div>
