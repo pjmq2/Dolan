@@ -68,7 +68,7 @@ namespace IngeDolan3._0
                 if (lista == null)
                 {
                     var user = new ApplicationUser();
-                    user.UserName = "Profesor";
+                    user.UserName = "profesor@profesor.com";
                     user.Email = "profesor@profesor.com";
 
                     string userPWD = "qwe123";
