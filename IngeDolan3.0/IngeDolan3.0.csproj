@@ -318,6 +318,7 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProyectTaskInt.cs" />
     <Compile Include="Models\UserStoryInt.cs" />
     <Compile Include="Models\CreateProject.cs" />
     <Compile Include="Models\C__MigrationHistory.cs">

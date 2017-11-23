@@ -101,8 +101,9 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                 @grid.Table(
                     tableStyle: "table table-responsive table-bordered",
                     columns: grid.Columns(
-                        grid.Column(columnName: "Description", header: "Descripcion"),
-                        grid.Column("EstimateTime", "Fecha estimada", format: (item) => item.StartingDate != null ? item.StartingDate.ToString("MM/dd/yy") : "", canSort: true)
+                        grid.Column(columnName: "Descripcion", header: "Descripcion"),
+                        grid.Column(columnName: "EstimateTime", header: "Tiempo estimado"),
+                        grid.Column(columnName: "Priority", header: "Prioridad")
                     )
                 )
 

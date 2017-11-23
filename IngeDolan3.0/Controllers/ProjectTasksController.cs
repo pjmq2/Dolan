@@ -84,12 +84,14 @@ namespace IngeDolan3._0.Controllers
         public ActionResult Create(string projectId, string storyId)
         {
             int sprintId = db.UserStories.Where(x => x.StoryID == storyId).ToList().FirstOrDefault().SprintID;
-            var pl = new ProjectTask();
+            var pl = new ProjectTaskInt();
             string ID = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
             pl.ProjectID = projectId;
             pl.StoryID = storyId;
             pl.SprintID = sprintId;
             pl.TaskID = ID;
+            string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
+            ViewBag.UserID = new SelectList((db.Users.Where(x => (x.Projects.Where(y => y.ProjectID == projectId).FirstOrDefault().ProjectID == projectId) && x.AspNetRole.Id == EstID)), "userID", "name");
             return View(pl);
         }
 
@@ -98,13 +100,24 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StoryID,taskId,Descripcion,EstimateTime,Priority,Estado")] ProjectTask projectTask)
+        public async Task<ActionResult> Create(ProjectTaskInt projectTask)
         {
             if (ModelState.IsValid)
             {
-                db.ProjectTasks.Add(projectTask);
+                ProjectTask newTask = new ProjectTask();
+                newTask.ProjectID = projectTask.ProjectID;
+                newTask.StoryID = projectTask.StoryID;
+                newTask.SprintID = projectTask.SprintID;
+                newTask.TaskID = projectTask.TaskID;
+                newTask.Descripcion = projectTask.Descripcion;
+                newTask.Estado = projectTask.Estado;
+                newTask.EstimateTime = projectTask.EstimateTime;
+                newTask.Priority = projectTask.Priority;
+                newTask.UserStory = db.UserStories.Where(x => x.StoryID == projectTask.StoryID).ToList().FirstOrDefault();
+                newTask.User = db.Users.Where(x => x.userID == projectTask.UserID).ToList().FirstOrDefault();
+                db.ProjectTasks.Add(newTask);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { projectId = projectTask.ProjectID, storyId = projectTask.StoryID });
             }
             ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo", projectTask.ProjectID);
             return View(projectTask);
