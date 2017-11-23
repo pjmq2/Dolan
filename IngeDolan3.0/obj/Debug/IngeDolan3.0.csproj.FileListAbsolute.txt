@@ -1282,6 +1282,7 @@ C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Microsoft.AspNet.I
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
+C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\ApplicationInsights.config
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\IngeDolan3.0.dll.config
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\IngeDolan3.0.dll
@@ -1425,8 +1426,6 @@ C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\System.Xml.XmlSerializer.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\System.Xml.XPath.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\System.Xml.XPath.XDocument.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Antlr3.Runtime.dll
-C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\EntityFramework.dll
-C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\EntityFramework.SqlServer.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.DependencyCollector.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -1484,8 +1483,6 @@ C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\System.Web.WebPages.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\System.Web.WebPages.Razor.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\WebGrease.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Antlr3.Runtime.pdb
-C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\EntityFramework.xml
-C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\EntityFramework.SqlServer.xml
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.Web.xml
@@ -1536,6 +1533,5 @@ C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\System.Web.WebPages.Razor.xm
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
