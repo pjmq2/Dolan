@@ -11,18 +11,17 @@ using IngeDolan3._0.Models;
 
 namespace IngeDolan3._0.Controllers
 {
-    public class ScenariosController : Controller
-    {
+    public class ScenariosController : Controller{
         private NewDolan2Entities db = new NewDolan2Entities();
 
-        // GET: Scenarios
+        // GET: Displays the scenarios list that belong to a specific project
         public async Task<ActionResult> Index(String projectId, string storyId)
         {
             var scenarios = db.Scenarios.Include(s => s.UserStory);
             return View(await scenarios.ToListAsync());
         }
 
-        // GET: Scenarios/Details/5
+        // GET: Displays a list of the details for an specific scenario
         public async Task<ActionResult> Details(String projectId, string storyId, string ScenarioId)
         {
             if (ScenarioId == null)
@@ -37,16 +36,13 @@ namespace IngeDolan3._0.Controllers
             return View(scenario);
         }
 
-        // GET: Scenarios/Create
-        public ActionResult Create()
-        {
+        // GET: Displays a screen that allows the user to create an scenario
+        public ActionResult Create(){
             ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo");
             return View();
         }
 
-        // POST: Scenarios/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Stores the new scenario on the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Scenario scenario)
@@ -62,7 +58,7 @@ namespace IngeDolan3._0.Controllers
             return View(scenario);
         }
 
-        // GET: Scenarios/Edit/5
+        // Displays a screen that lets the user edit an scenario
         public async Task<ActionResult> Edit(String projectId, string storyId, string ScenarioId)
         {
             if (ScenarioId == null)
@@ -78,9 +74,7 @@ namespace IngeDolan3._0.Controllers
             return View(scenario);
         }
 
-        // POST: Scenarios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Stores the edited scenario information on the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Scenario scenario)
@@ -95,7 +89,7 @@ namespace IngeDolan3._0.Controllers
             return View(scenario);
         }
 
-        // GET: Scenarios/Delete/5
+        // GET: Displays a screen that allows an user to delete an scenario
         public async Task<ActionResult> Delete(String projectId, string storyId, string ScenarioId)
         {
             if (ScenarioId == null)
@@ -110,7 +104,7 @@ namespace IngeDolan3._0.Controllers
             return View(scenario);
         }
 
-        // POST: Scenarios/Delete/5
+        // Deletes the specified scenario from the database
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(String projectId, string storyId, string ScenarioId)

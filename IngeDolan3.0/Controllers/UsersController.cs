@@ -14,16 +14,13 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace IngeDolan3._0.Controllers
 {
-    public class UsersController : Controller
-    {
+    public class UsersController : Controller{
         private NewDolan2Entities db = new NewDolan2Entities();
-        ApplicationDbContext context = new ApplicationDbContext();
-
-        
+       
 
         private ApplicationUserManager _userManager;
 
-        // Presenta la lista de todos los usuarios que han sido registrados en la página
+        // Displays a list of all of the systems registered users
         public ActionResult Index(int page = 1, string sort = "name", string sortdir = "asc", string search = "")
         {
             if (CanDo("Consular Lista de Usuarios")){
@@ -43,17 +40,13 @@ namespace IngeDolan3._0.Controllers
 
         }
 
-        // Reviza los permisos que tiene el usuario para determinar si debe o no denegar el acceso del usuario
+        // Checks if the currently logged in user has permissions to perform a particular task
         public Boolean CanDo(string permission)
         {
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             if (userId != null)
             {
                 var modelUser = db.AspNetUsers.Where(x => x.Id == userId).ToList().FirstOrDefault();
-                if(modelUser == null)
-                {
-                    return false;
-                }
                 var user2 = modelUser.Users.FirstOrDefault();
                 var userRole = user2.AspNetRole;
                 var permisos = userRole.Permisos;
@@ -75,7 +68,7 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-        // Obtiene los usuarios presentes en la base de datos para llenar el índice.
+        // Gets a list of all of the users for them to be displayed in the index function
         public List<User> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
             var v = (from a in db.Users
@@ -94,7 +87,7 @@ namespace IngeDolan3._0.Controllers
             return v.ToList();
         }
 
-        // Presenta los detalles del proyecto que tenga el ID presentado como parámetro.
+        // Displays all of the details for an specific user
         public ActionResult Details(string id)
         {
             if (id == null){
@@ -107,13 +100,12 @@ namespace IngeDolan3._0.Controllers
             return PartialView(user);
         }
 
-        // Presenta la pantalla donde se crea el usuario.
-        public ActionResult Create()
-        {
+        // Displays a screen that allows the user to create a new user
+        public ActionResult Create(){
             return View();
         }
 
-        // Confirma la creación del usuario
+        // Stores the new user information on the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "name,firstLastName,secondLastName,userID,id,role")] User user)
@@ -128,7 +120,7 @@ namespace IngeDolan3._0.Controllers
             return View(user);
         }
 
-        // Prepara la vista donde se editará el usuario que tenga el ID presentado como parámetro.
+        // Displays a screen that allows a user to modify another user
         public ActionResult Edit(string id){
             if (id == null){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -139,25 +131,17 @@ namespace IngeDolan3._0.Controllers
                 return HttpNotFound();
             }
             UsuarioInt usuarioInt = new UsuarioInt();
-            usuarioInt.email = user.AspNetUser.Email;
-            usuarioInt.role = user.AspNetUser.AspNetRoles.First().Name;
-            usuarioInt.name = user.name;
-            usuarioInt.lastName1 = user.firstLastName;
-            usuarioInt.lastName2 = user.secondLastName;
-            usuarioInt.student_id = user.student_id;
-            usuarioInt.person_id = user.person_id;
+            
+            ViewBag.Id = id;
             
             return View(usuarioInt);
         }
 
-        // Guarda los cambios solicitados.
+        // Stores the users edited data on the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UsuarioInt usuarioInt){
-            //ViewBag.id = new SelectList(db.AspNetUsers, "Id", "Email", user.AspNetRole.Id);
-            //ViewBag.role = new SelectList(db.AspNetRoles, "Name", "Name", user.AspNetRole.Name);
-
-            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            
 
             if (ModelState.IsValid){
 
@@ -177,77 +161,57 @@ namespace IngeDolan3._0.Controllers
                     db.AspNetRoles.AddOrUpdate(role);
 
 
-                    modelUser.person_id = usuarioInt.person_id;
-                    modelUser.student_id = usuarioInt.student_id;
+                    modelUser.person_id = Int32.Parse(usuarioInt.personID);
                     modelUser.name = usuarioInt.name;
                     modelUser.firstLastName = usuarioInt.lastName1;
                     modelUser.secondLastName = usuarioInt.lastName2;
                     db.Users.AddOrUpdate(modelUser);
                     db.SaveChanges();
                 }
-
-
-
-                //var aspUser = db.AspNetUsers.Where(x => x.Id == usuarioInt.id);
-                //var modelUser = db.Users.Where(x => x.AspNetUser == aspUser);
-
-
-
-                //db.Entry(user).State = EntityState.Modified;
-                //db.SaveChanges();
-                //return RedirectToAction("Index");
             }            
             return RedirectToAction("Index");
         }
-
-        // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar el usuario.
+        
+        // Displays a confirmation screen for the user deletion
         public ActionResult Delete(string id)
         {
-            if (id == null)
-            {
+            if (id == null){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            //User user = db.Users.Find(id);
             User user = db.Users.Where(x => x.AspNetUser.Id == id).ToList().FirstOrDefault();
-            if (user == null)
-            {
+
+            if (user == null){
                 return HttpNotFound();
             }
             return View(user);
         }
 
-        // Este método borra al usuario de la base de datos.
+        // Deletes that specific user from the database
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(User uzer)
+        public ActionResult DeleteConfirmed(string id)
         {
-            string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            string id = uzer.AspNetUser.Id;
-            if (userId != id)
-            {
-                AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
-                User leaderUser = leader.Users.First();
-                Project potentialProyect = leaderUser.Projects.ToList().FirstOrDefault();
-                if (potentialProyect == null)
-                {
-                    leader.Users.Clear();
-                    db.Users.Remove(leaderUser);
-                    db.AspNetUsers.Remove(leader);
-                    db.SaveChanges();
+            AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
+            User leaderUser = leader.Users.FirstOrDefault();
+            Project potentialProyect = leaderUser.Projects.FirstOrDefault();
+            if (potentialProyect == null){
+                leader.Users.Clear();
+                leaderUser.AspNetUser = null;
+                db.AspNetUsers.Remove(leader);
+                db.Users.Remove(leaderUser);
+                db.SaveChanges();
 
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View("Error", potentialProyect);
-                }
+                return RedirectToAction("Index");
             }
             else
             {
-                return View("Suicide");
+                return View("Error", potentialProyect);
             }
         }
 
-        // Hace que este control sea inutilizable
+        // Unused
         protected override void Dispose(bool disposing)
         {
             if (disposing)

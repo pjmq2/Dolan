@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
 using System.Linq.Dynamic;
@@ -16,37 +13,31 @@ namespace IngeDolan3._0.Controllers
     {
         private NewDolan2Entities db = new NewDolan2Entities();
 
-        // Reviza los permisos que tiene el usuario para determinar si debe o no denegar el acceso del usuario
-        private Boolean CanDo(string permission)
-        {
+        //Function that handles if the user has permission to perform the specified task
+        private Boolean CanDo(string permission){
             String userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            if (userId != null)
-            {
+            if (userId != null){
                 var modelUser = db.AspNetUsers.Where(x => x.Id == userId).ToList().FirstOrDefault();
                 var user2 = modelUser.Users.FirstOrDefault();
                 var userRole = user2.AspNetRole;
                 var permisos = userRole.Permisos;
 
                 //if found return true
-                foreach (var per in permisos)
-                {
-                    if (per.nombre == permission)
-                    {
+                foreach (var per in permisos){
+                    if (per.nombre == permission){
                         return true;
                     }
                 }
                 //if it hasnt returned by now then it must be the user does not have permission
                 return false;
             }
-            else
-            {
+            else{
                 return false;
             }
         }
         
-        // Presenta la lista de todos los proyectos que han sido registrados en la página. 
-        public ActionResult Index(int page = 1, string sort = "ProjectName", string sortdir = "asc", string search = "")
-        {
+        // Displays a list of all of the systems current projects.
+        public ActionResult Index(int page = 1, string sort = "ProjectName", string sortdir = "asc", string search = ""){
             int pageSize = 10;
             int totalRecord = 0;
             if (page < 1) page = 1;
@@ -57,7 +48,7 @@ namespace IngeDolan3._0.Controllers
             return View(data);
         }
 
-        // Obtiene los proyectos presentes en la base de datos para llenar el índice.
+        //Simple method that returns project Objects to list them in view
         public List<Project> GetProjects(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
         {
             var v = (from a in db.Projects
@@ -75,7 +66,7 @@ namespace IngeDolan3._0.Controllers
             return v.ToList();
         }
         
-        // Presenta los detalles del proyecto que tenga el ID presentado como parámetro.
+        // Displays all of the details of a project that matches the input id
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -90,7 +81,7 @@ namespace IngeDolan3._0.Controllers
             return PartialView(pROJECT);
         }
         
-        // Prepara las listas de usuarios necesarias para presentar la pantalla donde se crea el proyecto.
+        // Displays a screen that allows the user to create a project
         public ActionResult Create()
         {
             if (!CanDo("Crear Proyectos"))
@@ -104,7 +95,7 @@ namespace IngeDolan3._0.Controllers
             return View();
         }
         
-        // Crea el proyecto que se quiere insertar en la base de datos.
+        // Post method to receive the view data and create a new project
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateProject project)
@@ -155,7 +146,7 @@ namespace IngeDolan3._0.Controllers
             return View(project);
         }
         
-        // Prepara la vista donde se editará el proyecto que tenga el ID presentado como parámetro.
+        // Displays a screen to be used as an existing project editor
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -198,7 +189,7 @@ namespace IngeDolan3._0.Controllers
             return View(project);
         }
         
-        // Guarda los cambios solicitados.
+        // Post method to store all new values of the project attributes
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CreateProject project, string id)
@@ -258,7 +249,7 @@ namespace IngeDolan3._0.Controllers
             return View(project);
         }
         
-        // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar el proyecto.
+        // Confirmation screen for a project deletion
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -273,7 +264,7 @@ namespace IngeDolan3._0.Controllers
             return View(project);
         }
         
-        // Este método borra al proyecto de la base de datos, junto con sus historias de usuario.
+        // After confirmation, this method deletes the project from the database
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -300,7 +291,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
-        // Hace que este control sea inutilizable.
+        // Unused
         protected override void Dispose(bool disposing)
         {
             if (disposing)
