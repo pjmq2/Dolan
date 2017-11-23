@@ -50,6 +50,10 @@ namespace IngeDolan3._0.Controllers
             if (userId != null)
             {
                 var modelUser = db.AspNetUsers.Where(x => x.Id == userId).ToList().FirstOrDefault();
+                if(modelUser == null)
+                {
+                    return false;
+                }
                 var user2 = modelUser.Users.FirstOrDefault();
                 var userRole = user2.AspNetRole;
                 var permisos = userRole.Permisos;
@@ -174,7 +178,7 @@ namespace IngeDolan3._0.Controllers
 
 
                     modelUser.person_id = usuarioInt.person_id;
-                    modelUser.student_id = usuarioInt.student_id
+                    modelUser.student_id = usuarioInt.student_id;
                     modelUser.name = usuarioInt.name;
                     modelUser.firstLastName = usuarioInt.lastName1;
                     modelUser.secondLastName = usuarioInt.lastName2;
@@ -214,22 +218,32 @@ namespace IngeDolan3._0.Controllers
         // Este método borra al usuario de la base de datos.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(User uzer)
         {
-            AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
-            User leaderUser = leader.Users.First();
-            Project potentialProyect = leaderUser.Projects.First();
-            if (potentialProyect == null)
+            string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            string id = uzer.AspNetUser.Id;
+            if (userId != id)
             {
-                leader.Users.Clear();
-                db.AspNetUsers.Remove(leader);
-                db.SaveChanges();
+                AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
+                User leaderUser = leader.Users.First();
+                Project potentialProyect = leaderUser.Projects.ToList().FirstOrDefault();
+                if (potentialProyect == null)
+                {
+                    leader.Users.Clear();
+                    db.Users.Remove(leaderUser);
+                    db.AspNetUsers.Remove(leader);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View("Error", potentialProyect);
+                }
             }
             else
             {
-                return View("Error", potentialProyect);
+                return View("Suicide");
             }
         }
 
