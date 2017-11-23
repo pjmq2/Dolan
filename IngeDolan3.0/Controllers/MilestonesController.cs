@@ -95,7 +95,7 @@ namespace IngeDolan3._0.Controllers
             {
                 db.Milestones.Add(milestone);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { projectId = milestone.ProjectID, storyId = milestone.StoryID, taskId = milestone.TaskID });
             }
             return View(milestone);
         }
@@ -126,7 +126,7 @@ namespace IngeDolan3._0.Controllers
             {
                 db.Entry(milestone).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { projectId = milestone.ProjectID, storyId = milestone.StoryID, taskId = milestone.TaskID });
             }
             return View(milestone);
         }
@@ -154,7 +154,7 @@ namespace IngeDolan3._0.Controllers
             Milestone milestone = await db.Milestones.FindAsync(id);
             db.Milestones.Remove(milestone);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { projectId = milestone.ProjectID, storyId = milestone.StoryID, taskId = milestone.TaskID });
         }
 
         protected override void Dispose(bool disposing)
