@@ -73,6 +73,7 @@ namespace IngeDolan3._0.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             ProjectTask projectTask = db.ProjectTasks.Where(x => x.TaskID == taskId).ToList().FirstOrDefault();
+            ViewBag.Username = projectTask.User.name;
             if (projectTask == null)
             {
                 return HttpNotFound();
