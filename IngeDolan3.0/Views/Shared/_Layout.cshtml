@@ -34,6 +34,14 @@
                     <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "Projects")"><a href="@Url.Action("Index", "Projects")" class="inlineText"></i>Proyectos</a></li>
                     
                     <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "Backlog,UserStories,Milestones,Scenarios")"><a href="@Url.Action("Index", "Backlog")" class="inlineText"></i>Backlog</a></li>
+
+                    <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "ProjectTasks")"><a href="@Url.Action("Index", "ProjectTasks")" class="inlineText"></i>Tareas</a></li>
+
+                    <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "Milestones")"><a href="@Url.Action("Index", "Milestones")" class="inlineText"></i>Hitos</a></li>
+
+                    <li class="side-li @Html.IsSelected(actions: "Index,Edit,Delete,Create,Details", controllers: "Scenarios")"><a href="@Url.Action("Index", "Scenarios")" class="inlineText"></i>Escenarios</a></li>
+
+
                     @*@if (User.Identity.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("Cambiar Contraseña", "ChangePassword", "Manage")</li>
