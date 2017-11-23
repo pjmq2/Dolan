@@ -53,7 +53,8 @@
                         grid.Column(columnName: "StoryID", header: "ID" ),
                         grid.Column(columnName: "Alias", header: "Alias"),
                         grid.Column(columnName: "Reason", header: "Razon"),
-                        grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { storyId = item.StoryID, projectId = item.ProjectID }))
+                        grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { storyId = item.StoryID, projectId = item.ProjectID })),
+                        grid.Column(header: "Tareas", format: (item) => Html.ActionLink("Tareas", "Index", "ProjectTasks", new { projectId = item.ProjectID, storyId = item.StoryID }, null))
                     )
                 )
 

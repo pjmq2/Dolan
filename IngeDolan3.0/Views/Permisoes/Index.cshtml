@@ -1,17 +1,21 @@
-﻿@model IEnumerable<IngeDolan3._0.Models.AspNetRole>
+﻿@model IEnumerable<IngeDolan3._0.Models.Permiso>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Lista de Roles</h2>
+<h2>Lista de permisos</h2>
 
+<p>
+    @Html.ActionLink("Editar Estudiante", "Edit", new { roleID = ViewBag.EstudianteID}, new { @class = "btn btn-default" })
+    @Html.ActionLink("Editar Asistente", "Edit", new { roleID = ViewBag.AsistenteID }, new { @class = "btn btn-default" })
 
+</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.nombre)
         </th>
         <th></th>
     </tr>
@@ -19,10 +23,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit",  new { roleID=item.Id }) 
+            @Html.DisplayFor(modelItem => item.nombre)
         </td>
     </tr>
 }

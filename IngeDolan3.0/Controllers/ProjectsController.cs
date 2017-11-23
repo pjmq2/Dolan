@@ -112,6 +112,7 @@ namespace IngeDolan3._0.Controllers
                 proyecto.Descriptions = project.Descriptions;
                 proyecto.ProjectName = project.ProjectName;
                 proyecto.ProjectID = id;
+                proyecto.Pstate = project.Pstate;
                 leaderUser.Projects.Add(proyecto);
 
                 sprint.Project = proyecto;

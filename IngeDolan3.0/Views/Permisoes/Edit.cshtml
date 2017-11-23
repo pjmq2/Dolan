@@ -5,20 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Html.Raw(ViewBag.TitleLabel) </h2>
+<h2>Editar</h2>
 
-@using (Html.BeginForm("Edit", "Permisoes", FormMethod.Post)){
+@using (Html.BeginForm("Edit", "Permisoes", FormMethod.Post))
+{
 
 
     //@using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 
-         @Html.AntiForgeryToken()
-    
+    @Html.AntiForgeryToken()
+
     <div class="form-horizontal">
+        <div class="navbar-right" style="display:inline-block;">
+            <input type="submit" value="Aceptar" class="btn btn-default" />
+            <input type="reset" value="Cancelar" class="btn btn-default" />
+        </div>
         <h4>Permiso</h4>
         <hr />
-        
-        
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -28,20 +33,13 @@
                     @Html.Label("Asignados", new { @class = "col-md-offset-2  col-md-2 control-label required", @style = "text-align:center;margin-left:10px;margin-bottom:10px" })
                     <div class="col-md-offset-2 col-md-10" style="margin-bottom:25px">
                         @Html.ListBoxFor(m => m.CodeList, new MultiSelectList(ViewBag.AllPermits, "codigo", "nombre"),
-                            new { id = "listica", Multiple = "multiple", Size = 30, style = "width: 150%;" })
+                        new { id = "listica", Multiple = "multiple", Size = 15, style = "width: 100%;" })
                         @Html.ValidationMessageFor(model => model.CodeList, "", new { @class = "text-danger" })
                     </div>
-                </div>
-                
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Aceptar" class="btn btn-default" />
-
-                    <input type="reset" value="Cancelar" class="btn btn-default" />
                 </div>
             </div>
         </div>
     </div>
-
 
     <style type="text/css">
         .required:after {
@@ -59,5 +57,5 @@
 }
 
 <div>
-    @Html.ActionLink("Regresar", "Index")
+    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-default" })
 </div>
