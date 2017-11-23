@@ -89,8 +89,8 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 
                         }
                         <div class="navbar-right" style="display:inline-block;">
-                            @Html.ActionLink("Crear Nuevo", "Create", null, new { @class = "btn btn-default" })
-                        </div>
+                            @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProyectId, storyId = ViewBag.StoryId }, new { @class = "btn btn-default" })
+                        </div> 
                     </div>
 
                 </div>

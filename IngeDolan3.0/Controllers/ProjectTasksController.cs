@@ -9,6 +9,7 @@ using System.Web;
 using System.Linq.Dynamic;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
+using IngeDolan3._0.Generator;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -22,25 +23,37 @@ namespace IngeDolan3._0.Controllers
             var projectTasks = db.ProjectTasks.Include(p => p.UserStory);
             return View(await projectTasks.ToListAsync());
         }*/
-
-        public ActionResult Index(int page = 1, string sort = "EstimateTime", string sortdir = "asc", string search = "")
+        
+        public ActionResult Index(string projectId, string storyId)
         {
+            int page = 1;
+            string sort = "TaskID";
+            string sortdir = "asc";
+            string search = "";
             int pageSize = 10;
             int totalRecord = 0;
             if (page < 1) page = 1;
             int skip = (page * pageSize) - pageSize;
-            var data = GetTasks(search, sort, sortdir, skip, pageSize, out totalRecord);
+            var data = GetTasks(search, sort, sortdir, skip, pageSize, out totalRecord, projectId, storyId);
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
-            return View(data);
+            ViewBag.ProyectId = projectId;
+            ViewBag.StoryId = storyId;
+            var v = db.Projects.Where(m => m.ProjectID == projectId);
+            ViewBag.ProyectoNombre = v.First().ProjectName;
+            return View("Index", data);
         }
 
         // Obtiene los proyectos presentes en la base de datos para llenar el índice.
-        public List<ProjectTask> GetTasks(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord)
+        public List<ProjectTask> GetTasks(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idProyecto, string idHistoria)
         {
             var v = (from a in db.ProjectTasks
                      where
-                        a.Descripcion.Contains(search)
+                        a.ProjectID.Equals(idProyecto) && a.StoryID.Equals(idHistoria) && (
+                            a.StoryID.Contains(search) ||
+                            a.Descripcion.Contains(search) ||
+                            a.ProjectID.Contains(search)
+                        )
                      select a
                         );
             totalRecord = v.Count();
@@ -68,9 +81,16 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Create
-        public ActionResult Create()
+        public ActionResult Create(string projectId, string storyId)
         {
-            return View();
+            int sprintId = db.UserStories.Where(x => x.StoryID == storyId).ToList().FirstOrDefault().SprintID;
+            var pl = new ProjectTask();
+            string ID = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
+            pl.ProjectID = projectId;
+            pl.StoryID = storyId;
+            pl.SprintID = sprintId;
+            pl.TaskID = ID;
+            return View(pl);
         }
 
         // POST: ProjectTasks/Create
@@ -86,7 +106,6 @@ namespace IngeDolan3._0.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-
             ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo", projectTask.ProjectID);
             return View(projectTask);
         }
