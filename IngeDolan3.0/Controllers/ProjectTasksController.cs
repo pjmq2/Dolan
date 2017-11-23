@@ -66,13 +66,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Details/5
-        public async Task<ActionResult> Details(String projectId, string storyId, string taskId)
+        public async Task<ActionResult> Details(string projectId, string storyId, string taskId)
         {
             if (taskId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectTask projectTask = await db.ProjectTasks.FindAsync(taskId);
+            ProjectTask projectTask = db.ProjectTasks.Where(x => x.TaskID == taskId).ToList().FirstOrDefault();
             if (projectTask == null)
             {
                 return HttpNotFound();
@@ -124,19 +124,31 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Edit/5
-        public async Task<ActionResult> Edit(String projectId, string storyId, string taskId)
+        public ActionResult Edit(string projectId, string storyId, string taskId)
         {
-            if (taskId == null)
+            if (taskId == null || projectId == null || storyId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectTask projectTask = await db.ProjectTasks.FindAsync(taskId);
+            ProjectTask projectTask = db.ProjectTasks.Where(x => x.TaskID == taskId).ToList().FirstOrDefault();
+            ProjectTaskInt old = new ProjectTaskInt();
+            old.ProjectID = projectTask.ProjectID;
+            old.StoryID = projectTask.StoryID;
+            old.SprintID = projectTask.SprintID;
+            old.TaskID = projectTask.TaskID;
+            old.Descripcion = projectTask.Descripcion;
+            old.Estado = projectTask.Estado;
+            old.EstimateTime = projectTask.EstimateTime;
+            old.Priority = projectTask.Priority;
+            old.UserStory = db.UserStories.Where(x => x.StoryID == projectTask.StoryID).ToList().FirstOrDefault();
+            old.User = db.Users.Where(x => x.userID == projectTask.User.userID).ToList().FirstOrDefault();
             if (projectTask == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo", projectTask.ProjectID);
-            return View(projectTask);
+            string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
+            ViewBag.UserID = new SelectList((db.Users.Where(x => (x.Projects.Where(y => y.ProjectID == projectId).FirstOrDefault().ProjectID == projectId) && x.AspNetRole.Id == EstID)), "userID", "name");
+            return View(old);
         }
 
         // POST: ProjectTasks/Edit/5
@@ -144,13 +156,23 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProjectID,SprintID,StoryID,taskId,Descripcion,EstimateTime,Priority,Estado")] ProjectTask projectTask)
+        public async Task<ActionResult> Edit(ProjectTaskInt projectTask)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(projectTask).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                ProjectTask old = db.ProjectTasks.Where(x => x.TaskID == projectTask.TaskID).ToList().FirstOrDefault();
+                old.ProjectID = projectTask.ProjectID;
+                old.StoryID = projectTask.StoryID;
+                old.SprintID = projectTask.SprintID;
+                old.TaskID = projectTask.TaskID;
+                old.Descripcion = projectTask.Descripcion;
+                old.Estado = projectTask.Estado;
+                old.EstimateTime = projectTask.EstimateTime;
+                old.Priority = projectTask.Priority;
+                old.UserStory = db.UserStories.Where(x => x.StoryID == projectTask.StoryID).ToList().FirstOrDefault();
+                old.User = db.Users.Where(x => x.userID == projectTask.UserID).ToList().FirstOrDefault();
+                db.SaveChanges();
+                return RedirectToAction("Index", new { projectId = projectTask.ProjectID, storyId = projectTask.StoryID });
             }
             ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo", projectTask.ProjectID);
             return View(projectTask);
