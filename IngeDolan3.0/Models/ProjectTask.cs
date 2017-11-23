@@ -12,9 +12,9 @@ namespace IngeDolan3._0.Models
     using System;
     using System.Collections.Generic;
      using System.ComponentModel.DataAnnotations;
-+    using System.Web.Mvc;
-+    using System.Data.Entity;
-+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Data.Entity;
+    using System.Linq;
 
     
     public partial class ProjectTask
