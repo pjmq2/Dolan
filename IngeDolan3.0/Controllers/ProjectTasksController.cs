@@ -180,13 +180,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Delete/5
-        public async Task<ActionResult> Delete(String projectId, string storyId, string taskId)
+        public async Task<ActionResult> Delete(string projectId, string storyId, string taskId)
         {
             if (taskId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectTask projectTask = await db.ProjectTasks.FindAsync(taskId);
+            ProjectTask projectTask = db.ProjectTasks.Where(x => x.TaskID == taskId).ToList().FirstOrDefault();
             if (projectTask == null)
             {
                 return HttpNotFound();
@@ -197,12 +197,12 @@ namespace IngeDolan3._0.Controllers
         // POST: ProjectTasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(String projectId, string storyId, string taskId)
+        public async Task<ActionResult> DeleteConfirmed(string projectId, string storyId, string taskId)
         {
-            ProjectTask projectTask = await db.ProjectTasks.FindAsync(taskId);
+            ProjectTask projectTask = db.ProjectTasks.Where(x => x.TaskID == taskId).ToList().FirstOrDefault();
             db.ProjectTasks.Remove(projectTask);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { projectId = projectTask.ProjectID, storyId = projectTask.StoryID });
         }
 
         protected override void Dispose(bool disposing)
