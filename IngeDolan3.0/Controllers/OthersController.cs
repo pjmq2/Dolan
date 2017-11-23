@@ -8,13 +8,13 @@ namespace IngeDolan3._0.Controllers
 {
     public class OthersController : Controller
     {
-        // Presenta la pantalla de negación cuando el usuario no presenta los requisitos para acceder.
+        // Displays an error message when an user tries to perform an action its not allowed to.
         public ActionResult Denied()
         {
             return View();
         }
 
-        // Presenta la pantalla que indica si se dió un error [controlado] en la página.
+        // Displays a message when a controlled error gets triggered on the system.
         public ActionResult Error()
         {
             return View();

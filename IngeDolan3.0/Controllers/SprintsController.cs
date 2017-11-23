@@ -9,22 +9,18 @@ using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
 
-namespace IngeDolan3._0.Controllers
-{
-    public class SprintsController : Controller
-    {
+namespace IngeDolan3._0.Controllers{
+    public class SprintsController : Controller{
         private NewDolan2Entities db = new NewDolan2Entities();
 
-        // GET: Sprints
-        public async Task<ActionResult> Index(string projectId)
-        {
+        // GET: Displays a list of all of the sprints from a specific project
+        public async Task<ActionResult> Index(string projectId){
             var sprints = db.Sprints.Include(s => s.Project);
             return View(await sprints.ToListAsync());
         }
 
-        // GET: Sprints/Details/5
-        public async Task<ActionResult> Details(string projectId, string SprintId)
-        {
+        // GET: Displays all of the details for an specific sprint
+        public async Task<ActionResult> Details(string projectId, string SprintId){
             if (SprintId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -37,20 +33,17 @@ namespace IngeDolan3._0.Controllers
             return View(sprint);
         }
 
-        // GET: Sprints/Create
+        // GET: Displays a screen that allows the user to create an sprint on an speficic project
         public ActionResult Create(string projectId)
         {
             ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
             return View();
         }
 
-        // POST: Sprints/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Stores the new sprints information on the database
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StartingDate,FinalDate")] Sprint sprint)
-        {
+        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StartingDate,FinalDate")] Sprint sprint){
             if (ModelState.IsValid)
             {
                 db.Sprints.Add(sprint);
@@ -62,7 +55,7 @@ namespace IngeDolan3._0.Controllers
             return View(sprint);
         }
 
-        // GET: Sprints/Edit/5
+        // GET: Displays a screen that allows the user to edit an specific sprint
         public async Task<ActionResult> Edit(string projectId, string SprintId)
         {
             if (SprintId == null)
@@ -78,9 +71,7 @@ namespace IngeDolan3._0.Controllers
             return View(sprint);
         }
 
-        // POST: Sprints/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Stores the edited sprint information to the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ProjectID,SprintID,StartingDate,FinalDate")] Sprint sprint)
@@ -95,7 +86,7 @@ namespace IngeDolan3._0.Controllers
             return View(sprint);
         }
 
-        // GET: Sprints/Delete/5
+        // GET: Displays a screen that allows the user to delete an sprint
         public async Task<ActionResult> Delete(string id)
         {
             if (id == null)
@@ -110,7 +101,7 @@ namespace IngeDolan3._0.Controllers
             return View(sprint);
         }
 
-        // POST: Sprints/Delete/5
+        // POST: Deletes the specified sprint from the database
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)

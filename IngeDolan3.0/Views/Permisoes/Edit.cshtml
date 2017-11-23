@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Editar</h2>
+<h2>@Html.Raw(ViewBag.TitleLabel) </h2>
 
 @using (Html.BeginForm("Edit", "Permisoes", FormMethod.Post)){
 
@@ -22,23 +22,26 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @Html.Hidden("Id", (string)ViewBag.Id);
+                @Html.Hidden("Id", (string)ViewBag.Id)
                 <div class="form-group" data-step="3" data-intro="Para seleccionar un desarrollador e incluirlo en el proyecto, se hace click y eso lo transfiere a la lista de los seleccionados">
                     @Html.Label("Disponibles", new { @class = "col-md-offset-2 col-md-2 control-label", @style = "text-align:center;margin-left:195px;" })
                     @Html.Label("Asignados", new { @class = "col-md-offset-2  col-md-2 control-label required", @style = "text-align:center;margin-left:10px;margin-bottom:10px" })
                     <div class="col-md-offset-2 col-md-10" style="margin-bottom:25px">
                         @Html.ListBoxFor(m => m.CodeList, new MultiSelectList(ViewBag.AllPermits, "codigo", "nombre"),
-                        new { id = "listica", Multiple = "multiple", Size = 15, style = "width: 100%;" })
+                            new { id = "listica", Multiple = "multiple", Size = 30, style = "width: 150%;" })
                         @Html.ValidationMessageFor(model => model.CodeList, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Aceptar" class="btn btn-default" />
 
-                <input type="submit" value="Aceptar" class="btn btn-default"/>
-
-                <input type="reset" value="Cancelar" class="btn btn-default"/>
+                    <input type="reset" value="Cancelar" class="btn btn-default" />
+                </div>
             </div>
         </div>
     </div>
+
 
     <style type="text/css">
         .required:after {

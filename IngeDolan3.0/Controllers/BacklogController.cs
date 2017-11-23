@@ -7,13 +7,11 @@ using IngeDolan3._0.Models;
 
 namespace IngeDolan3._0.Controllers
 {
-    public class BacklogController : Controller
-    {
+    public class BacklogController : Controller{
         private NewDolan2Entities db = new NewDolan2Entities();
 
-        // Presenta la lista de todos los backlog que han sido registrados en la página.
-        public ActionResult Index()
-        {
+        // Displays a list of all of the system's product backlogs
+        public ActionResult Index(){
             List<Project> data = new List<Project>();
             var v = (from a in db.Projects select a);
             data = v.ToList();
