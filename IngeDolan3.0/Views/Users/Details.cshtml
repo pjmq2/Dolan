@@ -1,4 +1,4 @@
-@model IngeDolan3._0.Models.User
+    @model IngeDolan3._0.Models.User
 
 @{
     ViewBag.Title = "Detalles";
@@ -8,8 +8,8 @@
 <h2>Detalles</h2>
 
 <div class="navbar-right" style="display:inline-block;">
-    @Html.ActionLink("Editar", "Edit", new { id = Model.userID }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Borrar", "Delete", new { id = Model.userID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Editar", "Edit", new { id = Model.AspNetUser.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Borrar", "Delete", new { id = Model.AspNetUser.Id }, new { @class = "btn btn-default" })
 </div>
 
 <div>
@@ -77,8 +77,3 @@
 
     </dl>
 </div>
-<p>
-    @*
-    @Html.ActionLink("Regresar", "Index")
-    *@
-</p>

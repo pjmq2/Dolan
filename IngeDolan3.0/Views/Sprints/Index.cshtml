@@ -8,18 +8,18 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProjectID }, new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SprintID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.StartingDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FinalDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Project.Descriptions)
         </th>
         <th></th>
     </tr>
@@ -27,18 +27,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.SprintID)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.StartingDate)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FinalDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Project.Descriptions)
+            @Html.ActionLink("Planificar", "Details", new { projectId = item.ProjectID, sprintId = item.SprintID })
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Eliminar", "Delete", new { projectId = item.ProjectID, sprintId = item.SprintID })
         </td>
     </tr>
 }

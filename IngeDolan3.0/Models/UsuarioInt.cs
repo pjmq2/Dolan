@@ -36,22 +36,17 @@ namespace IngeDolan3._0.Models
         [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "El nombre solo debe contener letras y espacios")]
         [Display(Name = "Segundo Apellido")]
         public string lastName2 { get; set; }
-
-        [Required(ErrorMessage = "El número de cédula es un campo requerido.")]
+        
         [Display(Name = "Cédula")]
-        public string personID { get; set; }
+        public Nullable<int> person_id { get; set; }
 
         [Display(Name = "Carnet")]
-        public string studentID { get; set; }
-
-        [Display(Name = "Sexo")]
-        public string sex { get; set; }
-
-        [Display(Name = "Fecha de nacimiento")]
-        public DateTime birthDate { get; set; }
+        public string student_id { get; set; }
 
         [Display(Name = "Rol")]
-        public String role { get; set; }
+        public string role { get; set; }
+
+        public string id { get; set; }
 
     }
 }

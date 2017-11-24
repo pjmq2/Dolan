@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -15,21 +16,20 @@ namespace IngeDolan3._0.Controllers
     {
         private NewDolan2Entities db = new NewDolan2Entities();
 
+        // Displays a list of all of the systems roles, along with an edit button to get into its respective edit page
         // GET: Permisoes
-        public async Task<ActionResult> Index()
-        {
+        public async Task<ActionResult> Index(){
             ViewBag.AsistenteID = db.AspNetRoles.Where(x => x.Name == "Asistente").ToList().FirstOrDefault().Id;
 
             ViewBag.EstudianteID = db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault().Id;
 
-            return View(await db.Permisos.ToListAsync());
+            return View(await db.AspNetRoles.ToArrayAsync());
         }
 
+        // Unused
         // GET: Permisoes/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Details(int? id){
+            if (id == null){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Permiso permiso = await db.Permisos.FindAsync(id);
@@ -40,21 +40,18 @@ namespace IngeDolan3._0.Controllers
             return View(permiso);
         }
 
+        // Unused
         // GET: Permisoes/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create(){
             return View();
         }
 
+        // Unused
         // POST: Permisoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "codigo,nombre")] Permiso permiso)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> Create([Bind(Include = "codigo,nombre")] Permiso permiso){
+            if (ModelState.IsValid){
                 db.Permisos.Add(permiso);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -63,10 +60,15 @@ namespace IngeDolan3._0.Controllers
             return View(permiso);
         }
 
+        // Displays a screen that includes a "multiselect list" that allows the user to select the permissions the specified role must have.
         // GET: Permisoes/Edit/5
         public async Task<ActionResult> Edit(String roleId){
-            String test = roleId;
-            Console.WriteLine(roleId);
+            /*
+            < p >
+                @Html.ActionLink("Editar Estudiante", "Edit", new { roleID = ViewBag.EstudianteID });
+            @Html.ActionLink("Editar Asistente", "Edit", new { roleID = ViewBag.AsistenteID });
+            </ p >
+            */
             if (roleId == null){
                 return RedirectToAction("Index", "Home");
             }
@@ -74,7 +76,7 @@ namespace IngeDolan3._0.Controllers
 
             //Get all permit objects
             ViewBag.AllPermits = db.Permisos.Where(x => true).ToList();
-
+            ViewBag.Id = roleId;
              
 
             RoleInt roleInt = new RoleInt();
@@ -83,94 +85,56 @@ namespace IngeDolan3._0.Controllers
             //Get all permits
             roleInt.AllPermits = db.Permisos.Where(x => true).ToList();
             //Get all of that roles assigned permissions
-            roleInt.AssignedPermits = roleInt.role.Permisos;
-            ViewBag.AssignedPermits = roleInt.role.Permisos;
+            roleInt.CodeList = roleInt.role.Permisos.Select(x => x.codigo).ToList();
 
+            String title = "Cambiar permisos de " + roleInt.role.Name;
+            ViewBag.TitleLabel = title;
 
             return View(roleInt);
         }
 
+        // Displays a screen that includes a "multiselect list" that allows the user to select the permissions the specified role must have.
         // POST: Permisoes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "codigo,nombre")] Permiso permiso)
-       
+        public async Task<ActionResult> Edit(RoleInt input){
 
-        public async Task<ActionResult> Edit(RoleInt input)
-        {
-
-            //var algo = input.testSring;
-            //Console.WriteLine(algo);
             
-            AspNetRole role = input.role;
-            var allPermits = input.AllPermits;
-            var assignedPermits = input.AssignedPermits;
-            var selectedPermits = input.SelectedPermits;
-            var codeList = input.CodeList;
+            AspNetRole role = db.AspNetRoles.Where(x => x.Id == input.Id).ToList().FirstOrDefault();
+            //Remove all permisions from role
+            role.Permisos.Clear();
 
-            foreach (var item in codeList)
-            {
-                Console.WriteLine(item);
-            }
-
-
-            Console.WriteLine(role.Name);
-            foreach (var item in allPermits){
-                Console.WriteLine(item.nombre);
-            }
-
-            foreach (var item in assignedPermits)
-            {
-                Console.WriteLine(item.nombre);
-            }
-
-            foreach (var item in selectedPermits)
-            {
-                Console.WriteLine(item.nombre);
-            }
-
-
-            if (ModelState.IsValid){
-
-                if (input.role != null && input.AllPermits != null && input.AssignedPermits != null &&
-                    input.SelectedPermits != null){
+            if (input.CodeList.Count != 0){
+                //For each new permission
+                foreach (var code in input.CodeList)
+                {
+                    //Get it
+                    var permit = db.Permisos.Where(x => x.codigo == code).ToList().First();
+                    //add that permit to that role
+                    role.Permisos.Add(permit);
+                    //If the permit didnt had that role associated then add it
+                    if (!permit.AspNetRoles.Contains(role))
+                    {
+                        permit.AspNetRoles.Add(role);
+                    }
+                    db.Permisos.AddOrUpdate(permit);
                 }
-               // db.Entry(permiso).State = EntityState.Modified;
-                //await db.SaveChangesAsync();
-                //return RedirectToAction("Index");
+            }
+            db.AspNetRoles.AddOrUpdate(role);
+            db.SaveChanges();
+            
+            if (ModelState.IsValid){
+                foreach (var item in input.CodeList){
+                    Console.WriteLine(item);
+                }
+             
+            
             }
     
-            return View(input);
-        }
-
-        // GET: Permisoes/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Permiso permiso = await db.Permisos.FindAsync(id);
-            if (permiso == null)
-            {
-                return HttpNotFound();
-            }
-            return View(permiso);
-        }
-
-        // POST: Permisoes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            Permiso permiso = await db.Permisos.FindAsync(id);
-            db.Permisos.Remove(permiso);
-            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
+      
         protected override void Dispose(bool disposing)
         {
             if (disposing)
