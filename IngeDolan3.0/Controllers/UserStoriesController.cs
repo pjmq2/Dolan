@@ -17,16 +17,32 @@ namespace IngeDolan3._0.Controllers
 
 
         // Displays a list of all of the user stories from a specific backlog
-        public ActionResult Index(GenericList projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = ""){
+        public ActionResult Index(GenericList GprojectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "", string TprojectId = ""){
+            string projectId = "";
+            if(GprojectId == null)
+            {
+                if(TprojectId.Equals(""))
+                {
+                    return RedirectToAction("Error");
+                }
+                else
+                {
+                    projectId = TprojectId;
+                }
+            }
+            else
+            {
+                projectId = GprojectId.id;
+            }
             int pageSize = 10;
             int totalRecord = 0;
             if (page < 1) page = 1;
             int skip = (page * pageSize) - pageSize;
-            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projectId.id);
+            var data = GetUsers(search, sort, sortdir, skip, pageSize, out totalRecord, projectId);
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
-            ViewBag.ProyectoId = projectId.id;
-            var v = db.Projects.Where(m => m.ProjectID == projectId.id);
+            ViewBag.ProyectoId = projectId;
+            var v = db.Projects.Where(m => m.ProjectID == projectId);
             ViewBag.List = projectId;
             return View(data);
         }
@@ -135,7 +151,8 @@ namespace IngeDolan3._0.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            string Pid = userStory.ProjectID;
+            return RedirectToAction("Index", new { TprojectId = Pid });
         }
 
         // Displays a screen that allows the user to edit an specific user story
@@ -224,7 +241,8 @@ namespace IngeDolan3._0.Controllers
                 db.UserStories.AddOrUpdate(userStoryX);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            string Pid = userStory.ProjectID;
+            return RedirectToAction("Index", new { TprojectId = Pid });
         }
 
         // Displays a screen that allows the user to delete a user story
@@ -272,7 +290,14 @@ namespace IngeDolan3._0.Controllers
             }
             db.UserStories.Remove(userStory);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            string Pid = userStory.ProjectID;
+            return RedirectToAction("Index", new { TprojectId = Pid });
+        }
+
+        public ActionResult Error()
+        {
+            return View();
         }
 
         // Unused
