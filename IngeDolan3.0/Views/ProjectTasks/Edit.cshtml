@@ -7,13 +7,15 @@
 
 <h2>Editar Tarea</h2>
 
-<div class="navbar-right" style="display:inline-block;">
-    <input type="submit" value="Guardar" class="btn btn-default" />
-</div>
+
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+
+    <div class="navbar-right" style="display:inline-block;">
+        <input type="submit" value="Guardar" class="btn btn-default" />
+    </div>
 
     <div class="form-horizontal">
         <h4>Tarea</h4>

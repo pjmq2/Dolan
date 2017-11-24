@@ -7,17 +7,19 @@
 
 <h2>Crear Tarea</h2>
 
-<div class="navbar-right" style="display:inline-block;">
-    <input type="submit" value="Crear" class="btn btn-default" />
-    <input type="reset" value="Cancelar" class="btn btn-default" />
-</div>
+
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+
+    <div class="navbar-right" style="display:inline-block;">
+        <input type="submit" value="Crear" class="btn btn-default" />
+        <input type="reset" value="Cancelar" class="btn btn-default" />
+    </div>
+
     <div class="form-horizontal">
-        <h4>ProjectTask</h4>
+        <h4>Tareas</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ProjectID)
