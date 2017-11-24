@@ -137,7 +137,7 @@ namespace IngeDolan3._0.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Index,Home");
+            return RedirectToAction("Index");
         }
 
         // Prepara la vista donde se editará la historia usuario que tenga el ID presentado como parámetro.
@@ -226,7 +226,7 @@ namespace IngeDolan3._0.Controllers
                 db.UserStories.Add(userStoryX);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index,Home");
+            return RedirectToAction("Index");
         }
 
         // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar la historia de usuario.
@@ -261,7 +261,7 @@ namespace IngeDolan3._0.Controllers
             UserStory userStory = db.UserStories.Where(m => m.StoryID == storyId && m.ProjectID == projectId).First();
             db.UserStories.Remove(userStory);
             db.SaveChanges();
-            return RedirectToAction("Index,Home");
+            return RedirectToAction("Index");
         }
 
         // Hace que este control sea inutilizable

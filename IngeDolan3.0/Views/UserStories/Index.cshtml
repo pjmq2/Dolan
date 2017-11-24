@@ -40,8 +40,8 @@
                             <button type="submit" value="Search" class="btn btn-success">Buscar</button>
                         }
                         <div class="navbar-right" style="display:inline-block;">
-                            @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProyectoId}, new { @class = "btn btn-default" }) 
-                        </div> 
+                            @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProyectoId }, new { @class = "btn btn-default" })
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -50,7 +50,7 @@
                 @grid.Table(
                     tableStyle: "table table-responsive table-bordered",
                     columns: grid.Columns(
-                        grid.Column(columnName: "StoryID", header: "ID" ),
+                        grid.Column(columnName: "StoryID", header: "ID"),
                         grid.Column(columnName: "Alias", header: "Alias"),
                         grid.Column(columnName: "Reason", header: "Razon"),
                         grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { storyId = item.StoryID, projectId = item.ProjectID }))
@@ -68,6 +68,10 @@
 
             </div>
         </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Sprint Planning", "Index","Sprints", new { projectId = ViewBag.ProyectoId }, new { @class = "btn btn-default" })
     </div>
 
     <script src="~/Scripts/jquery-3.1.1.js"></script>

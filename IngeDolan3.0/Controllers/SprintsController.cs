@@ -18,7 +18,8 @@ namespace IngeDolan3._0.Controllers
         // GET: Sprints
         public async Task<ActionResult> Index(string projectId)
         {
-            var sprints = db.Sprints.Include(s => s.Project);
+            ViewBag.ProjectID = projectId;
+            var sprints = db.Sprints.Where(m => m.ProjectID == projectId);
             return View(await sprints.ToListAsync());
         }
 
@@ -40,8 +41,10 @@ namespace IngeDolan3._0.Controllers
         // GET: Sprints/Create
         public ActionResult Create(string projectId)
         {
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions");
-            return View();
+            ViewBag.ProjectID = projectId;
+            Sprint sprint = new Sprint();
+            sprint.ProjectID = projectId;
+            return View(sprint);
         }
 
         // POST: Sprints/Create
@@ -49,7 +52,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StartingDate,FinalDate")] Sprint sprint)
+        public async Task<ActionResult> Create(Sprint sprint)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +61,7 @@ namespace IngeDolan3._0.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", sprint.ProjectID);
+            ViewBag.ProjectID = sprint.ProjectID;
             return View(sprint);
         }
 
@@ -83,7 +86,7 @@ namespace IngeDolan3._0.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProjectID,SprintID,StartingDate,FinalDate")] Sprint sprint)
+        public async Task<ActionResult> Edit(Sprint sprint)
         {
             if (ModelState.IsValid)
             {
