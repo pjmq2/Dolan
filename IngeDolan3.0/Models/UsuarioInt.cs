@@ -17,10 +17,14 @@ namespace IngeDolan3._0.Models
         [Display(Name = "Email")]
         public string email { get; set; }
 
+        [Required(ErrorMessage = "La contraseña es requerida")]
+        [StringLength(100, ErrorMessage = "{0} Debe ser de al menos {2} caracteres, ademas debe tener al menos un numero.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string password { get; set; }
 
         [Display(Name = "Confirm Password")]
+        [Compare("password", ErrorMessage = "La contraseña no coinside.")]
         public string confirmPassword { get; set; }
 
         [Required(ErrorMessage = "El nombre es un campo requerido.")]
@@ -29,11 +33,11 @@ namespace IngeDolan3._0.Models
         public string name { get; set; }
 
 
-        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "El nombre solo debe contener letras y espacios")]
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "El primer apellido solo debe contener letras y espacios")]
         [Display(Name = "Primer apellido")]
         public string lastName1 { get; set; }
 
-        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "El nombre solo debe contener letras y espacios")]
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "El segundo apellido solo debe contener letras y espacios")]
         [Display(Name = "Segundo Apellido")]
         public string lastName2 { get; set; }
         
