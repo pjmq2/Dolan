@@ -36,7 +36,10 @@
             @Html.DisplayFor(modelItem => item.FinalDate)
         </td>
         <td>
-            @Html.ActionLink("Planificar", "Details", new { storyId = item.SprintID, projectId = item.ProjectID })
+            @Html.ActionLink("Planificar", "Details", new { projectId = item.ProjectID, sprintId = item.SprintID })
+        </td>
+        <td>
+            @Html.ActionLink("Eliminar", "Delete", new { projectId = item.ProjectID, sprintId = item.SprintID })
         </td>
     </tr>
 }

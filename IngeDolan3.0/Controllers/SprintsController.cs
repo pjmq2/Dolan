@@ -18,21 +18,26 @@ namespace IngeDolan3._0.Controllers
         // GET: Displays a list of all of the sprints from a specific project
         public async Task<ActionResult> Index(string projectId){
             var sprints = db.Sprints.Include(s => s.Project);
+            ViewBag.ProjectID = projectId;
             return View(await sprints.ToListAsync());
         }
 
         // GET: Displays all of the details for an specific sprint
-        public async Task<ActionResult> Details(string projectId, string SprintId){
-            if (SprintId == null)
+        public async Task<ActionResult> Details(string projectId, int sprintId){
+
+            var listaDeSprints = db.Sprints.Where(m => m.SprintID == sprintId && m.ProjectID == projectId);
+            var proyectos = db.Projects.Where(m => m.ProjectID == projectId);
+            ViewBag.nombreProyecto = proyectos.First();
+
+            if (listaDeSprints.Count() > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var sprints = listaDeSprints.First();
+                return View(sprints);
             }
-            Sprint sprint = await db.Sprints.FindAsync(SprintId);
-            if (sprint == null)
+            else
             {
                 return HttpNotFound();
             }
-            return View(sprint);
         }
 
         // GET: Displays a screen that allows the user to create an sprint on an speficic project
@@ -59,51 +64,23 @@ namespace IngeDolan3._0.Controllers
             ViewBag.ProjectID = sprint.ProjectID;
             return View(sprint);
         }
-
-        // GET: Displays a screen that allows the user to edit an specific sprint
-        public async Task<ActionResult> Edit(string projectId, string SprintId)
-        {
-            if (SprintId == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sprint sprint = await db.Sprints.FindAsync(SprintId);
-            if (sprint == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", sprint.ProjectID);
-            return View(sprint);
-        }
-
-        // POST: Stores the edited sprint information to the database
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Sprint sprint)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(sprint).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ProjectID = new SelectList(db.Projects, "ProjectID", "Descriptions", sprint.ProjectID);
-            return View(sprint);
-        }
-
+        
         // GET: Displays a screen that allows the user to delete an sprint
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(string projectId, int sprintId)
         {
-            if (id == null)
+            var listaDeSprints = db.Sprints.Where(m => m.SprintID == sprintId && m.ProjectID == projectId);
+            var proyectos = db.Projects.Where(m => m.ProjectID == projectId);
+            ViewBag.nombreProyecto = proyectos.First();
+
+            if (listaDeSprints.Count() > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                var sprints = listaDeSprints.First();
+                return View(sprints);
             }
-            Sprint sprint = await db.Sprints.FindAsync(id);
-            if (sprint == null)
+            else
             {
                 return HttpNotFound();
             }
-            return View(sprint);
         }
 
         // POST: Deletes the specified sprint from the database

@@ -556,7 +556,6 @@
     <Content Include="Views\Sprints\Create.cshtml" />
     <Content Include="Views\Sprints\Delete.cshtml" />
     <Content Include="Views\Sprints\Details.cshtml" />
-    <Content Include="Views\Sprints\Edit.cshtml" />
     <Content Include="Views\Sprints\Index.cshtml" />
     <Content Include="Views\Users\Suicide.cshtml" />
   </ItemGroup>
