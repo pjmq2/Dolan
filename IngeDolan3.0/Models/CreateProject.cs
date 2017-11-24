@@ -38,6 +38,7 @@ namespace IngeDolan3._0.Models
         public Nullable<System.DateTime> FinalDate { get; set; }
         [Display(Name = "Descripción")]
         public string Descriptions { get; set; }
+        [Required(ErrorMessage = "El nombre es un campo requerido.")]
         [Display(Name = "Nombre")]
         public string ProjectName { get; set; }
         [Display(Name = "Líder")]

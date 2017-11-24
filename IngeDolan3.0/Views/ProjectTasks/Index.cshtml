@@ -95,4 +95,8 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 
 </html>
 
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar", "Index", "UserStories", new { TprojectId = ViewBag.ProyectId }, new { @class = "btn btn-default" })
+</div>
+
 <div id="TargetDiv"></div>
