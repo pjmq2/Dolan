@@ -131,7 +131,14 @@ namespace IngeDolan3._0.Controllers
                 return HttpNotFound();
             }
             UsuarioInt usuarioInt = new UsuarioInt();
-            
+            usuarioInt.email = user.AspNetUser.Email;
+            usuarioInt.role = user.AspNetUser.AspNetRoles.First().Name;
+            usuarioInt.name = user.name;
+            usuarioInt.lastName1 = user.firstLastName;
+            usuarioInt.lastName2 = user.secondLastName;
+            usuarioInt.student_id = user.student_id;
+            usuarioInt.person_id = user.person_id;
+
             ViewBag.Id = id;
             
             return View(usuarioInt);

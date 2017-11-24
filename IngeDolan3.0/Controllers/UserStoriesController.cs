@@ -128,7 +128,7 @@ namespace IngeDolan3._0.Controllers
                 
                 userStoryX.ProjectTasks = userStory.ProjectTasks;
                 userStoryX.Scenarios = userStory.Scenarios;
-                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
+                userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID && m.ProjectID == userStory.ProjectID).ToList().FirstOrDefault(); ;
                 
                 
                 db.UserStories.Add(userStoryX);
@@ -257,6 +257,19 @@ namespace IngeDolan3._0.Controllers
         public ActionResult DeleteConfirmed(string storyId, string projectId)
         {
             UserStory userStory = db.UserStories.Where(m => m.StoryID == storyId && m.ProjectID == projectId).First();
+            List<ProjectTask> list1 = userStory.ProjectTasks.ToList();
+            foreach (var c in list1)
+            {
+                var f = db.ProjectTasks.Where(x => x.TaskID == c.TaskID).ToList().FirstOrDefault();
+                List<Milestone> list2 = f.Milestones.ToList();
+                foreach (var v in list2)
+                {
+                    db.Milestones.Remove(v);
+                    db.SaveChanges();
+                }
+                db.ProjectTasks.Remove(c);
+                db.SaveChanges();
+            }
             db.UserStories.Remove(userStory);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -114,7 +114,7 @@ namespace IngeDolan3._0.Controllers
                 newTask.Estado = projectTask.Estado;
                 newTask.EstimateTime = projectTask.EstimateTime;
                 newTask.Priority = projectTask.Priority;
-                newTask.UserStory = db.UserStories.Where(x => x.StoryID == projectTask.StoryID).ToList().FirstOrDefault();
+                newTask.UserStory = db.UserStories.Where(x => x.StoryID == projectTask.StoryID && x.ProjectID == projectTask.ProjectID).ToList().FirstOrDefault();
                 newTask.User = db.Users.Where(x => x.userID == projectTask.UserID).ToList().FirstOrDefault();
                 db.ProjectTasks.Add(newTask);
                 await db.SaveChangesAsync();
