@@ -19,7 +19,7 @@ namespace IngeDolan3._0.Controllers
         // Displays a list of all of the user stories from a specific backlog
         public ActionResult Index(GenericList GprojectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "", string TprojectId = ""){
             string projectId = "";
-            if(GprojectId == null)
+            if(GprojectId.id == null)
             {
                 if(TprojectId.Equals(""))
                 {
