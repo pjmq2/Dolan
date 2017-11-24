@@ -903,8 +903,6 @@ C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\System.Xml.XmlSerializer.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\System.Xml.XPath.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\System.Xml.XPath.XDocument.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\Antlr3.Runtime.dll
-C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\EntityFramework.dll
-C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\EntityFramework.SqlServer.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\Microsoft.AI.DependencyCollector.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -962,8 +960,6 @@ C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\System.Web.WebPages.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\System.Web.WebPages.Razor.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\WebGrease.dll
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\Antlr3.Runtime.pdb
-C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\EntityFramework.xml
-C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\EntityFramework.SqlServer.xml
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\pjmq2\Desktop\Dolan\IngeDolan3.0\bin\Microsoft.AI.Web.xml

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -26,7 +27,6 @@ namespace IngeDolan3._0.Controllers
             ViewBag.search = search;
             ViewBag.ProyectoId = projectId.id;
             var v = db.Projects.Where(m => m.ProjectID == projectId.id);
-            ViewBag.ProyectoNombre = v.First().ProjectName;
             ViewBag.List = projectId;
             return View(data);
         }
@@ -165,6 +165,7 @@ namespace IngeDolan3._0.Controllers
             if (listaDeHistorias.Count() > 0)
             {
                 var userStories = listaDeHistorias.First();
+                userStories.ID = storyId;
                 UserStoryInt pl = ConvertirInt(userStories,item);
                 return View(pl);
             }
@@ -220,8 +221,7 @@ namespace IngeDolan3._0.Controllers
                 userStoryX.Scenarios = userStory.Scenarios;
                 userStoryX.Sprint = db.Sprints.Where(m => m.SprintID == userStory.SprintID).ToList().FirstOrDefault(); ;
 
-
-                db.UserStories.Add(userStoryX);
+                db.UserStories.AddOrUpdate(userStoryX);
                 db.SaveChanges();
             }
             return RedirectToAction("Index");

@@ -161,7 +161,7 @@ namespace IngeDolan3._0.Controllers
                     db.AspNetRoles.AddOrUpdate(role);
 
 
-                    modelUser.person_id = Int32.Parse(usuarioInt.personID);
+                    modelUser.person_id = usuarioInt.person_id;
                     modelUser.name = usuarioInt.name;
                     modelUser.firstLastName = usuarioInt.lastName1;
                     modelUser.secondLastName = usuarioInt.lastName2;
