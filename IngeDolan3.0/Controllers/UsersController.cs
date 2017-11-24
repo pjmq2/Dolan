@@ -191,23 +191,32 @@ namespace IngeDolan3._0.Controllers
         // Deletes that specific user from the database
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(User uzer)
         {
-            AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
-            User leaderUser = leader.Users.FirstOrDefault();
-            Project potentialProyect = leaderUser.Projects.FirstOrDefault();
-            if (potentialProyect == null){
-                leader.Users.Clear();
-                leaderUser.AspNetUser = null;
-                db.AspNetUsers.Remove(leader);
-                db.Users.Remove(leaderUser);
-                db.SaveChanges();
+            string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            string id = uzer.AspNetUser.Id;
+            if (userId != id)
+            {
+                AspNetUser leader = (db.AspNetUsers.Where(x => x.Id == id).ToList().FirstOrDefault());
+                User leaderUser = leader.Users.First();
+                Project potentialProyect = leaderUser.Projects.ToList().FirstOrDefault();
+                if (potentialProyect == null)
+                {
+                    leader.Users.Clear();
+                    db.Users.Remove(leaderUser);
+                    db.AspNetUsers.Remove(leader);
+                    db.SaveChanges();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View("Error", potentialProyect);
+                }
             }
             else
             {
-                return View("Error", potentialProyect);
+                return View("Suicide");
             }
         }
 
