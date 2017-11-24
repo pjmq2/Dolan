@@ -92,7 +92,9 @@ namespace IngeDolan3._0.Controllers
             pl.SprintID = sprintId;
             pl.TaskID = ID;
             string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
-            ViewBag.UserID = new SelectList((db.Users.Where(x => (x.Projects.Where(y => y.ProjectID == projectId).FirstOrDefault().ProjectID == projectId) && x.AspNetRole.Id == EstID)), "userID", "name");
+
+            ViewBag.UserID = new SelectList(db.Users.Where(x => (x.Projects.Where(y => y.ProjectID == projectId).FirstOrDefault().ProjectID == projectId) && x.AspNetRole.Id == EstID), "userID", "name");
+
             return View(pl);
         }
 
@@ -120,7 +122,10 @@ namespace IngeDolan3._0.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index", new { projectId = projectTask.ProjectID, storyId = projectTask.StoryID });
             }
-            ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo", projectTask.ProjectID);
+
+            string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
+            ViewBag.UserID = new SelectList(db.Users.Where(x => (x.Projects.Where(y => y.ProjectID == projectTask.ProjectID).FirstOrDefault().ProjectID == projectTask.ProjectID) && x.AspNetRole.Id == EstID), "userID", "name");
+
             return View(projectTask);
         }
 
@@ -148,7 +153,8 @@ namespace IngeDolan3._0.Controllers
                 return HttpNotFound();
             }
             string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
-            ViewBag.UserID = new SelectList((db.Users.Where(x => (x.Projects.Where(y => y.ProjectID == projectId).FirstOrDefault().ProjectID == projectId) && x.AspNetRole.Id == EstID)), "userID", "name");
+            ViewBag.UserID = new SelectList(db.Users.Where(x => (x.Projects.Where(y => y.ProjectID == projectId).FirstOrDefault().ProjectID == projectId) && x.AspNetRole.Id == EstID), "userID", "name");
+
             return View(old);
         }
 
@@ -175,7 +181,10 @@ namespace IngeDolan3._0.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", new { projectId = projectTask.ProjectID, storyId = projectTask.StoryID });
             }
-            ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo", projectTask.ProjectID);
+
+            string EstID = (db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault()).Id;
+            ViewBag.UserID = new SelectList(db.Users.Where(x => (x.Projects.Where(y => y.ProjectID == projectTask.ProjectID).FirstOrDefault().ProjectID == projectTask.ProjectID) && x.AspNetRole.Id == EstID), "userID", "name");
+
             return View(projectTask);
         }
 

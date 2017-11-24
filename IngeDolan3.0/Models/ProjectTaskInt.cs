@@ -25,14 +25,23 @@ namespace IngeDolan3._0.Models
             this.Milestones = new HashSet<Milestone>();
         }
 
+        [Display(Name = "ID de Proyecto")]
         public string ProjectID { get; set; }
+        [Display(Name = "ID de String")]
         public int SprintID { get; set; }
+        [Display(Name = "ID de Historia de Usuario")]
         public string StoryID { get; set; }
+        [Display(Name = "ID de Tarea")]
         public string TaskID { get; set; }
+        [Required(ErrorMessage = "Sin una descripcion la tarea no puede existir.")]
         public string Descripcion { get; set; }
+        [Display(Name = "Tiempo estimado")]
         public Nullable<int> EstimateTime { get; set; }
+        [Display(Name = "Prioridad")]
         public Nullable<int> Priority { get; set; }
+        [Display(Name = "Estado")]
         public string Estado { get; set; }
+        [Display(Name = "Usuario")]
         public string UserID { get; set; }
 
         public virtual UserStory UserStory { get; set; }
