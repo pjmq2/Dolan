@@ -10,14 +10,17 @@
 namespace IngeDolan3._0.Models
 {
     using System;
-    using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Milestone
     {
         public string ProjectID { get; set; }
         public int SprintID { get; set; }
         public string StoryID { get; set; }
         public string TaskID { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Fecha")]
         public System.DateTime Date { get; set; }
         public Nullable<int> Progress { get; set; }
     

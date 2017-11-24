@@ -16,16 +16,17 @@ namespace IngeDolan3._0.Controllers
     {
         private NewDolan2Entities db = new NewDolan2Entities();
 
+        // Displays a list of all of the systems roles, along with an edit button to get into its respective edit page
         // GET: Permisoes
-        public async Task<ActionResult> Index()
-        {
+        public async Task<ActionResult> Index(){
             ViewBag.AsistenteID = db.AspNetRoles.Where(x => x.Name == "Asistente").ToList().FirstOrDefault().Id;
 
             ViewBag.EstudianteID = db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault().Id;
 
-            return View(await db.Permisos.ToListAsync());
+            return View(await db.AspNetRoles.ToArrayAsync());
         }
 
+        // Unused
         // GET: Permisoes/Details/5
         public async Task<ActionResult> Details(int? id){
             if (id == null){
@@ -39,20 +40,18 @@ namespace IngeDolan3._0.Controllers
             return View(permiso);
         }
 
+        // Unused
         // GET: Permisoes/Create
         public ActionResult Create(){
             return View();
         }
 
+        // Unused
         // POST: Permisoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "codigo,nombre")] Permiso permiso)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> Create([Bind(Include = "codigo,nombre")] Permiso permiso){
+            if (ModelState.IsValid){
                 db.Permisos.Add(permiso);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -61,10 +60,15 @@ namespace IngeDolan3._0.Controllers
             return View(permiso);
         }
 
+        // Displays a screen that includes a "multiselect list" that allows the user to select the permissions the specified role must have.
         // GET: Permisoes/Edit/5
         public async Task<ActionResult> Edit(String roleId){
-            String test = roleId;
-            Console.WriteLine(roleId);
+            /*
+            < p >
+                @Html.ActionLink("Editar Estudiante", "Edit", new { roleID = ViewBag.EstudianteID });
+            @Html.ActionLink("Editar Asistente", "Edit", new { roleID = ViewBag.AsistenteID });
+            </ p >
+            */
             if (roleId == null){
                 return RedirectToAction("Index", "Home");
             }
@@ -83,18 +87,16 @@ namespace IngeDolan3._0.Controllers
             //Get all of that roles assigned permissions
             roleInt.CodeList = roleInt.role.Permisos.Select(x => x.codigo).ToList();
 
+            String title = "Cambiar permisos de " + roleInt.role.Name;
+            ViewBag.TitleLabel = title;
 
             return View(roleInt);
         }
 
+        // Displays a screen that includes a "multiselect list" that allows the user to select the permissions the specified role must have.
         // POST: Permisoes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "codigo,nombre")] Permiso permiso)
-       
-
         public async Task<ActionResult> Edit(RoleInt input){
 
             
@@ -132,32 +134,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Permisoes/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Permiso permiso = await db.Permisos.FindAsync(id);
-            if (permiso == null)
-            {
-                return HttpNotFound();
-            }
-            return View(permiso);
-        }
-
-        // POST: Permisoes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            Permiso permiso = await db.Permisos.FindAsync(id);
-            db.Permisos.Remove(permiso);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
-
+      
         protected override void Dispose(bool disposing)
         {
             if (disposing)

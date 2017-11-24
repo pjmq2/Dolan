@@ -13,10 +13,14 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
+        <div class="navbar-right" style="display:inline-block;">
+            <input type="submit" value="Aceptar" formaction="Create" class="btn btn-default" />
+            <input type="reset" value="Cancelar" class="btn btn-default" />
+        </div>
         <h4>Historia de Usuario</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*@Html.HiddenFor(model => model.ProjectID, new { @Value = ViewBag. })*@
+        @Html.HiddenFor(model => model.ProjectID)
 
         @*
         <div class="form-group">
@@ -103,20 +107,19 @@
         
             
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Aceptar" class="btn btn-default" />
-                <input type="reset" value="Cancelar" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 }
 
-@*
-    <div>
-        @Html.ActionLink("Regresar", "Index", new { projectId = ViewBag.List })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.StoryID)
+    @Html.HiddenFor(model => model.ProjectID)
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Regresar" formaction="Cancel" class="btn btn-default" />
     </div>
-*@
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

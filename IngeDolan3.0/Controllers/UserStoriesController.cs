@@ -11,14 +11,12 @@ using System.Linq.Dynamic;
 
 namespace IngeDolan3._0.Controllers
 {
-    public class UserStoriesController : Controller
-    {
+    public class UserStoriesController : Controller{
         private NewDolan2Entities db = new NewDolan2Entities();
 
 
-        // Presenta la lista de todas las historias de usuario que han sido registradas en la página
-        public ActionResult Index(GenericList projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "")
-        {
+        // Displays a list of all of the user stories from a specific backlog
+        public ActionResult Index(GenericList projectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = ""){
             int pageSize = 10;
             int totalRecord = 0;
             if (page < 1) page = 1;
@@ -33,7 +31,7 @@ namespace IngeDolan3._0.Controllers
             return View(data);
         }
 
-        // Obtiene los usuarios presentes en la base de datos.
+        // Returns a list of all of the systems users
         public List<UserStory> GetUsers(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idProyecto)
         {
             var v = (from a in db.UserStories
@@ -55,7 +53,7 @@ namespace IngeDolan3._0.Controllers
             return v.ToList();
         }
 
-        // Presenta los detalles de la historia de usuario que tenga el ID de proyecto e historia presentados como parámetros.
+        // Displays a screen that shows all of the details for an specific User Story
         public ActionResult Details(string storyId, string projectId)
         {
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
@@ -80,7 +78,7 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-        // Presenta la pantalla donde se crea la historia de usuario.
+        // Displays a screen that allows the user to create a user story
         public ActionResult Create(string projectId)
         {
             List<Sprint> data = new List<Sprint>();
@@ -107,7 +105,7 @@ namespace IngeDolan3._0.Controllers
             return View(pl);
         }
 
-        // Confirma la creación de la historia de usuario.
+        // Stores the new user story information to the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(UserStoryInt userStory)
@@ -140,7 +138,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
-        // Prepara la vista donde se editará la historia usuario que tenga el ID presentado como parámetro.
+        // Displays a screen that allows the user to edit an specific user story
         public ActionResult Edit(string storyId, string projectId)
         {
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
@@ -176,8 +174,8 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-        public UserStoryInt ConvertirInt(UserStory userStory, List<SelectListItem> lista)
-        {
+
+        public UserStoryInt ConvertirInt(UserStory userStory, List<SelectListItem> lista){
             var usi = new UserStoryInt();
             usi.ListaSprints = lista;
             usi.Alias = userStory.Alias;
@@ -197,7 +195,7 @@ namespace IngeDolan3._0.Controllers
             return usi;
         }
 
-        // Guarda los cambios solicitados.
+        // Stores the edited user story to the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(UserStoryInt userStory)
@@ -229,7 +227,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
-        // Presenta la vista que le pregunta al usuario si está seguro de que quiere borrar la historia de usuario.
+        // Displays a screen that allows the user to delete a user story
         public ActionResult Delete(string storyId, string projectId)
         {
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
@@ -253,7 +251,7 @@ namespace IngeDolan3._0.Controllers
             }
         }
 
-        // Este método borra la historia de usuario que tenga el id presentado de la base de datos.
+        // Deletes a user story from the database
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string storyId, string projectId)
@@ -264,7 +262,7 @@ namespace IngeDolan3._0.Controllers
             return RedirectToAction("Index");
         }
 
-        // Hace que este control sea inutilizable
+        // Unused
         protected override void Dispose(bool disposing)
         {
             if (disposing)

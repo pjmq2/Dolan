@@ -10,48 +10,6 @@ var grid = new WebGrid(canPage: true, rowsPerPage: 10);
 grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
-@*
-
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.USERNAME)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SURNAME)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LASTNAME)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.USERNAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SURNAME)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LASTNAME)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.USERS_ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.USERS_ID }) |
-                    <a href='@Url.Action("Details", new { id=item.USERS_ID })' class="ajax">Details</a>
-                </td>
-            </tr>
-        }
-
-    </table>
-
-    <div id="TargetDiv"></div>
-*@
-
-
 <!DOCTYPE html>
 
 <html>

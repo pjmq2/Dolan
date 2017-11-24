@@ -11,20 +11,20 @@ using IngeDolan3._0.Models;
 
 namespace IngeDolan3._0.Controllers
 {
-    public class MilestonesController : Controller
-    {
+    public class MilestonesController : Controller{
         private NewDolan2Entities db = new NewDolan2Entities();
 
+        // Display a list of all of a user history milestones
         // GET: Milestones
-        public async Task<ActionResult> Index()
-        {
+        public async Task<ActionResult> Index() { 
             var milestones = db.Milestones.Include(m => m.ProjectTask);
             return View(await milestones.ToListAsync());
         }
 
+
+        // Display detailed information for an specific milestone
         // GET: Milestones/Details/5
-        public async Task<ActionResult> Details(string id)
-        {
+        public async Task<ActionResult> Details(string id){
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -37,6 +37,7 @@ namespace IngeDolan3._0.Controllers
             return View(milestone);
         }
 
+        // Create a new milestone 
         // GET: Milestones/Create
         public ActionResult Create()
         {
@@ -44,43 +45,38 @@ namespace IngeDolan3._0.Controllers
             return View();
         }
 
+        // Create a new milestone
         // POST: Milestones/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StoryID,TaskID,Date,Progress")] Milestone milestone)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<ActionResult> Create([Bind(Include = "ProjectID,SprintID,StoryID,TaskID,Date,Progress")] Milestone milestone){
+            if (ModelState.IsValid){
                 db.Milestones.Add(milestone);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { projectId = milestone.ProjectID, storyId = milestone.StoryID, taskId = milestone.TaskID });
             }
 
             ViewBag.ProjectID = new SelectList(db.ProjectTasks, "ProjectID", "Descripcion", milestone.ProjectID);
             return View(milestone);
         }
 
+
+        // Edit an specific milestone
         // GET: Milestones/Edit/5
-        public async Task<ActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
+        public async Task<ActionResult> Edit(string id){
+            if (id == null){
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Milestone milestone = await db.Milestones.FindAsync(id);
-            if (milestone == null)
-            {
+            if (milestone == null){
                 return HttpNotFound();
             }
             ViewBag.ProjectID = new SelectList(db.ProjectTasks, "ProjectID", "Descripcion", milestone.ProjectID);
             return View(milestone);
         }
 
+        // Edit an specific milestone
         // POST: Milestones/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Milestone milestone)
@@ -89,12 +85,14 @@ namespace IngeDolan3._0.Controllers
             {
                 db.Entry(milestone).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { projectId = milestone.ProjectID, storyId = milestone.StoryID, taskId = milestone.TaskID });
             }
             ViewBag.ProjectID = new SelectList(db.ProjectTasks, "ProjectID", "Descripcion", milestone.ProjectID);
             return View(milestone);
         }
 
+
+        // Delete an specific milestone
         // GET: Milestones/Delete/5
         public async Task<ActionResult> Delete(string id)
         {
@@ -110,6 +108,7 @@ namespace IngeDolan3._0.Controllers
             return View(milestone);
         }
 
+        // Unused
         // POST: Milestones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -118,7 +117,7 @@ namespace IngeDolan3._0.Controllers
             Milestone milestone = await db.Milestones.FindAsync(id);
             db.Milestones.Remove(milestone);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { projectId = milestone.ProjectID, storyId = milestone.StoryID, taskId = milestone.TaskID });
         }
 
         protected override void Dispose(bool disposing)
