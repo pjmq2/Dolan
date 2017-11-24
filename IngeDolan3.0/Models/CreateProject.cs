@@ -41,6 +41,7 @@ namespace IngeDolan3._0.Models
         [Required(ErrorMessage = "El nombre es un campo requerido.")]
         [Display(Name = "Nombre")]
         public string ProjectName { get; set; }
+        [Required(ErrorMessage = "Todo proyecto debe tener un lider.")]
         [Display(Name = "Líder")]
         public string LeaderID { get; set; }
         [Display(Name = "Estado")]
