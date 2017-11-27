@@ -1,48 +1,73 @@
-﻿@model IngeDolan3._0.Models.Milestone
+@model IngeDolan3._0.Models.ProjectTask
 
 @{
-    ViewBag.Title = "Detalles";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Detalles</h2>
 
+
 <div class="navbar-right" style="display:inline-block;">
-    @Html.ActionLink("Editar", "Edit", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID, date = Model.Date }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Borrar", "Delete", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID, date = Model.Date }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Editar", "Edit", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Borrar", "Delete", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID }, new { @class = "btn btn-default" })
 </div>
 
 <div>
-    <h4>Milestone</h4>
+
+    <h4>Tarea</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Progress)
+            Descripcion
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Progress)
+            @Html.DisplayFor(model => model.Descripcion)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            Tiempo Estimado
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Date)
+            @Html.DisplayFor(model => model.EstimateTime)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProjectTask.Descripcion)
+            Prioridad
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProjectTask.Descripcion)
+            @Html.DisplayFor(model => model.Priority)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            Modulo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserStory.Modulo)
+        </dd>
+
+        <dt>
+            Responsable
+        </dt>
+
+        <dd>
+            @ViewBag.Username
         </dd>
 
     </dl>
 </div>
-
 <div class="form-actions no-color">
-    @Html.ActionLink("Regresar", "Details", new { taskId = Model.TaskID, date = Model.Date }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Regresar", "Index", new { projectId = Model.ProjectID, storyId = Model.StoryID }, new { @class = "btn btn-default" })
 </div>
