@@ -67,14 +67,16 @@
       <PropertyRef Name="SprintID" />
       <PropertyRef Name="StoryID" />
       <PropertyRef Name="TaskID" />
-      <PropertyRef Name="Date" />
+      <PropertyRef Name="MilestoneID" />
     </Key>
     <Property Name="ProjectID" Type="varchar" MaxLength="40" Nullable="false" />
     <Property Name="SprintID" Type="int" Nullable="false" />
     <Property Name="StoryID" Type="varchar" MaxLength="40" Nullable="false" />
     <Property Name="TaskID" Type="varchar" MaxLength="40" Nullable="false" />
-    <Property Name="Date" Type="date" Nullable="false" />
-    <Property Name="Progress" Type="int" />
+    <Property Name="Date" Type="date" />
+    <Property Name="MilestoneID" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="300" />
+    <Property Name="Progreso" Type="int" />
   </EntityType>
   <EntityType Name="Permisos">
     <Key>
@@ -188,7 +190,7 @@
     <Property Name="Funtionality" Type="varchar" MaxLength="150" />
     <Property Name="Alias" Type="varchar" MaxLength="25" />
   </EntityType>
-  <Association Name="FK__Milestone__46B27FE2">
+  <Association Name="FK__Milestone__4D5F7D71">
     <End Role="ProjectTask" Type="Self.ProjectTask" Multiplicity="1" />
     <End Role="Milestone" Type="Self.Milestone" Multiplicity="*" />
     <ReferentialConstraint>
@@ -474,6 +476,22 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'Sprint_proyect_FK' has been omitted from the storage model. Column 'ProjectID' of table 'Models.Store.Sprint' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
+        <Association Name="Sprint_proyect_FK">
+          <End Role="Project" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Sprint" Type="Self.Sprint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Sprint">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>-->
   <EntityContainer Name="ModelsStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -491,7 +509,7 @@ warning 6037: Foreign key constraint 'FK__Users__role__6FE99F9F' has been omitte
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserStory" EntityType="Self.UserStory" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Milestone__46B27FE2" Association="Self.FK__Milestone__46B27FE2">
+    <AssociationSet Name="FK__Milestone__4D5F7D71" Association="Self.FK__Milestone__4D5F7D71">
       <End Role="ProjectTask" EntitySet="ProjectTask" />
       <End Role="Milestone" EntitySet="Milestone" />
     </AssociationSet>

@@ -225,7 +225,9 @@
     <EntitySetMapping Name="Milestones">
       <EntityTypeMapping TypeName="Models.Milestone">
         <MappingFragment StoreEntitySet="Milestone">
-          <ScalarProperty Name="Progress" ColumnName="Progress" />
+          <ScalarProperty Name="Progreso" ColumnName="Progreso" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="MilestoneID" ColumnName="MilestoneID" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="TaskID" ColumnName="TaskID" />
           <ScalarProperty Name="StoryID" ColumnName="StoryID" />
