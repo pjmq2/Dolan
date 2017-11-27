@@ -1,4 +1,4 @@
-﻿@model IngeDolan3._0.Models.Milestone
+@model IngeDolan3._0.Models.Milestone
 
 @{
     ViewBag.Title = "Detalles";
@@ -13,19 +13,19 @@
 </div>
 
 <div>
-    <h4>Milestone</h4>
+    <h4>Hito</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Progress)
+            Descripcion
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Progress)
+            @Html.DisplayFor(model => model.ProjectTask.Descripcion)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            Fecha
         </dt>
 
         <dd>
@@ -33,11 +33,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProjectTask.Descripcion)
+            Progreso
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProjectTask.Descripcion)
+            @Html.DisplayFor(model => model.Progress)
         </dd>
 
     </dl>
