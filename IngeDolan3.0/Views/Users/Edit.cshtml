@@ -9,6 +9,17 @@
 
 @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
+
+    <div data-step="1" data-intro="En esta pantalla podemos editar usuarios ">
+        <h2>Editar</h2>
+        <div class="navbar-right" style="display:inline-block;">
+            <input type="submit" value="Aceptar" class="btn btn-default" />
+            <input type="reset" value="Cancelar" class="btn btn-default" />
+        </div>
+        <h4>Usuario</h4>
+    </div>
+    <hr />
+
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
@@ -84,17 +95,8 @@
             </div>
         </div>
         
-        @{
-            Model.id = ViewBag.Id;
-        }
-
-        @Html.HiddenFor(m => m.id)
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Aceptar" class="btn btn-default" />
-            
-                <input type="reset" value="Cancelar" class="btn btn-default" />
-            </div>
+        <div>
+            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-default" })
         </div>
     </div>
 }
