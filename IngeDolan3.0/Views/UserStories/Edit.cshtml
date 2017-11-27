@@ -99,7 +99,7 @@
 }
 
 <div class="form-actions no-color">
-    @Html.ActionLink("Regresar", "Index", new { TprojectId = Model.ProjectID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Regresar", "Details", new { storyId = Model.StoryID, projectId = Model.ProjectID }, new { @class = "btn btn-default" })
 </div>
 
 @section Scripts {

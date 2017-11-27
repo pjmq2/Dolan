@@ -132,7 +132,7 @@ namespace IngeDolan3._0.Controllers
             }
             UsuarioInt usuarioInt = new UsuarioInt();
             usuarioInt.email = user.AspNetUser.Email;
-            usuarioInt.role = user.AspNetUser.AspNetRoles.First().Name;
+            usuarioInt.role = user.AspNetRole.Name;
             usuarioInt.name = user.name;
             usuarioInt.lastName1 = user.firstLastName;
             usuarioInt.lastName2 = user.secondLastName;
