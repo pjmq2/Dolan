@@ -1,41 +1,54 @@
-﻿@model IngeDolan3._0.Models.Milestone
+@model IngeDolan3._0.Models.Milestone
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Borrar</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Realmente desea borrar el hito seleccionado?</h3>
 <div>
-    <h4>Milestone</h4>
+    <div class="navbar-right" style="display:inline-block;">
+        @using (Html.BeginForm())
+        {
+        @Html.AntiForgeryToken()
+            <input type="submit" value="Borrar" class="btn btn-default" />
+        }
+    </div>
+    
+        <h4>Hito</h4>
     <hr />
     <dl class="dl-horizontal">
+       
         <dt>
-            @Html.DisplayNameFor(model => model.Progress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Progress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectTask.Descripcion)
+            Descripcion
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ProjectTask.Descripcion)
         </dd>
 
+        <dt>
+            Fecha
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            Progreso
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Progreso)
+        </dd>
+
     </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+</div>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Borrar" class="btn btn-default" />
-            @Html.ActionLink("Regresar", "Index", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID }, new { @class = "btn btn-default" })
-        </div>
-    }
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar", "Details", new { taskId = Model.TaskID, date = Model.Date }, new { @class = "btn btn-default" })
 </div>

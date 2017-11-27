@@ -10,6 +10,7 @@
 namespace IngeDolan3._0.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Milestone
@@ -20,9 +21,10 @@ namespace IngeDolan3._0.Models
         public string TaskID { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha")]
-        public System.DateTime Date { get; set; }
-        public Nullable<int> Progress { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string MilestoneID { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> Progreso { get; set; }
     
         public virtual ProjectTask ProjectTask { get; set; }
     }

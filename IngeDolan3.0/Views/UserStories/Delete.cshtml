@@ -17,7 +17,6 @@
             @Html.HiddenFor(model => model.ProjectID)
             
             <input type="submit" value="Borrar" formaction="Delete" class="btn btn-default" />
-            @Html.ActionLink("Regresar", "Index", new { TprojectId = Model.ProjectID }, new { @class = "btn btn-default" })
         }
     </div>
     <h4>Historia de Usuario</h4>
@@ -87,4 +86,8 @@
             @ViewBag.nombreProyecto.ProjectName
         </dd>
     </dl>
+</div>
+
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar", "Details", new { storyId = Model.StoryID, projectId = Model.ProjectID }, new { @class = "btn btn-default" })
 </div>

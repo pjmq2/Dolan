@@ -1,4 +1,4 @@
-﻿@model IngeDolan3._0.Models.Milestone
+@model IngeDolan3._0.Models.Milestone
 
 @{
     ViewBag.Title = "Detalles";
@@ -8,24 +8,16 @@
 <h2>Detalles</h2>
 
 <div class="navbar-right" style="display:inline-block;">
-    @Html.ActionLink("Editar", "Edit", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Regresar", "Index", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Editar", "Edit", new { milestoneID = Model.MilestoneID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Borrar", "Delete", new { milestoneID = Model.MilestoneID }, new { @class = "btn btn-default" })
 </div>
 
 <div>
-    <h4>Milestone</h4>
+    <h4>Hito</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Progress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Progress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            Fecha
         </dt>
 
         <dd>
@@ -33,12 +25,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProjectTask.Descripcion)
+            Progreso
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProjectTask.Descripcion)
+            @Html.DisplayFor(model => model.Progreso)
         </dd>
 
     </dl>
+</div>
+
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar", "Index", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID }, new { @class = "btn btn-default" })
 </div>

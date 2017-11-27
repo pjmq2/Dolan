@@ -16,7 +16,6 @@
             @Html.HiddenFor(model => model.AspNetUser.Id)
 
             <input type="submit" value="Borrar" formaction="Delete" class="btn btn-default" />
-            @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-default" })
         }
     </div>
 
@@ -83,4 +82,8 @@
         </dd>
 
     </dl>
+
+    <div class="form-actions no-color">
+        @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-default" })
+    </div>
 </div>

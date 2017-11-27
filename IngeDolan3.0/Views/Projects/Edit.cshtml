@@ -11,7 +11,12 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+    <div class="navbar-right" style="display:inline-block;">
+        <input type="submit" value="Aceptar" class="btn btn-default" />
+        <input type="reset" value="Cancelar" class="btn btn-default" />
+    </div>
+
     <div class="form-horizontal">
         <h4>Proyecto</h4>
         <hr />
@@ -80,17 +85,11 @@
             @Html.HiddenFor(model => Model.PrevEditList[i])
         }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Aceptar" class="btn btn-default" />
-                <input type="reset" value="Cancelar" class="btn btn-default" />
-            </div>
-        </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-default" })
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar", "Details", new { id = Model.ProjectID }, new { @class = "btn btn-default" })
 </div>
 
 <style type="text/css">

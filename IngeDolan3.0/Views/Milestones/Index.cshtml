@@ -1,4 +1,4 @@
-﻿@model IEnumerable<IngeDolan3._0.Models.Milestone>
+@model IEnumerable<IngeDolan3._0.Models.Milestone>
 
 @{
     ViewBag.Title = "Index";
@@ -20,7 +20,7 @@
     </style>
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
-            <h2>Lista de Tareas</h2>
+            <h2>Lista de Hitos</h2>
 
             <nav class="navbar ">
                 <div class="container-fluid">
@@ -49,8 +49,8 @@
                 @grid.Table(
                     tableStyle: "table table-responsive table-bordered",
                     columns: grid.Columns(
-                        grid.Column(columnName: "Progress", header: "Progreso"),
                         grid.Column("Date", "Fecha", format: (item) => item.Date != null ? item.Date.ToString("MM/dd/yy") : "", canSort: true),
+                        grid.Column(columnName: "Progreso", header: "Progreso"),
                         grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { projectId = item.ProjectID, storyId = item.StoryID, taskId = item.TaskID, date = item.Date }))
                     )
                 )
