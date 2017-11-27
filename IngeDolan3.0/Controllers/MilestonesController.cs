@@ -132,13 +132,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Milestones/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(string projectId, string storyId, string taskId, DateTime date)
         {
-            if (id == null)
+            if (date == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Milestone milestone = await db.Milestones.FindAsync(id);
+            Milestone milestone = db.Milestones.Where(x => x.Date == date && x.TaskID == taskId && x.StoryID == storyId && x.ProjectID == projectId).ToList().FirstOrDefault();
             if (milestone == null)
             {
                 return HttpNotFound();
@@ -149,9 +149,9 @@ namespace IngeDolan3._0.Controllers
         // POST: Milestones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(string projectId, string storyId, string taskId, DateTime date)
         {
-            Milestone milestone = await db.Milestones.FindAsync(id);
+            Milestone milestone = db.Milestones.Where(x => x.Date == date && x.TaskID == taskId && x.StoryID == storyId && x.ProjectID == projectId).ToList().FirstOrDefault();
             db.Milestones.Remove(milestone);
             await db.SaveChangesAsync();
             return RedirectToAction("Index", new { projectId = milestone.ProjectID, storyId = milestone.StoryID, taskId = milestone.TaskID });
