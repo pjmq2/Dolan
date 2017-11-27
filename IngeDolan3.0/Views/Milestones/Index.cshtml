@@ -1,11 +1,11 @@
-@model IEnumerable<IngeDolan3._0.Models.ProjectTask>
+@model IEnumerable<IngeDolan3._0.Models.Milestone>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-var grid = new WebGrid(canPage: true, rowsPerPage: 10);
-grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
+    var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+    grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
     </style>
     <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
         <div class="container">
-            <h2>Lista de Tareas</h2>
+            <h2>Lista de Hitos</h2>
 
             <nav class="navbar ">
                 <div class="container-fluid">
@@ -32,13 +32,13 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                         {
 
                             <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
-                                <button type="submit" value="Search" class="btn btn-success">Buscar</button>
+                            <button type="submit" value="Search" class="btn btn-success">Buscar</button>
 
 
                         }
                         <div class="navbar-right" style="display:inline-block;">
-                            @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProyectId, storyId = ViewBag.StoryId }, new { @class = "btn btn-default" })
-                        </div> 
+                            @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProyectId, storyId = ViewBag.StoryId, taskId = ViewBag.TaskId }, new { @class = "btn btn-default" })
+                        </div>
                     </div>
 
                 </div>
@@ -49,11 +49,9 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
                 @grid.Table(
                     tableStyle: "table table-responsive table-bordered",
                     columns: grid.Columns(
-                        grid.Column(columnName: "Descripcion", header: "Descripcion"),
-                        grid.Column(columnName: "EstimateTime", header: "Tiempo estimado"),
-                        grid.Column(columnName: "Priority", header: "Prioridad"),
-                        grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { projectId = item.ProjectID, storyId = item.StoryID, taskId = item.TaskID })),
-                        grid.Column(header: "Hitos", format: (item) => Html.ActionLink("Hitos", "Index", "Milestones", new { projectId = item.ProjectID, storyId = item.StoryID, taskId = item.TaskID }, null))
+                        grid.Column("Date", "Fecha", format: (item) => item.Date != null ? item.Date.ToString("MM/dd/yy") : "", canSort: true),
+                        grid.Column(columnName: "Progress", header: "Progreso"),
+                        grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { projectId = item.ProjectID, storyId = item.StoryID, taskId = item.TaskID, date = item.Date }))
                     )
                 )
 
@@ -96,7 +94,7 @@ grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 </html>
 
 <div class="form-actions no-color">
-    @Html.ActionLink("Regresar", "Index", "UserStories", new { TprojectId = ViewBag.ProyectId }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Regresar", "Index", "ProjectTasks", new { projectId = ViewBag.ProyectId, storyId = ViewBag.StoryID }, new { @class = "btn btn-default" })
 </div>
 
 <div id="TargetDiv"></div>
