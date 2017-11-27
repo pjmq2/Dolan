@@ -58,13 +58,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Milestones/Details/5
-        public async Task<ActionResult> Details(string taskid, DateTime date)
+        public async Task<ActionResult> Details(string taskId, DateTime date)
         {
             if (date == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Milestone milestone = db.Milestones.Where(x => x.Date == date && x.TaskID == taskid).ToList().FirstOrDefault();
+            Milestone milestone = db.Milestones.Where(x => x.Date == date && x.TaskID == taskId).ToList().FirstOrDefault();
             if (milestone == null)
             {
                 return HttpNotFound();

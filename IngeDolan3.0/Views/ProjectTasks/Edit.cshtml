@@ -69,5 +69,5 @@
 }
 
 <div>
-    @Html.ActionLink("Regresar", "Index", new { projectId = Model.ProjectID, storyId = Model.StoryID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Regresar", "Details", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID }, new { @class = "btn btn-default" })
 </div>
