@@ -27,21 +27,36 @@ namespace IngeDolan3._0.Models
 
         [Display(Name = "ID de Proyecto")]
         public string ProjectID { get; set; }
-        [Display(Name = "ID de String")]
+
+        [Required(ErrorMessage = "El Sprint es un campo requerido.")]
+        [Display(Name = "ID de Sprint")]
         public int SprintID { get; set; }
+
+        [Required(ErrorMessage = "El ID de la historia de usuario es un campo requerido.")]
         [Display(Name = "ID de Historia de Usuario")]
         public string StoryID { get; set; }
+
+        [Required(ErrorMessage = "El ID de la tarea es un campo requerido.")]
         [Display(Name = "ID de Tarea")]
         public string TaskID { get; set; }
+
         [Required(ErrorMessage = "Sin una descripcion la tarea no puede existir.")]
         public string Descripcion { get; set; }
+
         [Display(Name = "Tiempo estimado")]
+        [Required(ErrorMessage = "El tiempo estimado es un campo requerido.")]
         public Nullable<int> EstimateTime { get; set; }
+
+        [Required(ErrorMessage = "La prioridad es un campo requerido.")]
         [Display(Name = "Prioridad")]
         public Nullable<int> Priority { get; set; }
+
+        [Required(ErrorMessage = "El estado es un campo requerido.")]
         [Display(Name = "Estado")]
         public string Estado { get; set; }
-        [Display(Name = "Usuario")]
+
+        [Required(ErrorMessage = "El responsable es un campo requerido.")]
+        [Display(Name = "Responsable")]
         public string UserID { get; set; }
 
         public virtual UserStory UserStory { get; set; }
