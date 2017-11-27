@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3230ac6e93e6451bb821ade76bc924f9" Name="Diagram1" ZoomLevel="47">
+      <Diagram DiagramId="3230ac6e93e6451bb821ade76bc924f9" Name="Diagram1" ZoomLevel="71">
         <EntityTypeShape EntityType="Models.C__MigrationHistory" Width="1.5" PointX="1.375" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.AspNetRole" Width="1.5" PointX="6.25" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.AspNetUserClaim" Width="1.5" PointX="3.625" PointY="6.375" IsExpanded="true" />
@@ -31,8 +31,8 @@
         <AssociationConnector Association="Models.FK__UserStory__40F9A68C" ManuallyRouted="false" />
         <AssociationConnector Association="Models.AspNetUserRoles" ManuallyRouted="false" />
         <AssociationConnector Association="Models.role_permit" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Models.Milestone" Width="1.5" PointX="17.125" PointY="1.875" />
-        <AssociationConnector Association="Models.FK__Milestone__46B27FE2" />
+        <EntityTypeShape EntityType="Models.Milestone" Width="1.5" PointX="16" PointY="1.875" />
+        <AssociationConnector Association="Models.FK__Milestone__4D5F7D71" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

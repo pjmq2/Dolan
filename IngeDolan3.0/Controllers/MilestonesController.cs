@@ -77,6 +77,7 @@ namespace IngeDolan3._0.Controllers
         {
             int sprintId = db.UserStories.Where(x => x.StoryID == storyId).ToList().FirstOrDefault().SprintID;
             var pl = new Milestone();
+            pl.MilestoneID = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
             pl.ProjectID = projectId;
             pl.StoryID = storyId;
             pl.SprintID = sprintId;
@@ -101,13 +102,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Milestones/Edit/5
-        public async Task<ActionResult> Edit(string projectId, string storyId, string taskId, DateTime date)
+        public async Task<ActionResult> Edit(string milestoneID)
         {
-            if (date == null)
+            if (milestoneID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Milestone milestone = db.Milestones.Where(x => x.Date == date && x.TaskID == taskId && x.StoryID == storyId && x.ProjectID == projectId).ToList().FirstOrDefault();
+            Milestone milestone = db.Milestones.Where(x => x.MilestoneID == milestoneID).ToList().FirstOrDefault();
             if (milestone == null)
             {
                 return HttpNotFound();
@@ -132,13 +133,13 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Milestones/Delete/5
-        public async Task<ActionResult> Delete(string projectId, string storyId, string taskId, DateTime date)
+        public async Task<ActionResult> Delete(string milestoneID)
         {
-            if (date == null)
+            if (milestoneID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Milestone milestone = db.Milestones.Where(x => x.Date == date && x.TaskID == taskId && x.StoryID == storyId && x.ProjectID == projectId).ToList().FirstOrDefault();
+            Milestone milestone = db.Milestones.Where(x => x.MilestoneID == milestoneID).ToList().FirstOrDefault();
             if (milestone == null)
             {
                 return HttpNotFound();
@@ -149,11 +150,11 @@ namespace IngeDolan3._0.Controllers
         // POST: Milestones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string projectId, string storyId, string taskId, DateTime date)
+        public async Task<ActionResult> DeleteConfirmed(Milestone milestoneX)
         {
-            Milestone milestone = db.Milestones.Where(x => x.Date == date && x.TaskID == taskId && x.StoryID == storyId && x.ProjectID == projectId).ToList().FirstOrDefault();
+            Milestone milestone = db.Milestones.Where(x => x.MilestoneID == milestoneX.MilestoneID).ToList().FirstOrDefault();
             db.Milestones.Remove(milestone);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index", new { projectId = milestone.ProjectID, storyId = milestone.StoryID, taskId = milestone.TaskID });
         }
 

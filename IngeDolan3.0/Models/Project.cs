@@ -11,8 +11,7 @@ namespace IngeDolan3._0.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Project
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,17 +22,12 @@ namespace IngeDolan3._0.Models
         }
     
         public string ProjectID { get; set; }
-        [Required(ErrorMessage = "La fecha de inicio es un campo requerido.")]
         public Nullable<System.DateTime> StartingDate { get; set; }
-        [Required(ErrorMessage = "La fecha de finalizacion es un campo requerido.")]
         public Nullable<System.DateTime> FinalDate { get; set; }
-        [Required(ErrorMessage = "La descripcion es un campo requerido.")]
         public string Descriptions { get; set; }
         public string ProjectName { get; set; }
-        [Required(ErrorMessage = "El estado es un campo requerido.")]
         public string Pstate { get; set; }
-
-        [Required(ErrorMessage = "El lider del equipo es un campo requerido.")]
+    
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sprint> Sprints { get; set; }

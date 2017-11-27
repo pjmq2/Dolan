@@ -11,9 +11,7 @@ namespace IngeDolan3._0.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
-
+    
     public partial class Sprint
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,13 +22,7 @@ namespace IngeDolan3._0.Models
     
         public string ProjectID { get; set; }
         public int SprintID { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha de inicio")]
         public Nullable<System.DateTime> StartingDate { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha de Finalización")]
         public Nullable<System.DateTime> FinalDate { get; set; }
     
         public virtual Project Project { get; set; }

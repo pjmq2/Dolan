@@ -8,8 +8,8 @@
 <h2>Detalles</h2>
 
 <div class="navbar-right" style="display:inline-block;">
-    @Html.ActionLink("Editar", "Edit", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID, date = Model.Date }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Borrar", "Delete", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID, date = Model.Date }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Editar", "Edit", new { milestoneID = Model.MilestoneID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Borrar", "Delete", new { milestoneID = Model.MilestoneID }, new { @class = "btn btn-default" })
 </div>
 
 <div>
@@ -44,5 +44,5 @@
 </div>
 
 <div class="form-actions no-color">
-    @Html.ActionLink("Regresar", "Details", new { taskId = Model.TaskID, date = Model.Date }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Regresar", "Index", new { projectId = Model.ProjectID, storyId = Model.StoryID, taskId = Model.TaskID }, new { @class = "btn btn-default" })
 </div>
