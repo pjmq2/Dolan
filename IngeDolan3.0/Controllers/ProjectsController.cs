@@ -215,13 +215,19 @@ namespace IngeDolan3._0.Controllers
                     foreach (var c in newOnes)
                     {
                         var f = db.Users.Where(x => x.userID == c).ToList().FirstOrDefault();
+                        Proyecto.Users.Add(f);
                         f.Project = Proyecto;
                     }
 
                     foreach (var c in excludedOnes)
                     {
                         var f = db.Users.Where(x => x.userID == c).ToList().FirstOrDefault();
-                        f.Projects.Clear();
+                        if ((f.AspNetUser.Id.Equals(oldleader.AspNetUser.Id)) && !(f.AspNetUser.Id.Equals(newleader.AspNetUser.Id)))
+                        {
+                            f.Projects.Clear();
+                        }
+                        Proyecto.Users.Remove(f);
+                        f.Project = null;
                     }
                 }
                 else if(project.IncludedUsers != null)
@@ -229,15 +235,19 @@ namespace IngeDolan3._0.Controllers
                     foreach (var c in project.IncludedUsers)
                     {
                         var f = db.Users.Where(x => x.userID == c).ToList().FirstOrDefault();
+                        Proyecto.Users.Add(f);
                         f.Project = Proyecto;
                     }
                 }
 
                 if (project.LeaderID != null)
                 {
-                    var f = db.Users.Where(x => x.userID == project.LeaderID).ToList().FirstOrDefault();
-                    Proyecto.Users.Add(f);
-
+                    if (!(project.LeaderID.Equals(oldleader.AspNetUser.Id)) && (project.LeaderID.Equals(newleader.AspNetUser.Id)))
+                    {
+                        var f = db.Users.Where(x => x.userID == project.LeaderID).ToList().FirstOrDefault();
+                        Proyecto.User = f;
+                        f.Projects.Add(Proyecto);
+                    }
                 }
 
                 db.SaveChanges();
@@ -281,6 +291,21 @@ namespace IngeDolan3._0.Controllers
             {
                 foreach (var c in modelstory)
                 {
+                    List<ProjectTask> modeltasks = db.ProjectTasks.Where(x => x.StoryID == c.StoryID).ToList();
+                    foreach (var z in modeltasks)
+                    {
+                        List<Milestone> modelmilestones = db.Milestones.Where(x => x.TaskID == z.TaskID).ToList();
+                        foreach (var d in modelmilestones)
+                        {
+                            db.Milestones.Remove(d);
+                            db.SaveChanges();
+                        }
+                        z.User.ProjectTasks.Remove(z);
+                        z.Milestones.Clear();
+                        db.ProjectTasks.Remove(z);
+                        db.SaveChanges();
+                    }
+                    c.ProjectTasks.Clear();
                     db.UserStories.Remove(c);
                     db.SaveChanges();
                 }
