@@ -906,8 +906,6 @@ C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\System.Xml.XmlSeri
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\System.Xml.XPath.dll
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\System.Xml.XPath.XDocument.dll
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Antlr3.Runtime.dll
-C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\EntityFramework.dll
-C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\EntityFramework.SqlServer.dll
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Microsoft.AI.Agent.Intercept.dll
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Microsoft.AI.DependencyCollector.dll
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Microsoft.AI.PerfCounterCollector.dll
@@ -965,8 +963,6 @@ C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\System.Web.WebPage
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\System.Web.WebPages.Razor.dll
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\WebGrease.dll
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Antlr3.Runtime.pdb
-C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\EntityFramework.xml
-C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\EntityFramework.SqlServer.xml
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\Alonso Garita\Documents\Dolan\Dolan\IngeDolan3.0\bin\Microsoft.AI.Web.xml
