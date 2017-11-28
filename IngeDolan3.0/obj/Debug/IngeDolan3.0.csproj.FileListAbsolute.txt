@@ -485,12 +485,6 @@ C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.AI.Web.xml
 C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.csprojResolveAssemblyReference.cache
 C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.dll
 C:\Users\Alonso Garita\Source\Repos\Dolan\IngeDolan3.0\obj\Debug\IngeDolan3.0.pdb
-C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.IO.Compression.dll
-C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\VBCSCompiler.exe
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\B50587\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
@@ -1280,9 +1274,13 @@ C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\csi.exe
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\csi.exe.config
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\csi.rsp
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -1292,6 +1290,7 @@ C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.Console.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.Diagnostics.Process.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.IO.Compression.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.IO.FileSystem.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -1314,6 +1313,7 @@ C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\System.Xml.XPath.XDocu
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\vbc.exe
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\vbc.exe.config
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\vbc.rsp
+C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\VBCSCompiler.exe
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\Microsoft.Win32.Primitives.dll
 C:\Users\selen\Source\Repos\Dolan\IngeDolan3.0\bin\netstandard.dll
