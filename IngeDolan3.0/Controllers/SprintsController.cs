@@ -18,13 +18,22 @@ namespace IngeDolan3._0.Controllers
 
         // GET: Displays a list of all of the sprints from a specific project
         public async Task<ActionResult> Index(string projectId){
+            if (!IDGenerator.CanDo("Consultar lista de Sprint"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             var sprints = db.Sprints.Include(s => s.Project);
             ViewBag.ProjectID = projectId;
             return View(await sprints.ToListAsync());
         }
 
         // GET: Displays all of the details for an specific sprint
-        public async Task<ActionResult> Details(string projectId, int sprintId){
+        public async Task<ActionResult> Details(string projectId, int sprintId)
+        {
+            if (!IDGenerator.CanDo("Consultar Detalles de Sprint"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
 
             var listaDeSprints = db.Sprints.Where(m => m.SprintID == sprintId && m.ProjectID == projectId);
             var proyectos = db.Projects.Where(m => m.ProjectID == projectId);
@@ -44,6 +53,10 @@ namespace IngeDolan3._0.Controllers
         // GET: Displays a screen that allows the user to create an sprint on an speficic project
         public ActionResult Create(string projectId)
         {
+            if (!IDGenerator.CanDo("Crear Sprint"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             ViewBag.ProjectID = projectId;
             Sprint sprint = new Sprint();
             sprint.ProjectID = projectId;
@@ -55,6 +68,10 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Sprint sprint)
         {
+            if (!IDGenerator.CanDo("Crear Sprint"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (ModelState.IsValid)
             {
                 db.Sprints.Add(sprint);
@@ -69,6 +86,10 @@ namespace IngeDolan3._0.Controllers
         // GET: Displays a screen that allows the user to delete an sprint
         public async Task<ActionResult> Delete(string projectId, int sprintId)
         {
+            if (!IDGenerator.CanDo("Borrar Sprint"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             var listaDeSprints = db.Sprints.Where(m => m.SprintID == sprintId && m.ProjectID == projectId);
             var proyectos = db.Projects.Where(m => m.ProjectID == projectId);
             ViewBag.nombreProyecto = proyectos.First();
@@ -89,6 +110,10 @@ namespace IngeDolan3._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
+            if (!IDGenerator.CanDo("Borrar Sprint"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             Sprint sprint = await db.Sprints.FindAsync(id);
             db.Sprints.Remove(sprint);
             await db.SaveChangesAsync();
