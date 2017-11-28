@@ -151,6 +151,7 @@ namespace IngeDolan3._0.Controllers
                 usuarioInt.lastName2 = user.secondLastName;
                 usuarioInt.student_id = user.student_id;
                 usuarioInt.person_id = user.person_id;
+                usuarioInt.id = user.AspNetUser.Id;
 
                 ViewBag.Id = id;
 
