@@ -17,6 +17,7 @@ namespace IngeDolan3._0.Controllers
         private NewDolan2Entities db = new NewDolan2Entities();
 
         // GET: Milestones
+        // Presents the milestones that belong to the selected task.
         public ActionResult Index(string projectId, string storyId, string taskId)
         {
             int page = 1;
@@ -38,6 +39,7 @@ namespace IngeDolan3._0.Controllers
             return View("Index", data);
         }
 
+        // Get the required milestones to fill the index
         public List<Milestone> GetMilestones(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idTask)
         {
             var v = (from a in db.Milestones
@@ -58,6 +60,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Milestones/Details/5
+        // Look for the desired milestone, so the rest of its details can be presented
         public async Task<ActionResult> Details(string taskId, DateTime date)
         {
             if (date == null)
@@ -73,6 +76,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Milestones/Create
+        // Creates a milestone ready to get some values asigned.
         public ActionResult Create(string projectId, string storyId, string taskId)
         {
             int sprintId = db.UserStories.Where(x => x.StoryID == storyId).ToList().FirstOrDefault().SprintID;
@@ -88,6 +92,7 @@ namespace IngeDolan3._0.Controllers
         // POST: Milestones/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Creates the milestone with the assigned values by the user.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Milestone milestone)
@@ -102,6 +107,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Milestones/Edit/5
+        // Get the milestone the user wants to edit.
         public async Task<ActionResult> Edit(string milestoneID)
         {
             if (milestoneID == null)
@@ -119,6 +125,7 @@ namespace IngeDolan3._0.Controllers
         // POST: Milestones/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Save the changes the user made to the milestone.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Milestone milestone)
@@ -133,6 +140,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Milestones/Delete/5
+        // Get the milestone the user wants to delete.
         public async Task<ActionResult> Delete(string milestoneID)
         {
             if (milestoneID == null)
@@ -148,6 +156,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // POST: Milestones/Delete/5
+        // Deletes the choosen milestone.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(Milestone milestoneX)

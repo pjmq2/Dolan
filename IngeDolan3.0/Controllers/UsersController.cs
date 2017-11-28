@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using IngeDolan3._0.Models;
 using System.Linq.Dynamic;
 using Microsoft.AspNet.Identity;
+using IngeDolan3._0.Generator;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace IngeDolan3._0.Controllers
@@ -90,14 +91,23 @@ namespace IngeDolan3._0.Controllers
         // Displays all of the details for an specific user
         public ActionResult Details(string id)
         {
-            if (id == null){
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (IDGenerator.CanDo("Consultar Detalles de Usuarios"))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return PartialView(user);
             }
-            User user = db.Users.Find(id);
-            if (user == null){
-                return HttpNotFound();
+            else
+            {
+                return RedirectToAction("Denied", "Others");
             }
-            return PartialView(user);
         }
 
         // Displays a screen that allows the user to create a new user
@@ -122,26 +132,34 @@ namespace IngeDolan3._0.Controllers
 
         // Displays a screen that allows a user to modify another user
         public ActionResult Edit(string id){
-            if (id == null){
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = db.Users.Where(x => x.AspNetUser.Id == id).ToList().FirstOrDefault();
-            if (user == null)
+            if (IDGenerator.CanDo("Modificar Usuarios"))
             {
-                return HttpNotFound();
-            }
-            UsuarioInt usuarioInt = new UsuarioInt();
-            usuarioInt.email = user.AspNetUser.Email;
-            usuarioInt.role = user.AspNetRole.Name;
-            usuarioInt.name = user.name;
-            usuarioInt.lastName1 = user.firstLastName;
-            usuarioInt.lastName2 = user.secondLastName;
-            usuarioInt.student_id = user.student_id;
-            usuarioInt.person_id = user.person_id;
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Where(x => x.AspNetUser.Id == id).ToList().FirstOrDefault();
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                UsuarioInt usuarioInt = new UsuarioInt();
+                usuarioInt.email = user.AspNetUser.Email;
+                usuarioInt.role = user.AspNetRole.Name;
+                usuarioInt.name = user.name;
+                usuarioInt.lastName1 = user.firstLastName;
+                usuarioInt.lastName2 = user.secondLastName;
+                usuarioInt.student_id = user.student_id;
+                usuarioInt.person_id = user.person_id;
 
-            ViewBag.Id = id;
-            
-            return View(usuarioInt);
+                ViewBag.Id = id;
+
+                return View(usuarioInt);
+            }
+            else
+            {
+                return RedirectToAction("Denied", "Others");
+            }
         }
 
         // Stores the users edited data on the database
@@ -182,17 +200,26 @@ namespace IngeDolan3._0.Controllers
         // Displays a confirmation screen for the user deletion
         public ActionResult Delete(string id)
         {
-            if (id == null){
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (IDGenerator.CanDo("Eliminar Usuarios"))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-            //User user = db.Users.Find(id);
-            User user = db.Users.Where(x => x.AspNetUser.Id == id).ToList().FirstOrDefault();
+                //User user = db.Users.Find(id);
+                User user = db.Users.Where(x => x.AspNetUser.Id == id).ToList().FirstOrDefault();
 
-            if (user == null){
-                return HttpNotFound();
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(user);
             }
-            return View(user);
+            else
+            {
+                return RedirectToAction("Denied", "Others");
+            }
         }
 
         // Deletes that specific user from the database

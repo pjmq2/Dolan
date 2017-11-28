@@ -151,13 +151,12 @@ namespace IngeDolan3._0.Controllers
         [AllowAnonymous]
         public ActionResult Register(){
             if (this.CanDo("Crear Usuarios")){
-
-            var list = db.AspNetRoles.Where(x => true).ToList();
-            ViewBag.role = new SelectList(list, "Name", "Name");
-            return View();
+                var list = db.AspNetRoles.Where(x => true).ToList();
+                ViewBag.role = new SelectList(list, "Name", "Name");
+                return View();
             }else{
                 Console.Write("user cant create users");
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Denied", "Others");
             }
         }
 
