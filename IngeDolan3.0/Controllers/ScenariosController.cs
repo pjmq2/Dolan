@@ -85,7 +85,7 @@ namespace IngeDolan3._0.Controllers
             pl.ProjectID = projectId;
             pl.StoryID = storyId;
             pl.SprintID = sprintId;
-            pl.ScenarioNumber = Convert.ToInt32(DateTime.Now.ToString("MMddyyyyhhmmssffffff"));
+            pl.ScenarioNumber = Convert.ToInt32(DateTime.Now.ToString("MMddyyyyhhmmss"));
             ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo");
             return View(pl);
         }
