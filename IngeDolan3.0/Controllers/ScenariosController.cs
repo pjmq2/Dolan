@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
+using System.Linq.Dynamic;
 using IngeDolan3._0.Generator;
 
 namespace IngeDolan3._0.Controllers
@@ -16,14 +17,39 @@ namespace IngeDolan3._0.Controllers
         private NewDolan2Entities db = new NewDolan2Entities();
 
         // GET: Displays the scenarios list that belong to a specific project
-        public async Task<ActionResult> Index(String projectId, string storyId)
+        public async Task<ActionResult> Index(string projectId, string storyId, int page = 1, string sort = "ScenarioNumber", string sortdir = "asc", string search = "")
         {
             if (!IDGenerator.CanDo("Consultar Lista de Escenarios"))
             {
                 return RedirectToAction("Denied", "Others");
             }
-            var scenarios = db.Scenarios.Include(s => s.UserStory);
-            return View(await scenarios.ToListAsync());
+            int pageSize = 10;
+            int totalRecord = 0;
+            if (page < 1) page = 1;
+            int skip = (page * pageSize) - pageSize;
+            var data = GetScenarios(search, sort, sortdir, skip, pageSize, out totalRecord, projectId, storyId);
+            ViewBag.TotalRows = totalRecord;
+            ViewBag.search = search;
+            return View(data);
+        }
+
+        public List<Scenario> GetScenarios(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string Idproject, string Idstory)
+        {
+            IQueryable<Scenario> v = (from a in db.Scenarios
+                     where
+                        a.ProjectID.Equals(Idproject) && a.StoryID.Equals(Idstory) && (
+                            a.AcceptanceCriteria.Contains(search) ||
+                            a.Resultado.Contains(search)
+                        )
+                     select a
+                        );
+            totalRecord = v.Count();
+            v = v.OrderBy(sort + " " + sortdir);
+            if (pageSize > 0)
+            {
+                v = v.Skip(skip).Take(pageSize);
+            }
+            return v.ToList();
         }
 
         // GET: Displays a list of the details for an specific scenario
