@@ -9,21 +9,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
+using IngeDolan3._0.Generator;
 
 namespace IngeDolan3._0.Controllers
 {
     public class PermisoesController : Controller
     {
+        
         private NewDolan2Entities db = new NewDolan2Entities();
 
         // Displays a list of all of the systems roles, along with an edit button to get into its respective edit page
         // GET: Permisoes
-        public async Task<ActionResult> Index(){
-            ViewBag.AsistenteID = db.AspNetRoles.Where(x => x.Name == "Asistente").ToList().FirstOrDefault().Id;
-
-            ViewBag.EstudianteID = db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault().Id;
-
-            return View(await db.AspNetRoles.ToArrayAsync());
+        public async Task<ActionResult> Index() {
+            if (IDGenerator.CanDo("Gestionar Permisos"))
+            {
+                ViewBag.AsistenteID = db.AspNetRoles.Where(x => x.Name == "Asistente").ToList().FirstOrDefault().Id;
+                ViewBag.EstudianteID = db.AspNetRoles.Where(x => x.Name == "Estudiante").ToList().FirstOrDefault().Id;
+                return View(await db.AspNetRoles.ToArrayAsync());
+            }
+            else
+            {
+                return RedirectToAction("Denied", "Others");
+            }
         }
 
         // Unused

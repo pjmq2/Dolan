@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using IngeDolan3._0.Models;
 using System.Linq.Dynamic;
 using Microsoft.AspNet.Identity;
+using IngeDolan3._0.Generator;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -38,14 +39,21 @@ namespace IngeDolan3._0.Controllers
         
         // Displays a list of all of the systems current projects.
         public ActionResult Index(int page = 1, string sort = "ProjectName", string sortdir = "asc", string search = ""){
-            int pageSize = 10;
-            int totalRecord = 0;
-            if (page < 1) page = 1;
-            int skip = (page * pageSize) - pageSize;
-            var data = GetProjects(search, sort, sortdir, skip, pageSize, out totalRecord);
-            ViewBag.TotalRows = totalRecord;
-            ViewBag.search = search;
-            return View(data);
+            if (IDGenerator.CanDo("Consultar Lista de Proyectos"))
+            {
+                int pageSize = 10;
+                int totalRecord = 0;
+                if (page < 1) page = 1;
+                int skip = (page * pageSize) - pageSize;
+                var data = GetProjects(search, sort, sortdir, skip, pageSize, out totalRecord);
+                ViewBag.TotalRows = totalRecord;
+                ViewBag.search = search;
+                return View(data);
+            }
+            else
+            {
+                return RedirectToAction("Denied", "Others");
+            }
         }
 
         //Simple method that returns project Objects to list them in view
@@ -69,6 +77,10 @@ namespace IngeDolan3._0.Controllers
         // Displays all of the details of a project that matches the input id
         public ActionResult Details(string id)
         {
+            if (!CanDo("Consultar Detalles de Proyectos"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -149,6 +161,10 @@ namespace IngeDolan3._0.Controllers
         // Displays a screen to be used as an existing project editor
         public ActionResult Edit(string id)
         {
+            if (!CanDo("Modificar Proyectos"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -262,6 +278,10 @@ namespace IngeDolan3._0.Controllers
         // Confirmation screen for a project deletion
         public ActionResult Delete(string id)
         {
+            if (!CanDo("Eliminar Proyectos"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -5,6 +5,7 @@
 /.vs/Dolan/v15/.suo
 /.vs/IngeDolan3.0/v15/.suo
 /.vs/IngeDolan3.0/v15/sqlite3/db.lock
+/.vs/IngeDolan3.0/v15/sqlite3/db.lock
 /.vs/IngeDolan3.0/v15/sqlite3/storage.ide
 /.vs/IngeDolan3.0/v15/sqlite3/storage.ide-shm
 /.vs/IngeDolan3.0/v15/sqlite3/storage.ide-wal
@@ -20,3 +21,4 @@
 *.pdb
 *.ide
 *.cache
+*.suo

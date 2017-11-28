@@ -9,6 +9,7 @@ using System.Web;
 using System.Linq.Dynamic;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
+using IngeDolan3._0.Generator;
 
 namespace IngeDolan3._0.Controllers
 {
