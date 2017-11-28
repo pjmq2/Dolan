@@ -24,6 +24,7 @@ namespace IngeDolan3._0.Controllers
             return View(await projectTasks.ToListAsync());
         }*/
 
+        // Displays a list of all of the user stories from a specific story
         public ActionResult Index(string projectId, string storyId)
         {
             if (!IDGenerator.CanDo("Consultar Lista de Tareas"))
@@ -48,7 +49,7 @@ namespace IngeDolan3._0.Controllers
             return View("Index", data);
         }
 
-        // Obtiene los proyectos presentes en la base de datos para llenar el índice.
+        // Get all the desired tasks to fill the Index.
         public List<ProjectTask> GetTasks(string search, string sort, string sortdir, int skip, int pageSize, out int totalRecord, string idProyecto, string idHistoria)
         {
             var v = (from a in db.ProjectTasks
@@ -70,6 +71,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Details/5
+        // Show task details
         public async Task<ActionResult> Details(string projectId, string storyId, string taskId)
         {
             if (!IDGenerator.CanDo("Consultar Detalles de Tareas"))
@@ -90,6 +92,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Create
+        // Shows the User the screen to create task
         public ActionResult Create(string projectId, string storyId)
         {
             if (!IDGenerator.CanDo("Crear Tareas"))
@@ -113,6 +116,7 @@ namespace IngeDolan3._0.Controllers
         // POST: ProjectTasks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Creates a task
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ProjectTaskInt projectTask)
@@ -142,6 +146,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Edit/5
+        // Shows user the screen to edit a task
         public ActionResult Edit(string projectId, string storyId, string taskId)
         {
             if (!IDGenerator.CanDo("Editar Tareas"))
@@ -177,6 +182,7 @@ namespace IngeDolan3._0.Controllers
         // POST: ProjectTasks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // Save changes
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ProjectTaskInt projectTask)
@@ -205,6 +211,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: ProjectTasks/Delete/5
+        // Shows a screen asking the user if it wants to delete the task
         public async Task<ActionResult> Delete(string projectId, string storyId, string taskId)
         {
             if (!IDGenerator.CanDo("Borrar Tareas"))
@@ -224,6 +231,7 @@ namespace IngeDolan3._0.Controllers
         }
 
         // POST: ProjectTasks/Delete/5
+        // Deletes the taks
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string projectId, string storyId, string taskId)
