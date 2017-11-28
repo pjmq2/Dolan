@@ -30,6 +30,8 @@ namespace IngeDolan3._0.Controllers
             var data = GetScenarios(search, sort, sortdir, skip, pageSize, out totalRecord, projectId, storyId);
             ViewBag.TotalRows = totalRecord;
             ViewBag.search = search;
+            ViewBag.ProjectId = projectId;
+            ViewBag.StoryId = storyId;
             return View(data);
         }
 
