@@ -18,6 +18,10 @@ namespace IngeDolan3._0.Controllers
         // GET: Displays the scenarios list that belong to a specific project
         public async Task<ActionResult> Index(String projectId, string storyId)
         {
+            if (!IDGenerator.CanDo("Consultar Lista de Escenarios"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             var scenarios = db.Scenarios.Include(s => s.UserStory);
             return View(await scenarios.ToListAsync());
         }
@@ -25,6 +29,10 @@ namespace IngeDolan3._0.Controllers
         // GET: Displays a list of the details for an specific scenario
         public async Task<ActionResult> Details(String projectId, string storyId, string ScenarioId)
         {
+            if (!IDGenerator.CanDo("Consultar Detalles de Escenarios"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (ScenarioId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +47,10 @@ namespace IngeDolan3._0.Controllers
 
         // GET: Displays a screen that allows the user to create an scenario
         public ActionResult Create(){
+            if (!IDGenerator.CanDo("Crear Escenarios"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo");
             return View();
         }
@@ -62,6 +74,10 @@ namespace IngeDolan3._0.Controllers
         // Displays a screen that lets the user edit an scenario
         public async Task<ActionResult> Edit(String projectId, string storyId, string ScenarioId)
         {
+            if (!IDGenerator.CanDo("Editar Escenarios"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (ScenarioId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,6 +109,10 @@ namespace IngeDolan3._0.Controllers
         // GET: Displays a screen that allows an user to delete an scenario
         public async Task<ActionResult> Delete(String projectId, string storyId, string ScenarioId)
         {
+            if (!IDGenerator.CanDo("Borrar Escenarios"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (ScenarioId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

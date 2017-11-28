@@ -24,7 +24,7 @@ namespace IngeDolan3._0.Controllers
         // Displays a list of all of the systems registered users
         public ActionResult Index(int page = 1, string sort = "name", string sortdir = "asc", string search = "")
         {
-            if (CanDo("Consular Lista de Usuarios")){
+            if (CanDo("Consultar Lista de Usuarios")){
                 int pageSize = 10;
                 int totalRecord = 0;
                 if (page < 1) page = 1;

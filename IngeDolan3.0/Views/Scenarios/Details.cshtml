@@ -5,30 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
+
+
+<div class="navbar-right" style="display:inline-block;">
+    @Html.ActionLink("Editar", "Edit", new { projectId = Model.ProjectID, storyId = Model.StoryID, ScenarioId = Model.ScenarioNumber }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Borrar", "Delete", new { projectId = Model.ProjectID, storyId = Model.StoryID, ScenarioId = Model.ScenarioNumber }, new { @class = "btn btn-default" })
+</div>
 
 <div>
-    <h4>Scenario</h4>
+
+    <h4>Escenario</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Resultado)
+            Numero
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Resultado)
+            @Html.DisplayFor(model => model.ScenarioNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Event)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Event)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AcceptanceCriteria)
+            Criterio Aceptacion
         </dt>
 
         <dd>
@@ -36,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Context)
+            Contexto
         </dt>
 
         <dd>
@@ -44,16 +43,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserStory.Modulo)
+            Evento
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserStory.Modulo)
+            @Html.DisplayFor(model => model.Event)
+        </dd>
+
+        <dt>
+            Resultado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resultado)
         </dd>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar", "Index", new { projectId = Model.ProjectID, storyId = Model.StoryID }, new { @class = "btn btn-default" })
+</div>
