@@ -55,5 +55,6 @@ namespace IngeDolan3._0.Models
 
         public string id { get; set; }
 
+        public string userID { get; set; }
     }
 }
