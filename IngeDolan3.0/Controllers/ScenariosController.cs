@@ -72,13 +72,20 @@ namespace IngeDolan3._0.Controllers
         }
 
         // GET: Displays a screen that allows the user to create an scenario
-        public ActionResult Create(){
+        public ActionResult Create(string projectId, string storyId)
+        {
             if (!IDGenerator.CanDo("Crear Escenarios"))
             {
                 return RedirectToAction("Denied", "Others");
             }
+            Scenario pl = new Scenario();
+            int sprintId = db.UserStories.Where(x => x.StoryID == storyId).ToList().FirstOrDefault().SprintID;
+            pl.ProjectID = projectId;
+            pl.StoryID = storyId;
+            pl.SprintID = sprintId;
+            pl.ScenarioNumber = Convert.ToInt32(DateTime.Now.ToString("MMddyyyyhhmmssffffff"));
             ViewBag.ProjectID = new SelectList(db.UserStories, "ProjectID", "Modulo");
-            return View();
+            return View(pl);
         }
 
         // Stores the new scenario on the database
