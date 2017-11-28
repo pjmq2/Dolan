@@ -26,6 +26,10 @@ namespace IngeDolan3._0.Controllers
 
         public ActionResult Index(string projectId, string storyId)
         {
+            if (!IDGenerator.CanDo("Consultar Lista de Tareas"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             int page = 1;
             string sort = "TaskID";
             string sortdir = "asc";
@@ -68,6 +72,10 @@ namespace IngeDolan3._0.Controllers
         // GET: ProjectTasks/Details/5
         public async Task<ActionResult> Details(string projectId, string storyId, string taskId)
         {
+            if (!IDGenerator.CanDo("Consultar Detalles de Tareas"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (taskId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -84,6 +92,10 @@ namespace IngeDolan3._0.Controllers
         // GET: ProjectTasks/Create
         public ActionResult Create(string projectId, string storyId)
         {
+            if (!IDGenerator.CanDo("Crear Tareas"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             int sprintId = db.UserStories.Where(x => x.StoryID == storyId).ToList().FirstOrDefault().SprintID;
             var pl = new ProjectTaskInt();
             string ID = DateTime.Now.ToString("MMddyyyy-hhmm-ssff-ffff-MMddyyyyhhmm");
@@ -132,6 +144,10 @@ namespace IngeDolan3._0.Controllers
         // GET: ProjectTasks/Edit/5
         public ActionResult Edit(string projectId, string storyId, string taskId)
         {
+            if (!IDGenerator.CanDo("Editar Tareas"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (taskId == null || projectId == null || storyId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -191,6 +207,10 @@ namespace IngeDolan3._0.Controllers
         // GET: ProjectTasks/Delete/5
         public async Task<ActionResult> Delete(string projectId, string storyId, string taskId)
         {
+            if (!IDGenerator.CanDo("Borrar Tareas"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (taskId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
