@@ -5,31 +5,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h2>Borrar</h2>
+<h3>¿Realmente desea borrar el escenario seleccionada?</h3>
 <div>
-    <h4>Scenario</h4>
+    <div class="navbar-right" style="display:inline-block;">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.StoryID)
+            @Html.HiddenFor(model => model.ProjectID)
+
+            <input type="submit" value="Borrar" class="btn btn-default" />
+        }
+    </div>
+
+    <div class="navbar-right" style="display:inline-block;">
+
+    </div>
+
+    <h4>Escenario</h4>
     <hr />
     <dl class="dl-horizontal">
+        
         <dt>
-            @Html.DisplayNameFor(model => model.Resultado)
+            Numero
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Resultado)
+            @Html.DisplayFor(model => model.ScenarioNumber)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Event)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Event)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AcceptanceCriteria)
+            Criterio Aceptacion
         </dt>
 
         <dd>
@@ -37,7 +45,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Context)
+            Contexto
         </dt>
 
         <dd>
@@ -45,21 +53,25 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserStory.Modulo)
+            Evento
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserStory.Modulo)
+            @Html.DisplayFor(model => model.Event)
+        </dd>
+
+        <dt>
+            Resultado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resultado)
         </dd>
 
     </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+</div>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar", "Details", new { projectId = Model.ProjectID, storyId = Model.StoryID, ScenarioId = Model.ScenarioNumber }, new { @class = "btn btn-default" })
 </div>

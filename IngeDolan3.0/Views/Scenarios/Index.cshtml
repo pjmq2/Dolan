@@ -3,56 +3,101 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Resultado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Event)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AcceptanceCriteria)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Context)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserStory.Modulo)
-        </th>
-        <th></th>
-    </tr>
+<html>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Resultado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Event)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AcceptanceCriteria)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Context)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserStory.Modulo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+<body>
+    <style>
+        table th {
+            color: white;
+        }
+    </style>
+    <div style="background-color:rgba(143, 151, 121, 0.70);color:white;">
+        <div class="container">
+            <h2>Lista de Escenarios</h2>
 
-</table>
+            <nav class="navbar ">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand">Buscar</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        @using (Html.BeginForm("index", "home", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+                        {
+
+                            <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
+                            <button type="submit" value="Search" class="btn btn-success">Buscar</button>
+
+
+                        }
+                        <div class="navbar-right" style="display:inline-block;">
+                            @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProyectId, storyId = ViewBag.StoryId }, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+
+                </div>
+
+            </nav>
+
+            <div style="color:white;">
+                @grid.Table(
+                    tableStyle: "table table-responsive table-bordered",
+                    columns: grid.Columns(
+                        grid.Column(columnName: "ScenarioNumber", header: "Numero"),
+                        grid.Column(columnName: "AcceptanceCriteria", header: "Criterio Aceptacion"),
+                        grid.Column(columnName: "Context", header: "Contexto"),
+                        grid.Column(columnName: "Event", header: "Evento"),
+                        grid.Column(columnName: "Resultado", header: "Resultado"),
+                        grid.Column(header: "Detalles", format: (item) => Html.ActionLink("Detalles", "Details", new { projectId = item.ProjectID, storyId = item.StoryID, ScenarioId = item.ScenarioNumber }))
+                    )
+                )
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        @grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-small pagination-right")
+                    </div>
+                </div>
+
+                @Html.Hidden("dir", grid.SortDirection)
+                @Html.Hidden("col", grid.SortColumn)
+
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            try {
+                var dir = $('#dir').val();
+                var col = $('#col').val();
+                var header = $("th a[href*=" + col + "]");
+                if (dir == "Ascending") {
+                    header.text(header.text() + "  ▲")
+                }
+                if (dir == "Descending") {
+                    header.text(header.text() + "  ▼");
+                }
+
+            } catch (e) {
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>
+
+<div class="form-actions no-color">
+    @Html.ActionLink("Regresar", "Index", "UserStories", new { TprojectId = ViewBag.ProyectId }, new { @class = "btn btn-default" })
+</div>
+
+<div id="TargetDiv"></div>
