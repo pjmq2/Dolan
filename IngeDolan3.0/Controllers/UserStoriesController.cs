@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using IngeDolan3._0.Models;
 using System.Linq.Dynamic;
+using IngeDolan3._0.Generator;
 
 namespace IngeDolan3._0.Controllers
 {
@@ -18,6 +19,10 @@ namespace IngeDolan3._0.Controllers
 
         // Displays a list of all of the user stories from a specific backlog
         public ActionResult Index(GenericList GprojectId, int page = 1, string sort = "StoryID", string sortdir = "asc", string search = "", string TprojectId = ""){
+            if (!IDGenerator.CanDo("Consultar Lista de Historia"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             string projectId = "";
             if(GprojectId.id == null)
             {
@@ -72,6 +77,10 @@ namespace IngeDolan3._0.Controllers
         // Displays a screen that shows all of the details for an specific User Story
         public ActionResult Details(string storyId, string projectId)
         {
+            if (!IDGenerator.CanDo("Consultar Detalles de Historia"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -97,6 +106,10 @@ namespace IngeDolan3._0.Controllers
         // Displays a screen that allows the user to create a user story
         public ActionResult Create(string projectId)
         {
+            if (!IDGenerator.CanDo("Crear Historia"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             List<Sprint> data = new List<Sprint>();
             var v = db.Sprints.Where(m => m.ProjectID == projectId);
             data = v.ToList();
@@ -158,6 +171,10 @@ namespace IngeDolan3._0.Controllers
         // Displays a screen that allows the user to edit an specific user story
         public ActionResult Edit(string storyId, string projectId)
         {
+            if (!IDGenerator.CanDo("Editar Historia"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -248,6 +265,10 @@ namespace IngeDolan3._0.Controllers
         // Displays a screen that allows the user to delete a user story
         public ActionResult Delete(string storyId, string projectId)
         {
+            if (!IDGenerator.CanDo("Borrar Historia"))
+            {
+                return RedirectToAction("Denied", "Others");
+            }
             if (String.IsNullOrEmpty(storyId) || String.IsNullOrEmpty(projectId))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
