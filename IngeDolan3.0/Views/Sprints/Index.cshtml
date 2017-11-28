@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<IngeDolan3._0.Models.Sprint>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Sprint Planning";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Sprint Planning</h2>
 
 <p>
     @Html.ActionLink("Crear Nuevo", "Create", new { projectId = ViewBag.ProjectID }, new { @class = "btn btn-default" })
@@ -13,13 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SprintID)
+           Numero de Sprint
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartingDate)
+            Fecha de inicio
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FinalDate)
+            Fecha de Finalizacion
         </th>
         <th></th>
     </tr>
